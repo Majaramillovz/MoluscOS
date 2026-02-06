@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOLUSCOS // TERMINAL V9</title>
+    <title>MOLUSCOS // BETA 1.0</title>
     <style>
-        /* --- PALETA TRI-CROMÁTICA (MÁS INTERESANTE) --- */
+        /* --- PALETA TRI-CROMÁTICA V10 --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;   /* Estructura / Éxito */
-            --ambar: #FFB000;   /* Alerta / Manifiesto */
-            --cian:  #00FFFF;   /* Datos / Directorios */
-            --blanco: #E0E0E0;  /* Títulos principales */
-            --gris:  #444444;   /* Bordes sutiles */
+            --verde: #00FF00;   /* Estructura / Intro */
+            --ambar: #FFB000;   /* Manifiesto / Alerta */
+            --cian:  #00FFFF;   /* Directorios / Datos */
+            --blanco: #E0E0E0;  /* Texto Títulos */
+            --gris:  #333333;   /* Detalles */
         }
 
         body {
@@ -20,85 +20,96 @@
             color: var(--verde);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 10px; /* Espacio para el marco */
+            /* Padding pequeño para asegurar que el borde no se corte en móviles */
+            padding: 5px; 
             min-height: 100vh;
+            display: flex;
+            justify-content: center; /* Centra la caja horizontalmente */
             box-sizing: border-box;
             cursor: crosshair;
-            overflow-x: hidden;
         }
 
-        /* --- EL MARCO (FRAME) - MANTENEMOS EL VERDE --- */
+        /* --- LA CAJA CENTRAL (FRAME) --- */
         .container {
-            min-height: calc(100vh - 20px); 
-            border: 2px solid var(--verde); 
+            width: 100%;
+            max-width: 720px; /* Ancho máximo limitado (No ocupa todo el PC) */
+            min-height: calc(100vh - 20px);
+            border: 2px solid var(--verde); /* EL BORDE VERDE */
             padding: 20px;
+            background: rgba(0, 15, 0, 0.5); /* Fondo sutilmente diferente al body */
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.05);
             position: relative;
-            background: rgba(0, 10, 0, 0.4);
-            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.05);
             display: flex;
             flex-direction: column;
         }
 
-        /* --- ASCII ART (GRANDE & VERDE) --- */
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 15px; background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--gris); border: 1px solid #000; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--verde); }
+
+        /* --- ASCII ART (VERDE) --- */
         .ascii-wrapper {
             display: flex; justify-content: center; margin-bottom: 20px;
-            width: 100%; overflow: hidden; opacity: 0.8;
+            width: 100%; overflow: hidden; opacity: 0.85;
         }
         pre {
             font-size: 4px; line-height: 4px; font-weight: bold; 
             white-space: pre; text-align: left; margin: 0; 
-            color: var(--verde); /* El caracol se queda verde */
+            color: var(--verde);
+            text-shadow: 0 0 2px var(--verde);
         }
 
-        /* --- TÍTULO (BLANCO PARA RESALTAR) --- */
+        /* --- TÍTULO PRINCIPAL --- */
         h1 {
-            text-align: center; text-transform: uppercase; letter-spacing: 3px;
-            border-bottom: 1px solid var(--gris); padding-bottom: 15px;
+            text-align: center; text-transform: uppercase; letter-spacing: 2px;
+            border-bottom: 2px solid var(--gris); padding-bottom: 15px;
             margin: 10px 0 30px 0; font-size: 1.8rem;
-            color: var(--blanco); /* Cambio a blanco */
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            color: var(--blanco);
         }
 
-        /* --- INTRO (CIAN SUAVE) --- */
-        h2 {
-            background: var(--verde); color: #000; padding: 2px 8px;
-            display: inline-block; margin-top: 20px; font-size: 12px;
-            text-transform: uppercase; font-weight: bold;
-        }
-        p { 
-            margin-bottom: 15px; line-height: 1.5; font-size: 14px; 
-            text-align: justify; color: #bbb; /* Texto gris claro para leer mejor */
+        /* --- BLOQUES DE TEXTO --- */
+        
+        /* Estilo general de títulos resaltados */
+        .highlight-title {
+            color: #000; padding: 4px 8px; display: inline-block;
+            font-size: 13px; text-transform: uppercase; font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        /* --- MANIFIESTO (ÁMBAR / NARANJA) --- */
+        /* Intro (Verde) */
+        .intro-box h2 { background: var(--verde); }
+        .intro-box p { color: #ccc; font-size: 14px; line-height: 1.5; text-align: justify; }
+
+        /* Manifiesto (Ámbar) */
         .manifesto-box {
-            border: 1px solid var(--ambar); 
-            padding: 20px; margin: 30px 0;
-            color: var(--ambar); /* Texto naranja */
-            background: rgba(255, 176, 0, 0.05);
+            border: 1px dashed var(--ambar); padding: 15px; margin: 30px 0;
         }
-        .manifesto-box h2 {
-            background: var(--ambar); color: #000; /* Etiqueta naranja */
-        }
-        .manifesto-box p { color: var(--ambar); }
+        .manifesto-box h2 { background: var(--ambar); color: #000; padding: 4px 8px; font-size: 13px; font-weight: bold; display: inline-block; margin-top:0;}
+        .manifesto-box p { color: var(--ambar); font-size: 14px; line-height: 1.5; margin-top: 10px; }
 
-        /* --- DIRECTORIO (CIAN / AZUL) --- */
+        /* --- DIRECTORIOS (ESTILO BLOQUE) --- */
         .repo-grid {
-            display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px;
+            display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 10px;
         }
         @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
 
         .folder {
-            border: 1px solid var(--gris); padding: 10px;
+            border: 1px solid #222; padding: 10px;
             transition: border-color 0.3s;
         }
         .folder:hover { border-color: var(--cian); }
 
+        /* TÍTULOS DE CARPETA: Ahora con fondo CIAN (Como pediste) */
         .folder-title {
-            color: var(--cian); /* Títulos en Cian */
-            font-weight: bold; border-bottom: 1px dashed var(--gris);
-            padding-bottom: 5px; margin-bottom: 10px; 
-            text-transform: uppercase; font-size: 1.1em;
+            background: var(--cian); /* Fondo bloque */
+            color: #000;             /* Texto negro */
+            font-weight: bold; 
+            padding: 4px 8px; 
+            display: inline-block;
+            margin-bottom: 10px; 
+            text-transform: uppercase; 
+            font-size: 12px;
         }
 
         ul { list-style: none; padding: 0; margin: 0; }
@@ -109,13 +120,12 @@
             font-size: 13px; transition: all 0.2s; cursor: crosshair;
         }
         li a:hover {
-            background: var(--cian); color: #000; /* Hover azul cian */
-            padding-left: 10px;
+            background: var(--cian); color: #000; padding-left: 10px;
         }
         li a::before { content: "+ "; color: var(--gris); }
 
         /* --- FOOTER & MARQUESINA (INTEGRADOS) --- */
-        .footer-section { margin-top: auto; padding-top: 30px; }
+        .footer-section { margin-top: auto; padding-top: 40px; }
 
         .marquee-container {
             border-top: 2px solid var(--verde); border-bottom: 2px solid var(--verde);
@@ -123,27 +133,22 @@
             font-size: 12px; white-space: nowrap; overflow: hidden;
             padding: 8px 0; margin-bottom: 10px;
         }
-        .marquee-content { display: inline-block; animation: scroll-left 30s linear infinite; padding-left: 100%; }
+        .marquee-content { display: inline-block; animation: scroll-left 30s linear infinite; padding-left: 100%; font-weight: bold;}
 
         .credits { text-align: center; font-size: 10px; color: #555; }
 
         /* --- NAV PAD --- */
         .nav-pad {
-            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
             display: flex; flex-direction: column; gap: 10px;
         }
         .nav-btn {
             background: #000; color: var(--verde); border: 2px solid var(--verde);
             width: 45px; height: 45px; font-size: 18px; cursor: crosshair;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 5px var(--verde); opacity: 0.8;
+            box-shadow: 0 0 5px var(--verde); opacity: 0.6;
         }
-        .nav-btn:active { background: var(--verde); color: #000; }
-
-        /* --- SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 15px; background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--gris); border: 1px solid #000; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--verde); }
+        .nav-btn:active { background: var(--verde); color: #000; opacity: 1;}
 
         @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
     </style>
@@ -199,73 +204,68 @@
 </pre>
     </div>
 
-    <h1>MoluscOS Offline // V.9</h1>
+    <h1>MOLUSCOS // BETA_1.0</h1>
 
-    <section>
-        <h2>00_INTRODUCCIÓN</h2>
+    <div class="intro-box">
+        <span class="highlight-title" style="background: var(--verde);">00_INTRODUCCIÓN</span>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi.
+            Bienvenido al nodo local. MoluscOS opera como una cápsula de resistencia digital, diseñada para persistir cuando la nube se evapore. Este sistema no requiere actualizaciones constantes ni conexión a servidores corporativos.
         </p>
-    </section>
+    </div>
 
-    <section class="manifesto-box">
+    <div class="manifesto-box">
         <h2>01_MANIFIESTO</h2>
         <p>
-            <strong>ADVERTENCIA:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+            <strong>ADVERTENCIA:</strong> El contenido de este nodo está diseñado para la desobediencia tecnológica. La obsolescencia programada es un crimen contra la memoria y la materia. Nosotros reparamos, nosotros mantenemos, nosotros sobrevivimos.
         </p>
-        <p>
-            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero.
-        </p>
-    </section>
+    </div>
 
-    <section>
-        <div class="repo-grid">
-            
-            <div class="folder">
-                <div class="folder-title">/ALIMENTACIÓN</div>
-                <ul>
-                    <li><a href="#" onmousedown="playClick()">Banco de Semillas</a></li>
-                    <li><a href="#" onmousedown="playClick()">Compostaje Rápido</a></li>
-                    <li><a href="#" onmousedown="playClick()">Invernaderos DIY</a></li>
-                </ul>
-            </div>
-
-            <div class="folder">
-                <div class="folder-title">/ELECTRÓNICA</div>
-                <ul>
-                    <li><a href="#" onmousedown="playClick()">AI Offline Llama3</a></li>
-                    <li><a href="#" onmousedown="playClick()">Base de Datos Offline</a></li>
-                    <li><a href="#" onmousedown="playClick()">Jammer Bluetooth</a></li>
-                </ul>
-            </div>
-
-            <div class="folder">
-                <div class="folder-title">/INFRAESTRUCTURA</div>
-                <ul>
-                    <li><a href="#" onmousedown="playClick()">Almacenamiento Aguas</a></li>
-                    <li><a href="solar.html" onmousedown="playClick()">Energía Solar</a></li>
-                    <li><a href="#" onmousedown="playClick()">Radio DIY</a></li>
-                </ul>
-            </div>
-
-            <div class="folder">
-                <div class="folder-title">/SALUD</div>
-                <ul>
-                    <li><a href="#" onmousedown="playClick()">Fitoterapia</a></li>
-                    <li><a href="#" onmousedown="playClick()">Patologías del Colapso</a></li>
-                    <li><a href="#" onmousedown="playClick()">RCP Básico</a></li>
-                </ul>
-            </div>
-
+    <div class="repo-grid">
+        
+        <div class="folder">
+            <div class="folder-title">/ALIMENTACIÓN</div>
+            <ul>
+                <li><a href="#" onmousedown="playClick()">Banco de Semillas</a></li>
+                <li><a href="#" onmousedown="playClick()">Compostaje Rápido</a></li>
+                <li><a href="#" onmousedown="playClick()">Invernaderos DIY</a></li>
+            </ul>
         </div>
-    </section>
+
+        <div class="folder">
+            <div class="folder-title">/ELECTRÓNICA</div>
+            <ul>
+                <li><a href="#" onmousedown="playClick()">AI Offline Llama3</a></li>
+                <li><a href="#" onmousedown="playClick()">Base de Datos Offline</a></li>
+                <li><a href="#" onmousedown="playClick()">Jammer Bluetooth</a></li>
+            </ul>
+        </div>
+
+        <div class="folder">
+            <div class="folder-title">/INFRAESTRUCTURA</div>
+            <ul>
+                <li><a href="#" onmousedown="playClick()">Almacenamiento Aguas</a></li>
+                <li><a href="solar.html" onmousedown="playClick()">Energía Solar</a></li>
+                <li><a href="#" onmousedown="playClick()">Radio DIY</a></li>
+            </ul>
+        </div>
+
+        <div class="folder">
+            <div class="folder-title">/SALUD</div>
+            <ul>
+                <li><a href="#" onmousedown="playClick()">Fitoterapia</a></li>
+                <li><a href="#" onmousedown="playClick()">Patologías del Colapso</a></li>
+                <li><a href="#" onmousedown="playClick()">RCP Básico</a></li>
+            </ul>
+        </div>
+
+    </div>
 
     <div class="footer-section">
         <div class="marquee-container">
-            <div class="marquee-content" id="status-bar">CARGANDO DATOS AMBIENTALES DEL NODO...</div>
+            <div class="marquee-content" id="status-bar">CARGANDO PROYECCIONES CLIMÁTICAS 2066...</div>
         </div>
         <div class="credits">
-            [MOLUSCOS] -- 2026 -- OFFLINE_MODE
+            [MOLUSCOS_PROJECT] -- 2026 -- [GPLv3]
         </div>
     </div>
 
@@ -289,7 +289,7 @@
         osc.stop(audioCtx.currentTime + 0.1);
     }
 
-    /* TIEMPO 2066 */
+    /* TIEMPO 2066 + ENSO EXTREMO */
     function updateStatus() {
         const now = new Date();
         const futureYear = now.getFullYear() + 40;
@@ -297,8 +297,9 @@
         
         document.getElementById('status-bar').innerText = `
             [UBICACIÓN: BOGOTÁ] [AÑO: ${futureYear}] [HORA: ${timeStr}] /// 
-            TEMP: 34°C -- CO2: 580 PPM -- RADIACIÓN: ALTA -- AGUA: ESCASA /// 
-            [SISTEMA MOLUSCOS ACTIVO]
+            FASE_ENSO: SUPER_NIÑO [CRÍTICO] /// 
+            TEMP: 34°C -- CALIDAD_AIRE: PM2.5 [PELIGROSO] -- CO2: 600 PPM /// 
+            [NODO_OFFLINE_SEGURO]
         `;
     }
     setInterval(updateStatus, 1000);
