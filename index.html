@@ -19,43 +19,76 @@
             color: var(--verde);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center; /* Centra el contenedor horizontalmente */
-            min-height: 100vh;
+            padding: 0; /* Sin padding en body para aprovechar la pantalla */
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Suaviza el salto de los botones */
         }
 
-        /* --- EL CONTENEDOR (MONITOR) --- */
+        /* --- SCROLLBAR TÁCTICA (PERSONALIZADA) --- */
+        /* Hacemos la barra ancha para que el dedo atine bien */
+        ::-webkit-scrollbar {
+            width: 25px; /* ¡Muy ancha! */
+            background: #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--verde); 
+            border: 2px solid var(--negro);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fff; /* Se pone blanca al tocarla */
+        }
+
+        /* --- EL CONTENEDOR --- */
         .container {
-            width: 100%;
-            max-width: 700px; /* Ancho máximo para que no se desparrame en PC */
-            border: 2px solid var(--verde);
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); /* Glow verde */
+            max-width: 700px;
+            margin: 0 auto;
+            border-left: 2px solid var(--verde); /* Solo borde izquierdo y derecho en móvil */
+            border-right: 2px solid var(--verde);
+            padding: 15px;
+            min-height: 100vh;
             background-color: #050505;
-            position: relative;
+            padding-bottom: 80px; /* Espacio extra abajo para que los botones no tapen texto */
         }
 
-        /* --- OPTIMIZACIÓN RASPBERRY 3.5" --- */
-        @media (max-width: 480px) {
-            body { padding: 5px; }
-            .container {
-                border-width: 1px;
-                padding: 10px;
-                box-shadow: none; /* Ahorra recursos gráficos en la Pi */
-            }
-            h1 { font-size: 1.2rem; }
+        /* --- BOTONES DE SCROLL (NAV-PAD) --- */
+        .nav-pad {
+            position: fixed;
+            bottom: 20px;
+            right: 35px; /* A la izquierda del scrollbar */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        /* --- TIPOGRAFÍA Y TEXTOS --- */
-        p { margin-bottom: 15px; line-height: 1.3; font-size: 14px; }
-        
+        .nav-btn {
+            background: var(--negro);
+            color: var(--verde);
+            border: 2px solid var(--verde);
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+        }
+
+        .nav-btn:active {
+            background: var(--verde);
+            color: var(--negro);
+            transform: scale(0.95);
+        }
+
+        /* --- TEXTOS --- */
         h1 {
             text-align: center;
-            text-transform: uppercase;
             border-bottom: 1px dashed var(--verde);
             padding-bottom: 10px;
-            margin-top: 0;
+            font-size: 1.5rem;
             animation: parpadeo 3s infinite;
         }
 
@@ -65,160 +98,155 @@
             color: var(--negro);
             padding: 2px 5px;
             display: inline-block;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
-        /* --- ASCII ART (CENTRADITO Y SEGURO) --- */
-        .ascii-box {
-            text-align: center;
-            margin: 20px 0;
-            overflow: hidden;
-        }
+        p { margin-bottom: 15px; line-height: 1.4; font-size: 16px; } /* Letra un poco más grande para leer bien */
+
+        /* --- ASCII ART --- */
+        .ascii-box { text-align: center; margin: 10px 0; overflow: hidden; }
         pre {
             display: inline-block;
             text-align: left;
-            font-size: 10px; /* Tamaño seguro */
+            font-size: 10px; 
             line-height: 10px;
             font-weight: bold;
             color: var(--verde);
         }
 
-        /* --- MANIFIESTO (ÁMBAR) --- */
+        /* --- MANIFIESTO --- */
         .manifesto {
             border: 1px solid var(--ambar);
             padding: 15px;
             color: var(--ambar);
             margin: 20px 0;
         }
-        .manifesto h2 {
-            background: var(--ambar);
-            color: var(--negro);
-        }
+        .manifesto h2 { background: var(--ambar); color: var(--negro); }
 
-        /* --- DIRECTORIO (GRID) --- */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr; /* 1 columna en móvil */
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        @media(min-width: 600px) {
-            .grid { grid-template-columns: 1fr 1fr; } /* 2 columnas en PC */
-        }
-
+        /* --- DIRECTORIO --- */
         .folder {
             border: 1px solid var(--gris);
-            padding: 10px;
+            padding: 15px; /* Áreas de toque más grandes */
+            margin-bottom: 15px;
         }
-        .folder:hover { border-color: var(--cian); }
-
         .folder-title {
             color: var(--cian);
             font-weight: bold;
             border-bottom: 1px solid var(--gris);
-            margin-bottom: 8px;
-            padding-bottom: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         a {
             display: block;
             color: var(--cian);
             text-decoration: none;
-            padding: 3px 0;
-            font-size: 13px;
+            padding: 8px 0; /* Padding vertical grande para dedo gordo */
+            font-size: 16px; /* Texto más grande */
+            border-bottom: 1px dotted #333;
         }
-        a:hover {
-            background-color: rgba(0, 255, 255, 0.2);
-            padding-left: 5px;
-        }
+        a:active { background-color: var(--cian); color: #000; }
         a::before { content: "> "; opacity: 0.5; }
 
         footer {
-            margin-top: 40px;
             text-align: center;
-            font-size: 10px;
+            font-size: 12px;
             color: #666;
+            margin-top: 30px;
             border-top: 1px solid #333;
             padding-top: 10px;
         }
 
         @keyframes parpadeo {
-            0%, 100% { opacity: 1; text-shadow: 0 0 5px var(--verde); }
-            50% { opacity: 0.7; text-shadow: none; }
+            0%, 100% { text-shadow: 0 0 5px var(--verde); }
+            50% { text-shadow: none; }
         }
     </style>
 </head>
 <body>
 
+<div class="nav-pad">
+    <button class="nav-btn" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onclick="scrollDown()">▼</button>
+</div>
+
 <div class="container">
     
     <div class="ascii-box">
 <pre>
-         __,._
-        /  _  \
-       |  6 \  \
-        \___/ .|
-    __..="^  . ,
-   /   . `  .  /
-  /  .   .  . /    MOLUSCOS_OS
- /  .   .  . /    [OFFLINE_V1]
+     __,._
+    /  _  \
+   |  6 \  \
+    \___/ .|    MOLUSCOS_OS
+__..="^  . ,    [TOUCH_MODE]
+/   . `  .  /
+/  .   .  . /
+/  .   .  . /
 </pre>
     </div>
 
-    <h1>SISTEMA_DE_ARCHIVOS_CRITICOS</h1>
+    <h1>SISTEMA_DE_ARCHIVOS</h1>
 
     <section>
         <h2>// 00_INTRO.txt</h2>
         <p>
-            Bienvenido al nodo local. En el contexto de la permacomputación, MoluscOS opera como una cápsula de resistencia digital, diseñada para persistir cuando la nube se evapore.
+            Bienvenido al nodo local. MoluscOS es una cápsula de resistencia digital diseñada para persistir sin conexión a la nube.
         </p>
         <p>
-            Este sistema no requiere actualizaciones constantes ni conexión a servidores corporativos. Es un archivo vivo de técnicas para la supervivencia comunitaria y la autonomía tecnológica.
+            Interfaz optimizada para hardware táctil resistivo. Use los botones laterales para navegar.
         </p>
     </section>
 
     <section class="manifesto">
         <h2>// 01_MANIFIESTO.nfo</h2>
         <p>
-            <strong>ADVERTENCIA:</strong> El contenido de este nodo está diseñado para la desobediencia tecnológica. La obsolescencia programada es un crimen contra la memoria y la materia.
+            <strong>ADVERTENCIA:</strong> Contenido diseñado para la desobediencia tecnológica.
         </p>
         <p>
-            Nosotros reparamos, nosotros mantenemos, nosotros sobrevivimos. Copia este código. Róbalo. Modifícalo. Que la información fluya como el agua, no como el capital.
+            La obsolescencia es un error de sistema. Nosotros reparamos. Nosotros mantenemos.
         </p>
     </section>
 
     <section>
-        <div style="color: var(--cian); margin-bottom: 5px;">user@moluscos:~/knowledge_base$ ls -la</div>
+        <div style="color: var(--cian); margin-bottom: 10px;">root@moluscos:~# ls -la</div>
         
-        <div class="grid">
-            <div class="folder">
-                <div class="folder-title">/INFRAESTRUCTURA</div>
-                <a href="solar.html">01_Energia_Solar.sh</a>
-                <a href="#">02_Baterias_Plomo.log</a>
-                <a href="#">03_Antena_Oroza.diy</a>
-            </div>
+        <div class="folder">
+            <div class="folder-title">/INFRAESTRUCTURA</div>
+            <a href="solar.html">01_Energia_Solar.sh</a>
+            <a href="#">02_Baterias.log</a>
+            <a href="#">03_Antena.diy</a>
+        </div>
 
-            <div class="folder">
-                <div class="folder-title">/BIOPOLITICA</div>
-                <a href="#">10_Primeros_Auxilios.md</a>
-                <a href="#">11_Farmacia_Viva.list</a>
-                <a href="#">12_Filtro_Agua.pdf</a>
-            </div>
+        <div class="folder">
+            <div class="folder-title">/BIOPOLITICA</div>
+            <a href="#">10_Primeros_Auxilios.md</a>
+            <a href="#">11_Farmacia_Viva.list</a>
+            <a href="#">12_Filtro_Agua.pdf</a>
+        </div>
 
-            <div class="folder">
-                <div class="folder-title">/TACTICAS</div>
-                <a href="#">20_Fab_Digital.obj</a>
-                <a href="#">21_Redes_Malla.net</a>
-                <a href="#">22_Defensa_Dig.gpg</a>
-            </div>
-            
-            <div class="folder">
-                <div class="folder-title">/SYSTEM</div>
-                <a href="#">99_Clonar_Nodo.py</a>
-                <a href="#">00_Creditos.txt</a>
-            </div>
+        <div class="folder">
+            <div class="folder-title">/TACTICAS</div>
+            <a href="#">20_Fab_Digital.obj</a>
+            <a href="#">21_Redes_Malla.net</a>
         </div>
     </section>
 
     <footer>
+        EOF // MoluscOS 2026 // [GNU GPLv3]
+    </footer>
+
+</div>
+
+<script>
+    // Función para bajar suavemente 150 pixeles
+    function scrollDown() {
+        window.scrollBy({ top: 200, behavior: 'smooth' });
+    }
+    // Función para subir suavemente
+    function scrollUp() {
+        window.scrollBy({ top: -200, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
