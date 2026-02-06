@@ -10,236 +10,293 @@
             --verde: #00FF00;
             --ambar: #FFB000;
             --cian:  #00FFFF;
+            --blanco: #E0E0E0;
             --gris:  #333333;
         }
 
-        /* RESET TOTAL PARA PANTALLA VERTICAL */
-        * { box-sizing: border-box; }
-        
         html, body {
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
             background-color: var(--fondo);
-            overflow-x: hidden; /* Evita el desplazamiento lateral */
-            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
         }
 
         body {
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             cursor: crosshair;
         }
 
-        /* EL CONTENEDOR SE AJUSTA AL 100% DEL ANCHO REAL */
+        /* --- EL FRAME ADAPTADO --- */
         .container {
-            width: 100vw;
-            min-height: 100vh;
+            width: 96vw;
+            min-height: calc(100vh - 20px);
+            margin: 10px 0;
             border: 2px solid var(--verde);
-            background: rgba(0, 10, 0, 0.8);
+            padding: 10px;
+            background: rgba(0, 15, 0, 0.6);
+            box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.2);
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            padding: 10px;
-            position: relative;
         }
 
-        /* MARQUESINA SUPERIOR */
+        /* --- MARQUESINA SUPERIOR (AHORA ARRIBA) --- */
         .marquee-top {
             width: 100%;
             border-bottom: 1px solid var(--verde);
-            background: #001100;
+            background: rgba(0, 50, 0, 0.3);
             color: var(--verde);
-            font-size: 14px; /* Tamaño fijo para legibilidad */
+            font-size: 3.5vw;
             font-weight: bold;
             padding: 5px 0;
-            margin-bottom: 10px;
-            overflow: hidden;
+            margin-bottom: 15px; /* Espacio para no decapitar al caracol */
             white-space: nowrap;
+            overflow: hidden;
         }
 
         .marquee-content {
             display: inline-block;
             animation: scroll-left 25s linear infinite;
+            padding-left: 100%;
         }
 
-        /* ASCII ART ESCALABLE */
+        /* --- ASCII ART CON MARGEN DE SEGURIDAD --- */
         .ascii-wrapper {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin: 10px 0;
+            overflow: hidden;
+            margin-top: 10px; /* Evita el choque con la marquesina */
         }
+        
         pre {
-            font-size: 1.2vw; /* Escala con el ancho de pantalla */
-            line-height: 1vw;
+            font-size: 1.5vw; 
+            line-height: 1.2vw;
             color: var(--verde);
-            margin: 0;
+            white-space: pre;
+            margin: 0 auto;
         }
 
-        /* TÍTULO NEÓN (REPETA MAYÚSCULAS/MINÚSCULAS) */
+        /* --- TEXTOS Y TÍTULOS --- */
         h1 {
+            text-align: center;
+            font-size: 7vw;
             color: var(--verde);
             text-shadow: 0 0 10px var(--verde);
-            font-size: 8vw; /* Ajuste dinámico */
-            text-align: center;
-            margin: 10px 0;
             border-bottom: 1px solid var(--gris);
             padding-bottom: 10px;
-        }
-
-        /* BLOQUES DE TEXTO */
-        .section-label {
-            color: #000;
-            font-weight: bold;
-            padding: 3px 8px;
-            font-size: 14px;
-            display: inline-block;
-        }
-
-        p {
-            color: #ccc;
-            font-size: 15px; /* Tamaño optimizado para 3.5" */
-            line-height: 1.5;
-            text-align: justify;
             margin: 15px 0;
         }
 
-        /* SECCIONES ESPECÍFICAS */
-        .manifesto {
-            border: 1px dashed var(--ambar);
-            padding: 10px;
-            margin: 20px 0;
+        .highlight-title {
+            color: #000; padding: 4px 8px; display: inline-block;
+            font-size: 3.8vw; text-transform: uppercase; font-weight: 900;
+            margin-bottom: 10px;
         }
-        .manifesto p { color: var(--ambar); }
 
-        /* CATEGORÍAS TIPO GRID */
+        p {
+            margin-bottom: 15px; 
+            line-height: 1.4; 
+            font-size: 4vw; 
+            text-align: justify; 
+            color: #ddd;
+        }
+
+        .manifesto-box {
+            border: 1px dashed var(--ambar); padding: 15px; margin: 20px 0;
+            background: rgba(255, 170, 0, 0.05);
+        }
+        .manifesto-box h2 { background: var(--ambar); color: #000; margin: 0; }
+        .manifesto-box p { color: var(--ambar); margin-top: 10px;}
+
+        /* --- CATEGORÍAS --- */
         .repo-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
+            margin-top: 10px;
         }
 
         .folder {
             border: 1px solid var(--gris);
             padding: 10px;
+            background: rgba(0, 20, 20, 0.4);
         }
 
         .folder-title {
             background: var(--cian);
             color: #000;
-            padding: 4px 8px;
             font-weight: bold;
-            font-size: 14px;
+            padding: 4px 8px;
+            font-size: 4vw;
             display: inline-block;
             margin-bottom: 10px;
         }
 
-        ul { list-style: none; padding: 0; }
         li a {
-            display: block;
-            color: var(--cian);
-            text-decoration: none;
-            padding: 12px 5px; /* Área de toque grande */
-            border-bottom: 1px solid #111;
+            display: block; color: var(--blanco); text-decoration: none;
+            padding: 12px 5px;
+            border-bottom: 1px solid #222;
+            font-size: 4.5vw;
         }
+        li a:hover { background: var(--cian); color: #000; }
 
-        /* BOTONES DE NAVEGACIÓN */
+        /* --- NAV PAD --- */
         .nav-pad {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            position: fixed; bottom: 20px; right: 20px;
+            display: flex; flex-direction: column; gap: 10px;
             z-index: 1000;
         }
         .nav-btn {
-            background: #000;
-            color: var(--verde);
-            border: 2px solid var(--verde);
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
+            background: #000; color: var(--verde); border: 2px solid var(--verde);
+            width: 45px; height: 45px; font-size: 20px;
             box-shadow: 0 0 10px var(--verde);
         }
 
-        @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 3vw;
+            color: #555;
+            padding-top: 20px;
+        }
+
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
     </style>
 </head>
 <body>
 
 <div class="nav-pad">
-    <button class="nav-btn" onclick="window.scrollBy(0, -300)">▲</button>
-    <button class="nav-btn" onclick="window.scrollBy(0, 300)">▼</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
 </div>
 
 <div class="container">
+
     <div class="marquee-top">
-        <div class="marquee-content" id="status-bar">CARGANDO DATOS...</div>
+        <div class="marquee-content" id="status-bar">INICIANDO PROTOCOLO CLIMÁTICO 2066...</div>
     </div>
 
     <div class="ascii-wrapper">
 <pre>
-         __,._
-        /  _  \
-       |  6 \  \
-        \___/ .|
-    __..="^  . ,
-   /   . `  .  /
-  /  .   .  . /
- /  .   .  . /
+                                                                                                    
+                                                                          =-=           ==          
+                                                                         -+#* **#         
+                                                                          ++-#          ==          
+                                                                           =-=         +=+          
+                                                                           --=         =-#          
+                                                                           =-=        +-=           
+                                                                           +=-@      -+:* =+:* =--%           
+                                                                           ----      +-+            
+                                                                           -=+:+    =+-%            
+                                                                            ==:-    +=-             
+                                                                            +==-=  -+=-             
+                                                                            +==::====--             
+                      *++=++++#*+*####%#++                                  ==+-=--***+++           
+                  +*+==++-+==*%##**==--:-+#++=* ++*++:--=-==++==:-=      
+               -+---::::-:---*##+=+##*=-:.+####++* %+#*+---:-:=-----++==-::=  
+            +=---=+#%##%%%%#*%##*-=+*+**+=.:=#@%+-++                    #%%*+=-::=----:=-::+-=* *%  
+          ----*%%%+==*#%##*#@@@@%=-:=#**##=:.-*@@%=-=+                 **%@%%#+-=-==-+++--:**-#     
+         -=-*#-..::::..:-#%@%%@@@#-==:=%%%#*-.:*%%%+:-+               #+#%%@%#++#%*%-=*%#=+-:-#     
+       =-:+*::+==---=+*----#@@%@@@%=+==+%%##=:.:*@%%%=-=+            %*+%%@#*##*==++****#*=-:-** +-=+:*--:::#=.-*#+.*##@@%@%%#=*--=####-:.=*%#@+-=-+         +=%@%*#%%%*==-----====+#%%%%##   
+      +-+%+*+%+++++%*=+#%**#*%%#@@%%+=*=+%%%##+=++**%**+--=       %%##@%@%**#%+-++=+*#####%#%*#     
+     +-:#*+**######@%#%%@#*##%%##@@%@*%#*#%@@%%+:=**##==:..=     *+%@%*%%%%%*+*#=-+*+==*##%%@+#     
+    =+-=%+*+.:+##%@##%%%@#*##%%#%@%%@%####%%@#*:.:=-+#=+-:-.-* *#=###%++*#%%#+++**=-==-=*###*@     
+    ++:*%#=#+++*%##%%%%@@**##%%#%@%%@@####%%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=** *=.*%*=.:..:-#%#%@%@#*#######%#%@%#%*=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#      
+   ##-:+%#*+*#%##+-+%%@#**####%##%@%#%@@#*=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####        
+   =##:-:*%@@@%%#%@%+*###%%%##%@@##@@%#++++**=*%%%%*#%%%@%%#*+--===-:-:**%####*+%@#+=+#%%           
+    *%*--.:=+#%#*=:.=###%%###%%%##@@%%%#--+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##           
+    *##*=---:....---##%%%##%%##**%@@%*#@%%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#            
+    *%#+++*+==+-+++%@%%###****+-#@%%%@%####++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++             
+     +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###* +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
+       +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
+         =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-* =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
+            ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
+       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-* .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-*** .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
+      :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                 
+              #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                   
+                         #***%      %#+==+*****++***+===+#                                          
 </pre>
     </div>
 
     <h1>MoluscOS // Beta_1.0</h1>
 
-    <section>
-        <span class="section-label" style="background: var(--verde);">00_INTRODUCCIÓN</span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </section>
+    <div class="intro-box">
+        <span class="highlight-title" style="background: var(--verde);">00_INTRODUCCIÓN</span>
+        <p>
+            Bienvenido al nodo local. MoluscOS opera como una cápsula de resistencia digital, diseñada para persistir cuando la nube se evapore. 
+        </p>
+    </div>
 
-    <section class="manifesto">
-        <span class="section-label" style="background: var(--ambar);">01_MANIFIESTO</span>
-        <p>ADVERTENCIA: La obsolescencia programada es un crimen. Nosotros reparamos, nosotros mantenemos, nosotros sobrevivimos. Copia este código. Róbalo. Modifícalo. Que la información fluya como el agua, no como el capital.</p>
-    </section>
+    <div class="manifesto-box">
+        <span class="highlight-title" style="background: var(--ambar);">01_MANIFIESTO</span>
+        <p>
+            <strong>ADVERTENCIA:</strong> El contenido de este nodo está diseñado para la desobediencia tecnológica. La obsolescencia programada es un crimen.
+        </p>
+    </div>
 
-    <section>
-        <span class="section-label" style="background: var(--cian);">03_CATEGORÍAS</span>
-        <div class="repo-grid">
-            <div class="folder">
-                <div class="folder-title">/ALIMENTACIÓN</div>
-                <ul>
-                    <li><a href="#">+ Banco de Semillas</a></li>
-                    <li><a href="#">+ Compostaje Rápido</a></li>
-                </ul>
-            </div>
-            <div class="folder">
-                <div class="folder-title">/INFRAESTRUCTURA</div>
-                <ul>
-                    <li><a href="solar.html">+ Energía Solar</a></li>
-                    <li><a href="#">+ Radio DIY</a></li>
-                </ul>
-            </div>
+    <div class="repo-grid">
+        <div class="folder">
+            <div class="folder-title">/ALIMENTACIÓN</div>
+            <ul>
+                <li><a href="#" onmousedown="playClick()">Banco de Semillas</a></li>
+                <li><a href="#" onmousedown="playClick()">Compostaje</a></li>
+            </ul>
         </div>
-    </section>
 
-    <footer style="margin-top:40px; text-align:center; color:#444; font-size:12px;">
+        <div class="folder">
+            <div class="folder-title">/INFRAESTRUCTURA</div>
+            <ul>
+                <li><a href="solar.html" onmousedown="playClick()">Energía Solar</a></li>
+                <li><a href="#" onmousedown="playClick()">Aguas Lluvias</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
         [MOLUSCOS_PROJECT] -- 2026 -- [GPLv3]
     </footer>
+
 </div>
 
 <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playClick() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+
     function updateStatus() {
         const now = new Date();
         const futureYear = now.getFullYear() + 40;
-        document.getElementById('status-bar').innerText = 
-            `[BOGOTÁ] [${futureYear}] -- FASE_ENSO: SUPER_NIÑO [CRÍTICO] -- TEMP: 34°C -- CO2: 600 PPM -- CALIDAD_AIRE: PELIGROSO`;
+        const timeStr = now.toLocaleTimeString('es-CO', {hour:'2-digit', minute:'2-digit'});
+        document.getElementById('status-bar').innerText = `
+            [UBICACIÓN: BOGOTÁ] [AÑO: ${futureYear}] [HORA: ${timeStr}] /// 
+            FASE_ENSO: SUPER_NIÑO [CRÍTICO] /// 
+            TEMP: 34°C -- CALIDAD_AIRE: PM2.5 [PELIGROSO] -- CO2: 600 PPM
+        `;
     }
     setInterval(updateStatus, 1000);
     updateStatus();
+
+    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
 
 </body>
