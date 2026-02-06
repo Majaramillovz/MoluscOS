@@ -3,243 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoluscOS Offline</title>
+    <title>MOLUSCOS // TERMINAL</title>
     <style>
-        /* --- PALETA BIO-TECH --- */
+        /* --- ESTÉTICA VERDE TERMINAL V1 (REMASTERIZADA) --- */
         :root {
             --fondo: #000000;
-            --texto: #00E5FF;  /* Cian */
-            --alerta: #FF0099; /* Magenta */
-            --gris: #333333;
-            --blanco: #E0E0E0;
+            --verde: #00FF00;  /* Verde Fósforo Puro */
+            --verde-dark: #003300;
+            --scanline: rgba(0, 255, 0, 0.1);
         }
 
         body {
             background-color: var(--fondo);
-            color: var(--texto);
-            font-family: 'Courier New', Courier, monospace; /* Cuerpo en Monospace */
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 0;
+            padding-top: 40px; /* Espacio para la marquesina */
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            cursor: crosshair; /* PUNTERO TIPO MIRA */
+        }
+
+        /* --- EFECTO CRT (SCANLINES) --- */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* --- MARQUESINA SUPERIOR (DATOS 2066) --- */
+        .marquee-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--verde);
+            color: var(--fondo);
+            font-weight: bold;
+            font-size: 12px;
+            padding: 5px 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--verde-dark);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: scroll-left 20s linear infinite;
+            padding-left: 100%;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
 
         /* --- SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 20px; background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--texto); border: 2px solid #000; }
+        ::-webkit-scrollbar { width: 25px; background: #050505; }
+        ::-webkit-scrollbar-thumb { background: var(--verde); border: 2px solid #000; }
+        ::-webkit-scrollbar-thumb:hover { background: #fff; }
 
         /* --- CONTENEDOR --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
+            border-left: 1px dashed var(--verde-dark);
+            border-right: 1px dashed var(--verde-dark);
             padding: 20px;
             min-height: 100vh;
             padding-bottom: 100px;
         }
 
-        /* --- ASCII ART (CENTRADO PERFECTO) --- */
+        /* --- ASCII ART --- */
         .ascii-wrapper {
             display: flex;
-            justify-content: center; /* Centra el bloque horizontalmente */
-            margin-bottom: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
             width: 100%;
-            overflow: hidden; /* Evita scroll innecesario */
+            overflow: hidden;
+            opacity: 0.8;
         }
         
         pre {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 5px; /* Tamaño micro para el dibujo gigante */
+            font-size: 5px; /* Mantenemos el tamaño micro */
             line-height: 5px;
-            color: var(--blanco);
+            color: var(--verde);
             font-weight: bold;
             white-space: pre;
-            text-align: left; /* El dibujo interno se alinea a la izq para no deformarse */
+            text-align: left;
             margin: 0;
+            text-shadow: 0 0 2px var(--verde); /* Glow suave */
         }
 
-        /* --- NUEVO TÍTULO (SERIF / NET ART) --- */
+        /* --- TÍTULO --- */
         h1 {
-            font-family: "Times New Roman", Times, serif; /* Contraste Brutalista */
-            font-style: italic;
-            font-weight: bold;
-            font-size: 3rem; /* Grande */
             text-align: center;
-            color: var(--blanco);
-            margin: 0 0 40px 0;
-            letter-spacing: -1px;
-            border-bottom: 1px solid var(--gris);
-            padding-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            border-bottom: 2px solid var(--verde);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            animation: flicker 4s infinite;
         }
 
         /* --- TEXTOS --- */
         h2 {
-            background: var(--texto);
+            background: var(--verde);
             color: var(--fondo);
-            padding: 5px 10px;
+            padding: 2px 8px;
             display: inline-block;
             margin-top: 30px;
             font-size: 14px;
             text-transform: uppercase;
             font-weight: bold;
-            letter-spacing: 1px;
         }
 
         p {
             margin-bottom: 15px;
-            line-height: 1.6;
+            line-height: 1.4;
             font-size: 15px;
-            color: #ccc;
             text-align: justify;
+            text-shadow: 0 0 2px rgba(0, 255, 0, 0.3);
         }
 
         /* --- MANIFIESTO --- */
         .manifesto-box {
-            border: 1px solid var(--alerta); /* Borde línea sólida fina */
+            border: 1px solid var(--verde);
             padding: 20px;
             margin: 40px 0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
         }
-        .manifesto-box h2 {
-            background: var(--alerta);
-            color: var(--fondo);
-        }
-        .manifesto-box p { color: var(--alerta); }
 
-        /* --- DIRECTORIO LIMPIO --- */
+        /* --- DIRECTORIO --- */
         .repo-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: 20px;
             margin-top: 20px;
         }
         @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
 
         .folder-title {
-            color: var(--texto);
+            color: var(--verde);
             font-weight: bold;
-            border-bottom: 2px solid var(--gris);
-            padding-bottom: 8px;
-            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--verde);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            font-size: 1.2rem;
-            font-family: "Times New Roman", Times, serif; /* Títulos de sección también en Serif */
-            font-style: italic;
         }
 
         ul { list-style: none; padding: 0; margin: 0; }
         
         li a {
             display: block;
-            color: var(--blanco);
+            color: var(--verde);
             text-decoration: none;
-            padding: 10px 5px;
-            border-bottom: 1px solid #1a1a1a;
+            padding: 12px 5px; /* Área de toque grande */
+            border-bottom: 1px solid #111;
             font-size: 14px;
-            transition: all 0.2s;
+            transition: all 0.1s;
+            cursor: crosshair;
         }
         li a:hover {
-            background: var(--texto);
-            color: var(--fondo);
+            background: rgba(0, 255, 0, 0.2);
             padding-left: 15px;
         }
-        li a::before { content: "→ "; color: #555; } /* Flecha minimalista */
+        li a:active {
+            background: var(--verde);
+            color: #000;
+        }
+        li a::before { content: "> "; opacity: 0.5; }
 
         /* --- NAV PAD (BOTONES) --- */
         .nav-pad {
             position: fixed;
             bottom: 20px;
             right: 35px;
-            z-index: 99;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
         .nav-btn {
             background: #000;
-            color: var(--texto);
-            border: 1px solid var(--texto);
+            color: var(--verde);
+            border: 2px solid var(--verde);
             width: 50px; height: 50px;
-            font-size: 20px; cursor: pointer;
+            font-size: 20px; cursor: crosshair;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 5px var(--verde);
         }
-        .nav-btn:active { background: var(--texto); color: #000; }
+        .nav-btn:active { background: var(--verde); color: #000; }
 
         footer {
-            margin-top: 60px;
+            margin-top: 50px;
             text-align: center;
-            font-size: 12px;
-            color: #444;
-            border-top: 1px solid #222;
+            font-size: 10px;
+            color: var(--verde-dark);
+            border-top: 1px solid var(--verde-dark);
             padding-top: 20px;
-            font-family: sans-serif; /* Un toque moderno al final */
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.1; }
         }
     </style>
 </head>
 <body>
 
+<div class="marquee-bar">
+    <div class="marquee-content" id="status-bar">
+        CARGANDO SISTEMA DE MONITOREO AMBIENTAL...
+    </div>
+</div>
+
 <div class="nav-pad">
-    <button class="nav-btn" onclick="scrollUp()">▲</button>
-    <button class="nav-btn" onclick="scrollDown()">▼</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
 </div>
 
 <div class="container">
 
     <div class="ascii-wrapper">
 <pre>
-                                                                                                        
+                                                                                                   
+
                                                                                                     
+
                                                                                                     
+
                                                                                                     
+
                                                                                                     
+
                                                                           =-=           ==          
+
                                                                          -+#*           **#         
+
                                                                           ++-#          ==          
+
                                                                            =-=         +=+          
+
                                                                            --=         =-#          
+
                                                                            =-=        +-=           
+
                                                                            +=-@      -+:*           
+
                                                                            =+:*      =--%           
+
                                                                            ----      +-+            
+
                                                                            -=+:+    =+-%            
+
                                                                             ==:-    +=-             
+
                                                                             +==-=  -+=-             
+
                                                                             +==::====--             
+
                       *++=++++#*+*####%#++                                  ==+-=--***+++           
+
                   +*+==++-+==*%##**==--:-+#++=*                            ++*++:--=-==++==:-=      
+
                -+---::::-:---*##+=+##*=-:.+####++*                       %+#*+---:-:=-----++==-::=  
+
             +=---=+#%##%%%%#*%##*-=+*+**+=.:=#@%+-++                    #%%*+=-::=----:=-::+-=* *%  
+
           ----*%%%+==*#%##*#@@@@%=-:=#**##=:.-*@@%=-=+                 **%@%%#+-=-==-+++--:**-#     
+
          -=-*#-..::::..:-#%@%%@@@#-==:=%%%#*-.:*%%%+:-+               #+#%%@%#++#%*%-=*%#=+-:-#     
+
        =-:+*::+==---=+*----#@@%@@@%=+==+%%##=:.:*@%%%=-=+            %*+%%@#*##*==++****#*=-:-**    
+
        +-=+:*--:::#=.-*#+.*##@@%@%%#=*--=####-:.=*%#@+-=-+         +=%@%*#%%%*==-----====+#%%%%##   
+
       +-+%+*+%+++++%*=+#%**#*%%#@@%%+=*=+%%%##+=++**%**+--=       %%##@%@%**#%+-++=+*#####%#%*#     
+
      +-:#*+**######@%#%%@#*##%%##@@%@*%#*#%@@%%+:=**##==:..=     *+%@%*%%%%%*+*#=-+*+==*##%%@+#     
+
     =+-=%+*+.:+##%@##%%%@#*##%%#%@%%@%####%%@#*:.:=-+#=+-:-.-*  *#=###%++*#%%#+++**=-==-=*###*@     
+
     ++:*%#=#+++*%##%%%%@@**##%%#%@%%@@####%%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=**      
+
     *=.*%*=.:..:-#%#%@%@#*#######%#%@%#%*=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#      
+
    ##-:+%#*+*#%##+-+%%@#**##%%##%%#%@@*---+**%**###*%#*++#%@%%**+*==+#%#++#%==+*%@@@%%%###**#       
+
    =#+::###*#+=-*#%%@%**####%##%@%#%@@#*=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####        
+
    =##:-:*%@@@%%#%@%+*###%%%##%@@##@@%#++++**=*%%%%*#%%%@%%#*+--===-:-:**%####*+%@#+=+#%%           
+
     *%*--.:=+#%#*=:.=###%%###%%%##@@%%%#--+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##           
+
     *##*=---:....---##%%%##%%##**%@@%*#@%%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#            
+
     *%#+++*+==+-+++%@%%###****+-#@%%%@%####++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++             
+
      +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###*             
+
       +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
+
        +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
+
          =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-*                    
+
            =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
+
             ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
+
        =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-*                          
+
      .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-***                            
+
     .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
+
       :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                 
+
               #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                   
+
                          #***%      %#+==+*****++***+===+#                                          
+
                                                                                                     
-                                                                                                    
+
+                                                                                                                                           
 </pre>
     </div>
 
-    <h1>MoluscOS Offline</h1>
+    <h1>MOLUSCOS_OFFLINE</h1>
 
     <section>
         <h2>00_INTRODUCCIÓN</h2>
@@ -267,36 +366,36 @@
             <div class="folder">
                 <div class="folder-title">/ALIMENTACIÓN</div>
                 <ul>
-                    <li><a href="#">Banco de Semillas</a></li>
-                    <li><a href="#">Compostaje Rápido</a></li>
-                    <li><a href="#">Invernaderos DIY</a></li>
+                    <li><a href="#" onmousedown="playClick()">Banco de Semillas</a></li>
+                    <li><a href="#" onmousedown="playClick()">Compostaje Rápido</a></li>
+                    <li><a href="#" onmousedown="playClick()">Invernaderos DIY</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/ELECTRÓNICA</div>
                 <ul>
-                    <li><a href="#">AI Offline Llama3</a></li>
-                    <li><a href="#">Base de Datos Offline</a></li>
-                    <li><a href="#">Jammer Bluetooth</a></li>
+                    <li><a href="#" onmousedown="playClick()">AI Offline Llama3</a></li>
+                    <li><a href="#" onmousedown="playClick()">Base de Datos Offline</a></li>
+                    <li><a href="#" onmousedown="playClick()">Jammer Bluetooth</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/INFRAESTRUCTURA</div>
                 <ul>
-                    <li><a href="#">Almacenamiento Aguas Lluvias</a></li>
-                    <li><a href="solar.html">Energía Solar</a></li>
-                    <li><a href="#">Radio DIY</a></li>
+                    <li><a href="#" onmousedown="playClick()">Almacenamiento Aguas</a></li>
+                    <li><a href="solar.html" onmousedown="playClick()">Energía Solar</a></li>
+                    <li><a href="#" onmousedown="playClick()">Radio DIY</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/SALUD</div>
                 <ul>
-                    <li><a href="#">Fitoterapia</a></li>
-                    <li><a href="#">Patologías del Colapso</a></li>
-                    <li><a href="#">RCP Básico</a></li>
+                    <li><a href="#" onmousedown="playClick()">Fitoterapia</a></li>
+                    <li><a href="#" onmousedown="playClick()">Patologías del Colapso</a></li>
+                    <li><a href="#" onmousedown="playClick()">RCP Básico</a></li>
                 </ul>
             </div>
 
@@ -304,12 +403,68 @@
     </section>
 
     <footer>
-        MoluscOS Residencia 2026 // GNU GPLv3
+        [MOLUSCOS] -- SYSTEM_UPTIME: 40_YEARS -- [GPLv3]
     </footer>
 
 </div>
 
 <script>
+    /* --- LÓGICA DE AUDIO SINTETIZADO (NO REQUIERE ARCHIVOS) --- */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playClick() {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.type = 'square'; // Sonido tipo 8-bits
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // Tono agudo
+        oscillator.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1); // Efecto "piu"
+
+        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    /* --- LÓGICA DEL TIEMPO 2066 Y DATOS AMBIENTALES --- */
+    function updateStatus() {
+        const now = new Date();
+        
+        // Sumamos 40 años para simular 2066
+        const futureYear = now.getFullYear() + 40; 
+        
+        // Formato de hora Bogotá
+        const timeOptions = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const timeString = now.toLocaleTimeString('es-CO', timeOptions);
+        
+        // Datos ficticios del colapso
+        const statusText = `
+            [UBICACIÓN: BOGOTÁ D.C.] 
+            [AÑO: ${futureYear}] 
+            [HORA_LOCAL: ${timeString}] 
+            /// MONITOREO AMBIENTAL: 
+            TEMP: 34°C (CRÍTICO) -- 
+            CALIDAD_AIRE: PM2.5 (PELIGROSO) -- 
+            NIVEL_CO2: 580 PPM -- 
+            RADIACIÓN_UV: EXTREMA -- 
+            RECURSOS_HÍDRICOS: 12% RESTANTE /// 
+            [MOLUSCOS_OS_ONLINE]
+        `;
+        
+        document.getElementById('status-bar').innerText = statusText;
+    }
+
+    setInterval(updateStatus, 1000);
+    updateStatus();
+
+    /* --- SCROLL MANUAL --- */
     function scrollDown() { window.scrollBy({ top: 300, behavior: 'smooth' }); }
     function scrollUp() { window.scrollBy({ top: -300, behavior: 'smooth' }); }
 </script>
