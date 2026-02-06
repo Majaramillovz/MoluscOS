@@ -5,162 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOLUSCOS // ROOT</title>
     <style>
-        /* --- CONFIGURACIÓN BASE --- */
+        /* --- PALETA DE COLORES "BIO-TECH" --- */
         :root {
-            --verde: #00FF00;
-            --ambar: #FFB000;
-            --cian:  #00FFFF;
-            --negro: #000000;
-            --gris:  #222222;
+            --fondo: #000000;
+            --texto: #00E5FF;  /* Cian Pálido (Clínico/Marino) */
+            --alerta: #FF0099; /* Magenta Neón (Contraste) */
+            --borde: #333333;
+            --blanco: #E0E0E0; /* Blanco Hueso */
         }
 
         body {
-            background-color: var(--negro);
-            color: var(--verde);
+            background-color: var(--fondo);
+            color: var(--texto);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 0; /* Sin padding en body para aprovechar la pantalla */
+            padding: 0;
             overflow-x: hidden;
-            scroll-behavior: smooth; /* Suaviza el salto de los botones */
+            scroll-behavior: smooth;
         }
 
-        /* --- SCROLLBAR TÁCTICA (PERSONALIZADA) --- */
-        /* Hacemos la barra ancha para que el dedo atine bien */
-        ::-webkit-scrollbar {
-            width: 25px; /* ¡Muy ancha! */
-            background: #111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--verde); 
-            border: 2px solid var(--negro);
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #fff; /* Se pone blanca al tocarla */
-        }
+        /* --- SCROLLBAR TÁCTICA --- */
+        ::-webkit-scrollbar { width: 25px; background: #111; }
+        ::-webkit-scrollbar-thumb { background: var(--texto); border: 2px solid var(--fondo); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--alerta); }
 
-        /* --- EL CONTENEDOR --- */
+        /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            border-left: 2px solid var(--verde); /* Solo borde izquierdo y derecho en móvil */
-            border-right: 2px solid var(--verde);
+            border-left: 1px solid var(--borde);
+            border-right: 1px solid var(--borde);
             padding: 15px;
             min-height: 100vh;
-            background-color: #050505;
-            padding-bottom: 80px; /* Espacio extra abajo para que los botones no tapen texto */
+            padding-bottom: 100px;
         }
 
-        /* --- BOTONES DE SCROLL (NAV-PAD) --- */
+        /* --- BOTONES NAV-PAD (Para pantalla táctil) --- */
         .nav-pad {
             position: fixed;
             bottom: 20px;
-            right: 35px; /* A la izquierda del scrollbar */
+            right: 35px;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
         .nav-btn {
-            background: var(--negro);
-            color: var(--verde);
-            border: 2px solid var(--verde);
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.8;
+            background: var(--fondo);
+            color: var(--texto);
+            border: 2px solid var(--texto);
+            width: 50px; height: 50px;
+            font-size: 24px; cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+            display: flex; align-items: center; justify-content: center;
         }
+        .nav-btn:active { background: var(--texto); color: var(--fondo); }
 
-        .nav-btn:active {
-            background: var(--verde);
-            color: var(--negro);
-            transform: scale(0.95);
-        }
-
-        /* --- TEXTOS --- */
+        /* --- TIPOGRAFÍA --- */
         h1 {
             text-align: center;
-            border-bottom: 1px dashed var(--verde);
+            border-bottom: 2px solid var(--texto);
             padding-bottom: 10px;
-            font-size: 1.5rem;
-            animation: parpadeo 3s infinite;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--blanco);
         }
 
         h2 {
-            font-size: 1rem;
-            background: var(--verde);
-            color: var(--negro);
-            padding: 2px 5px;
+            background: var(--texto);
+            color: var(--fondo);
+            padding: 5px 10px;
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 30px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
-        p { margin-bottom: 15px; line-height: 1.4; font-size: 16px; } /* Letra un poco más grande para leer bien */
+        p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 14px;
+            color: #ccc; /* Texto gris suave para lectura larga */
+            text-align: justify;
+        }
 
-        /* --- ASCII ART --- */
-        .ascii-box { text-align: center; margin: 10px 0; overflow: hidden; }
+        /* --- ASCII ART (Tu Caracol Nuevo) --- */
+        .ascii-box {
+            width: 100%;
+            overflow-x: auto; /* Scroll horizontal si no cabe */
+            margin-bottom: 20px;
+            border: 1px solid var(--borde);
+            padding: 10px 0;
+            text-align: center; /* Intenta centrarlo */
+        }
+        
         pre {
+            font-size: 5px; /* ¡Muy pequeño para que quepa el dibujo gigante! */
+            line-height: 5px;
+            color: var(--blanco);
+            font-weight: bold;
             display: inline-block;
             text-align: left;
-            font-size: 10px; 
-            line-height: 10px;
-            font-weight: bold;
-            color: var(--verde);
         }
 
-        /* --- MANIFIESTO --- */
-        .manifesto {
-            border: 1px solid var(--ambar);
-            padding: 15px;
-            color: var(--ambar);
-            margin: 20px 0;
+        /* --- MANIFIESTO (Estilo Alerta) --- */
+        .manifesto-box {
+            border: 1px dashed var(--alerta);
+            padding: 20px;
+            margin: 30px 0;
         }
-        .manifesto h2 { background: var(--ambar); color: var(--negro); }
+        .manifesto-box h2 {
+            background: var(--alerta);
+            color: var(--fondo);
+        }
+        .manifesto-box p { color: var(--alerta); }
 
-        /* --- DIRECTORIO --- */
+        /* --- DIRECTORIO (Grid Alfabético) --- */
+        .repo-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
+
         .folder {
-            border: 1px solid var(--gris);
-            padding: 15px; /* Áreas de toque más grandes */
-            margin-bottom: 15px;
+            border: 1px solid var(--borde);
+            padding: 10px;
         }
+        .folder:hover { border-color: var(--texto); }
+
         .folder-title {
-            color: var(--cian);
+            color: var(--texto);
             font-weight: bold;
-            border-bottom: 1px solid var(--gris);
+            border-bottom: 1px solid var(--borde);
+            padding-bottom: 5px;
             margin-bottom: 10px;
             text-transform: uppercase;
         }
 
-        a {
+        ul { list-style: none; padding: 0; margin: 0; }
+        
+        li a {
             display: block;
-            color: var(--cian);
+            color: var(--blanco);
             text-decoration: none;
-            padding: 8px 0; /* Padding vertical grande para dedo gordo */
-            font-size: 16px; /* Texto más grande */
+            padding: 8px 5px;
             border-bottom: 1px dotted #333;
+            font-size: 13px;
         }
-        a:active { background-color: var(--cian); color: #000; }
-        a::before { content: "> "; opacity: 0.5; }
+        li a:hover {
+            background: #111;
+            color: var(--texto);
+            padding-left: 10px;
+        }
+        li a::before { content: "+ "; color: #555; }
 
         footer {
+            margin-top: 50px;
             text-align: center;
-            font-size: 12px;
-            color: #666;
-            margin-top: 30px;
+            font-size: 10px;
+            color: #555;
             border-top: 1px solid #333;
-            padding-top: 10px;
+            padding-top: 20px;
         }
 
-        @keyframes parpadeo {
-            0%, 100% { text-shadow: 0 0 5px var(--verde); }
-            50% { text-shadow: none; }
-        }
     </style>
 </head>
 <body>
@@ -171,81 +181,131 @@
 </div>
 
 <div class="container">
-    
+
     <div class="ascii-box">
 <pre>
-     __,._
-    /  _  \
-   |  6 \  \
-    \___/ .|    MOLUSCOS_OS
-__..="^  . ,    [TOUCH_MODE]
-/   . `  .  /
-/  .   .  . /
-/  .   .  . /
+                                                                                                    
+                                                                          =-=           ==          
+                                                                         -+#* **#         
+                                                                          ++-#          ==          
+                                                                           =-=         +=+          
+                                                                           --=         =-#          
+                                                                           =-=        +-=           
+                                                                           +=-@      -+:* =+:* =--%           
+                                                                           ----      +-+            
+                                                                           -=+:+    =+-%            
+                                                                            ==:-    +=-             
+                                                                            +==-=  -+=-             
+                                                                            +==::====--             
+                      *++=++++#*+*####%#++                                  ==+-=--***+++           
+                  +*+==++-+==*%##**==--:-+#++=* ++*++:--=-==++==:-=      
+               -+---::::-:---*##+=+##*=-:.+####++* %+#*+---:-:=-----++==-::=  
+            +=---=+#%##%%%%#*%##*-=+*+**+=.:=#@%+-++                    #%%*+=-::=----:=-::+-=* *%  
+          ----*%%%+==*#%##*#@@@@%=-:=#**##=:.-*@@%=-=+                 **%@%%#+-=-==-+++--:**-#     
+         -=-*#-..::::..:-#%@%%@@@#-==:=%%%#*-.:*%%%+:-+               #+#%%@%#++#%*%-=*%#=+-:-#     
+       =-:+*::+==---=+*----#@@%@@@%=+==+%%##=:.:*@%%%=-=+            %*+%%@#*##*==++****#*=-:-** +-=+:*--:::#=.-*#+.*##@@%@%%#=*--=####-:.=*%#@+-=-+         +=%@%*#%%%*==-----====+#%%%%##   
+      +-+%+*+%+++++%*=+#%**#*%%#@@%%+=*=+%%%##+=++**%**+--=       %%##@%@%**#%+-++=+*#####%#%*#     
+     +-:#*+**######@%#%%@#*##%%##@@%@*%#*#%@@%%+:=**##==:..=     *+%@%*%%%%%*+*#=-+*+==*##%%@+#     
+    =+-=%+*+.:+##%@##%%%@#*##%%#%@%%@%####%%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=** *=.*%*=.:..:-#%#%@%@#*#######%#%@%#%*=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#      
+   ##-:+%#*+*#%##+-+%%@#**####%##%@%#%@@#*=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####        
+   =##:-:*%@@@%%#%@%+*###%%%##%@@##@@%#++++**=*%%%%*#%%%@%%#*+--===-:-:**%####*+%@#+=+#%%           
+    *%*--.:=+#%#*=:.=###%%###%%%##@@%%%#--+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##           
+    *##*=---:....---##%%%##%%##**%@@%*#@%%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#            
+    *%#+++*+==+-+++%@%%###****+-#@%%%@%####++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++             
+     +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###* +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
+       +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
+         =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-* =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
+            ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
+       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-* .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-*** .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
+      :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                 
+              #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                   
+                         #***%      %#+==+*****++***+===+#                                          
 </pre>
     </div>
 
-    <h1>SISTEMA_DE_ARCHIVOS</h1>
+    <h1>MOLUSCOS_OS // OFFLINE_V5</h1>
 
     <section>
-        <h2>// 00_INTRO.txt</h2>
+        <h2>// 00_INTRODUCCIÓN.txt</h2>
         <p>
-            Bienvenido al nodo local. MoluscOS es una cápsula de resistencia digital diseñada para persistir sin conexión a la nube.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper.
         </p>
         <p>
-            Interfaz optimizada para hardware táctil resistivo. Use los botones laterales para navegar.
+            Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.
+        </p>
+        <p>
+            Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam, nunc turpis ullamcorper nibh, in tempus sapien eros vitae ligula. Pellentesque rhoncus nunc et augue. Integer id felis. Curabitur aliquet pellentesque diam. Integer quis metus vitae elit lobortis egestas. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi vel erat non mauris convallis vehicula. Nulla et sapien. Integer tortor tellus, aliquam faucibus, convallis id, congue eu, quam. Mauris ullamcorper felis vitae erat. 
         </p>
     </section>
 
-    <section class="manifesto">
+    <section class="manifesto-box">
         <h2>// 01_MANIFIESTO.nfo</h2>
         <p>
-            <strong>ADVERTENCIA:</strong> Contenido diseñado para la desobediencia tecnológica.
+            <strong>ADVERTENCIA:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
         </p>
         <p>
-            La obsolescencia es un error de sistema. Nosotros reparamos. Nosotros mantenemos.
+            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet.
+        </p>
+        <p>
+            Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices.
         </p>
     </section>
 
     <section>
-        <div style="color: var(--cian); margin-bottom: 10px;">root@moluscos:~# ls -la</div>
+        <div style="color: var(--texto); margin-bottom: 10px; border-bottom: 1px dashed #333; padding-bottom:5px;">
+            root@moluscos:/base_datos# tree -L 1
+        </div>
         
-        <div class="folder">
-            <div class="folder-title">/INFRAESTRUCTURA</div>
-            <a href="solar.html">01_Energia_Solar.sh</a>
-            <a href="#">02_Baterias.log</a>
-            <a href="#">03_Antena.diy</a>
-        </div>
+        <div class="repo-grid">
+            
+            <div class="folder">
+                <div class="folder-title">/ALIMENTACIÓN</div>
+                <ul>
+                    <li><a href="#">01_Banco_Semillas.db</a></li>
+                    <li><a href="#">02_Compostaje_Rapido.md</a></li>
+                    <li><a href="#">03_Invernaderos_DIY.pdf</a></li>
+                </ul>
+            </div>
 
-        <div class="folder">
-            <div class="folder-title">/BIOPOLITICA</div>
-            <a href="#">10_Primeros_Auxilios.md</a>
-            <a href="#">11_Farmacia_Viva.list</a>
-            <a href="#">12_Filtro_Agua.pdf</a>
-        </div>
+            <div class="folder">
+                <div class="folder-title">/ELECTRÓNICA</div>
+                <ul>
+                    <li><a href="#">01_AI_Offline_Llama3.bin</a></li>
+                    <li><a href="#">02_Base_Datos_Offline.sql</a></li>
+                    <li><a href="#">03_Jammer_Bluetooth.py</a></li>
+                </ul>
+            </div>
 
-        <div class="folder">
-            <div class="folder-title">/TACTICAS</div>
-            <a href="#">20_Fab_Digital.obj</a>
-            <a href="#">21_Redes_Malla.net</a>
+            <div class="folder">
+                <div class="folder-title">/INFRAESTRUCTURA</div>
+                <ul>
+                    <li><a href="#">01_Agua_Lluvias.pdf</a></li>
+                    <li><a href="solar.html">02_Energia_Solar.sh</a></li>
+                    <li><a href="#">03_Radio_DIY.schematic</a></li>
+                </ul>
+            </div>
+
+            <div class="folder">
+                <div class="folder-title">/SALUD</div>
+                <ul>
+                    <li><a href="#">01_Fitoterapia.list</a></li>
+                    <li><a href="#">02_Patologias_Colapso.doc</a></li>
+                    <li><a href="#">03_RCP_Basico.img</a></li>
+                </ul>
+            </div>
+
         </div>
     </section>
 
     <footer>
-        EOF // MoluscOS 2026 // [GNU GPLv3]
+        EOF // MoluscOS 2026 // [GNU GPLv3] // 127.0.0.1
     </footer>
 
 </div>
 
 <script>
-    // Función para bajar suavemente 150 pixeles
-    function scrollDown() {
-        window.scrollBy({ top: 200, behavior: 'smooth' });
-    }
-    // Función para subir suavemente
-    function scrollUp() {
-        window.scrollBy({ top: -200, behavior: 'smooth' });
-    }
+    function scrollDown() { window.scrollBy({ top: 300, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -300, behavior: 'smooth' }); }
 </script>
 
 </body>
