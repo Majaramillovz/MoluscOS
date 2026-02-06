@@ -5,242 +5,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOLUSCOS // ROOT</title>
     <style>
-        /* --- MANIFIESTO VISUAL v2.1 --- */
-        
-        /* 1. FONDO NEGRO ABSOLUTO */
+        /* --- CONFIGURACIÓN BASE --- */
+        :root {
+            --verde: #00FF00;
+            --ambar: #FFB000;
+            --cian:  #00FFFF;
+            --negro: #000000;
+            --gris:  #222222;
+        }
+
         body {
-            background-color: #000000;
+            background-color: var(--negro);
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 20px;
-            overflow-x: hidden;
+            display: flex;
+            justify-content: center; /* Centra el contenedor horizontalmente */
+            min-height: 100vh;
         }
 
-        /* 2. TIPOGRAFÍA MONOESPACIADA */
-        body, pre, button, input {
-            font-family: 'Courier New', 'Courier', monospace;
-            font-size: 14px;
-            line-height: 1.4;
+        /* --- EL CONTENEDOR (MONITOR) --- */
+        .container {
+            width: 100%;
+            max-width: 700px; /* Ancho máximo para que no se desparrame en PC */
+            border: 2px solid var(--verde);
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); /* Glow verde */
+            background-color: #050505;
+            position: relative;
         }
 
-        /* COLORES SEMÁNTICOS */
-        :root {
-            --verde: #00FF00;  /* Texto estándar / Éxito */
-            --ambar: #FFB000;  /* Manifiesto / Alerta */
-            --cian:  #00FFFF;  /* Enlaces / Datos */
-            --gris:  #333333;  /* Bordes */
+        /* --- OPTIMIZACIÓN RASPBERRY 3.5" --- */
+        @media (max-width: 480px) {
+            body { padding: 5px; }
+            .container {
+                border-width: 1px;
+                padding: 10px;
+                box-shadow: none; /* Ahorra recursos gráficos en la Pi */
+            }
+            h1 { font-size: 1.2rem; }
         }
 
-        /* TEXTO BASE */
-        p, h1, h2, li {
-            color: var(--verde);
-            max-width: 800px;
+        /* --- TIPOGRAFÍA Y TEXTOS --- */
+        p { margin-bottom: 15px; line-height: 1.3; font-size: 14px; }
+        
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--verde);
+            padding-bottom: 10px;
+            margin-top: 0;
+            animation: parpadeo 3s infinite;
         }
 
-        /* EFECTO CRT (Opcional, líneas de barrido) */
-        body::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            z-index: 99;
-        }
-
-        /* --- COMPONENTES --- */
-
-        /* HEADER & ASCII */
-        header {
-            margin-bottom: 40px;
-            border-bottom: 2px dashed var(--verde);
-            padding-bottom: 20px;
-        }
-
-        /* ASCII ART FIX: Interlineado apretado para que no se deforme */
-        .ascii-art {
-            color: var(--verde);
-            font-weight: bold;
-            font-size: 10px;        /* Tamaño pequeño */
-            line-height: 8px;       /* ¡CLAVE! Aplasta las líneas verticalmente */
-            white-space: pre;       /* Respeta espacios */
-            overflow-x: auto;       /* Scroll si no cabe */
-            margin-bottom: 20px;
+        h2 {
+            font-size: 1rem;
+            background: var(--verde);
+            color: var(--negro);
+            padding: 2px 5px;
             display: inline-block;
+            margin-top: 30px;
         }
 
-        /* SECCIONES DE TEXTO */
-        .section-text {
-            margin-bottom: 50px;
-            padding-left: 10px;
-            border-left: 1px solid var(--verde);
+        /* --- ASCII ART (CENTRADITO Y SEGURO) --- */
+        .ascii-box {
+            text-align: center;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        pre {
+            display: inline-block;
+            text-align: left;
+            font-size: 10px; /* Tamaño seguro */
+            line-height: 10px;
+            font-weight: bold;
+            color: var(--verde);
         }
 
-        /* MANIFIESTO (Color Ámbar para resaltar) */
-        .manifesto-box {
-            color: var(--ambar);
+        /* --- MANIFIESTO (ÁMBAR) --- */
+        .manifesto {
             border: 1px solid var(--ambar);
             padding: 15px;
-            margin-bottom: 50px;
-            box-shadow: 0 0 10px rgba(255, 176, 0, 0.1);
+            color: var(--ambar);
+            margin: 20px 0;
         }
-        .manifesto-box h2, .manifesto-box p {
-            color: var(--ambar); /* Fuerza el color ámbar */
+        .manifesto h2 {
+            background: var(--ambar);
+            color: var(--negro);
         }
 
-        /* DIRECTORIO / GRID DE NAVEGACIÓN */
-        .directory-grid {
+        /* --- DIRECTORIO (GRID) --- */
+        .grid {
             display: grid;
-            grid-template-columns: 1fr; /* Móvil: 1 columna */
-            gap: 20px;
-            border-top: 2px solid var(--cian);
-            padding-top: 20px;
+            grid-template-columns: 1fr; /* 1 columna en móvil */
+            gap: 15px;
+            margin-top: 20px;
         }
-
-        /* En PC: 2 columnas */
-        @media(min-width: 768px) {
-            .directory-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        
+        @media(min-width: 600px) {
+            .grid { grid-template-columns: 1fr 1fr; } /* 2 columnas en PC */
         }
 
         .folder {
             border: 1px solid var(--gris);
-            padding: 15px;
-            transition: all 0.2s;
+            padding: 10px;
         }
-        .folder:hover {
-            border-color: var(--cian);
-            background: #001111;
-        }
+        .folder:hover { border-color: var(--cian); }
 
         .folder-title {
-            background-color: var(--cian);
-            color: #000;
+            color: var(--cian);
             font-weight: bold;
-            display: inline-block;
-            padding: 2px 8px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+            border-bottom: 1px solid var(--gris);
+            margin-bottom: 8px;
+            padding-bottom: 2px;
         }
 
-        /* ENLACES ESTILO TERMINAL */
-        a.cmd-link {
+        a {
             display: block;
             color: var(--cian);
             text-decoration: none;
             padding: 3px 0;
-            font-family: 'Courier New', monospace;
+            font-size: 13px;
         }
-        a.cmd-link:hover {
-            color: #fff;
+        a:hover {
             background-color: rgba(0, 255, 255, 0.2);
+            padding-left: 5px;
         }
-        a.cmd-link::before {
-            content: "> ";
-            opacity: 0.5;
+        a::before { content: "> "; opacity: 0.5; }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            border-top: 1px solid #333;
+            padding-top: 10px;
         }
 
-        /* IMÁGENES AUTOMÁTICAS (Estilo Dither/Retro) */
-        img.retro-img {
-            max-width: 100%;
-            height: auto;
-            filter: grayscale(100%) contrast(150%) brightness(0.9);
-            border: 1px solid var(--verde);
-            margin: 10px 0;
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; text-shadow: 0 0 5px var(--verde); }
+            50% { opacity: 0.7; text-shadow: none; }
         }
-
     </style>
 </head>
 <body>
 
-<header>
-<pre class="ascii-art">
-        @                       
-       @ @                      
-      @   @        ,.,.,.,      
-     @     @      ,.,.,.,.,.    
-    @   * @    ,.,       .,.  
-     @     @    ,.,   $$$   .,. 
-      @   @     ,.,   $$$   .,. 
-       @ @       ,.,       .,.  
-   ____|_|________,.,.,.,.,.    
-  /  MOLUSCOS    /         /    
- /   OFFLINE    /_________/     
-/______________/  # # # #       
+<div class="container">
+    
+    <div class="ascii-box">
+<pre>
+         __,._
+        /  _  \
+       |  6 \  \
+        \___/ .|
+    __..="^  . ,
+   /   . `  .  /
+  /  .   .  . /    MOLUSCOS_OS
+ /  .   .  . /    [OFFLINE_V1]
 </pre>
-    <h1>MOLUSCOS_OS // v.1.0b</h1>
-    <p>[SYSTEM_STATUS: ONLINE_LOCAL_MODE]</p>
-</header>
+    </div>
 
-<section class="section-text">
-    <h2>// 00_INTRODUCCIÓN.txt</h2>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac odio ante. En el contexto de la permacomputación, MoluscOS opera como un nodo de resistencia digital, diseñado para persistir cuando la nube se evapore.
-    </p>
-    <p>
-        Integer quis purus ac magna efficitur maximus nec sed felis. Suspendisse potenti. Ut non elit a urna gravida tincidunt. Este sistema no requiere actualizaciones constantes ni conexión a servidores corporativos. Es una cápsula del tiempo funcional, un archivo vivo de técnicas para la supervivencia comunitaria y la autonomía tecnológica.
-    </p>
+    <h1>SISTEMA_DE_ARCHIVOS_CRITICOS</h1>
+
+    <section>
+        <h2>// 00_INTRO.txt</h2>
+        <p>
+            Bienvenido al nodo local. En el contexto de la permacomputación, MoluscOS opera como una cápsula de resistencia digital, diseñada para persistir cuando la nube se evapore.
+        </p>
+        <p>
+            Este sistema no requiere actualizaciones constantes ni conexión a servidores corporativos. Es un archivo vivo de técnicas para la supervivencia comunitaria y la autonomía tecnológica.
+        </p>
     </section>
 
-<section class="manifesto-box">
-    <h2>// 01_MANIFIESTO_ÉTICO.nfo</h2>
-    <p>
-        <strong>ADVERTENCIA:</strong> El contenido de este nodo está diseñado para la desobediencia tecnológica. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-    <p>
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. La obsolescencia programada es un crimen contra la memoria y la materia. Nosotros reparamos, nosotros mantenemos, nosotros sobrevivimos.
-    </p>
-    <p>
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Copia este código. Róbalo. Modifícalo.
-    </p>
-</section>
+    <section class="manifesto">
+        <h2>// 01_MANIFIESTO.nfo</h2>
+        <p>
+            <strong>ADVERTENCIA:</strong> El contenido de este nodo está diseñado para la desobediencia tecnológica. La obsolescencia programada es un crimen contra la memoria y la materia.
+        </p>
+        <p>
+            Nosotros reparamos, nosotros mantenemos, nosotros sobrevivimos. Copia este código. Róbalo. Modifícalo. Que la información fluya como el agua, no como el capital.
+        </p>
+    </section>
 
-<section>
-    <div style="color: var(--cian); margin-bottom: 10px;">> ls -la /home/knowledge_base/</div>
-    
-    <div class="directory-grid">
+    <section>
+        <div style="color: var(--cian); margin-bottom: 5px;">user@moluscos:~/knowledge_base$ ls -la</div>
         
-        <div class="folder">
-            <div class="folder-title">/DIR: INFRAESTRUCTURA_CRITICA</div>
-            <a href="solar.html" class="cmd-link">01_Energia_Solar.sh</a>
-            <a href="#" class="cmd-link">02_Potabilizacion_Agua.exe</a>
-            <a href="#" class="cmd-link">03_Radio_Frecuencia.diy</a>
-            <a href="#" class="cmd-link">04_Gestion_Residuos.log</a>
+        <div class="grid">
+            <div class="folder">
+                <div class="folder-title">/INFRAESTRUCTURA</div>
+                <a href="solar.html">01_Energia_Solar.sh</a>
+                <a href="#">02_Baterias_Plomo.log</a>
+                <a href="#">03_Antena_Oroza.diy</a>
+            </div>
+
+            <div class="folder">
+                <div class="folder-title">/BIOPOLITICA</div>
+                <a href="#">10_Primeros_Auxilios.md</a>
+                <a href="#">11_Farmacia_Viva.list</a>
+                <a href="#">12_Filtro_Agua.pdf</a>
+            </div>
+
+            <div class="folder">
+                <div class="folder-title">/TACTICAS</div>
+                <a href="#">20_Fab_Digital.obj</a>
+                <a href="#">21_Redes_Malla.net</a>
+                <a href="#">22_Defensa_Dig.gpg</a>
+            </div>
+            
+            <div class="folder">
+                <div class="folder-title">/SYSTEM</div>
+                <a href="#">99_Clonar_Nodo.py</a>
+                <a href="#">00_Creditos.txt</a>
+            </div>
         </div>
+    </section>
 
-        <div class="folder">
-            <div class="folder-title">/DIR: BIOPOLITICA_SALUD</div>
-            <a href="#" class="cmd-link">10_Primeros_Auxilios.md</a>
-            <a href="#" class="cmd-link">11_Farmacia_Viva.list</a>
-            <a href="#" class="cmd-link">12_Ginecologia_Autonoma.pdf</a>
-            <a href="#" class="cmd-link">13_Nutricion_Crisis.txt</a>
-        </div>
-
-        <div class="folder">
-            <div class="folder-title">/DIR: TACTICAS_RESISTENCIA</div>
-            <a href="#" class="cmd-link">20_Desobediencia_Tecno.nfo</a>
-            <a href="#" class="cmd-link">21_Fabricacion_Digital.obj</a>
-            <a href="#" class="cmd-link">22_Defensa_Digital.gpg</a>
-            <a href="#" class="cmd-link">23_Redes_Malla.net</a>
-        </div>
-
-        <div class="folder">
-            <div class="folder-title">/DIR: NODO_MOLUSCOS</div>
-            <a href="#" class="cmd-link">99_Replicar_Este_Nodo.py</a>
-            <a href="#" class="cmd-link">00_Creditos_Licencia.txt</a>
-        </div>
-
-    </div>
-</section>
-
-<footer style="margin-top: 50px; text-align: center; border-top: 1px solid #333; padding-top: 20px; color: #555;">
-    EOF // MoluscOS 2026 // [GNU GPLv3]
-</footer>
-
-</body>
-</html>
+    <footer>
