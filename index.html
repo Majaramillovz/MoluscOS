@@ -3,74 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOLUSCOS // ROOT</title>
+    <title>MoluscOS Offline</title>
     <style>
-        /* --- PALETA DE COLORES "BIO-TECH" --- */
+        /* --- PALETA BIO-TECH --- */
         :root {
             --fondo: #000000;
-            --texto: #00E5FF;  /* Cian Pálido (Clínico/Marino) */
-            --alerta: #FF0099; /* Magenta Neón (Contraste) */
-            --borde: #333333;
-            --blanco: #E0E0E0; /* Blanco Hueso */
+            --texto: #00E5FF;  /* Cian */
+            --alerta: #FF0099; /* Magenta */
+            --gris: #333333;
+            --blanco: #E0E0E0;
         }
 
         body {
             background-color: var(--fondo);
             color: var(--texto);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', Courier, monospace; /* Cuerpo en Monospace */
             margin: 0;
             padding: 0;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* --- SCROLLBAR TÁCTICA --- */
-        ::-webkit-scrollbar { width: 25px; background: #111; }
-        ::-webkit-scrollbar-thumb { background: var(--texto); border: 2px solid var(--fondo); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--alerta); }
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 20px; background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--texto); border: 2px solid #000; }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
+        /* --- CONTENEDOR --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            border-left: 1px solid var(--borde);
-            border-right: 1px solid var(--borde);
-            padding: 15px;
+            padding: 20px;
             min-height: 100vh;
             padding-bottom: 100px;
         }
 
-        /* --- BOTONES NAV-PAD (Para pantalla táctil) --- */
-        .nav-pad {
-            position: fixed;
-            bottom: 20px;
-            right: 35px;
-            z-index: 9999;
+        /* --- ASCII ART (CENTRADO PERFECTO) --- */
+        .ascii-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: center; /* Centra el bloque horizontalmente */
+            margin-bottom: 30px;
+            width: 100%;
+            overflow: hidden; /* Evita scroll innecesario */
         }
-        .nav-btn {
-            background: var(--fondo);
-            color: var(--texto);
-            border: 2px solid var(--texto);
-            width: 50px; height: 50px;
-            font-size: 24px; cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nav-btn:active { background: var(--texto); color: var(--fondo); }
-
-        /* --- TIPOGRAFÍA --- */
-        h1 {
-            text-align: center;
-            border-bottom: 2px solid var(--texto);
-            padding-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        
+        pre {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 5px; /* Tamaño micro para el dibujo gigante */
+            line-height: 5px;
             color: var(--blanco);
+            font-weight: bold;
+            white-space: pre;
+            text-align: left; /* El dibujo interno se alinea a la izq para no deformarse */
+            margin: 0;
         }
 
+        /* --- NUEVO TÍTULO (SERIF / NET ART) --- */
+        h1 {
+            font-family: "Times New Roman", Times, serif; /* Contraste Brutalista */
+            font-style: italic;
+            font-weight: bold;
+            font-size: 3rem; /* Grande */
+            text-align: center;
+            color: var(--blanco);
+            margin: 0 0 40px 0;
+            letter-spacing: -1px;
+            border-bottom: 1px solid var(--gris);
+            padding-bottom: 20px;
+        }
+
+        /* --- TEXTOS --- */
         h2 {
             background: var(--texto);
             color: var(--fondo);
@@ -80,40 +81,22 @@
             font-size: 14px;
             text-transform: uppercase;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
         p {
             margin-bottom: 15px;
-            line-height: 1.5;
-            font-size: 14px;
-            color: #ccc; /* Texto gris suave para lectura larga */
+            line-height: 1.6;
+            font-size: 15px;
+            color: #ccc;
             text-align: justify;
         }
 
-        /* --- ASCII ART (Tu Caracol Nuevo) --- */
-        .ascii-box {
-            width: 100%;
-            overflow-x: auto; /* Scroll horizontal si no cabe */
-            margin-bottom: 20px;
-            border: 1px solid var(--borde);
-            padding: 10px 0;
-            text-align: center; /* Intenta centrarlo */
-        }
-        
-        pre {
-            font-size: 5px; /* ¡Muy pequeño para que quepa el dibujo gigante! */
-            line-height: 5px;
-            color: var(--blanco);
-            font-weight: bold;
-            display: inline-block;
-            text-align: left;
-        }
-
-        /* --- MANIFIESTO (Estilo Alerta) --- */
+        /* --- MANIFIESTO --- */
         .manifesto-box {
-            border: 1px dashed var(--alerta);
+            border: 1px solid var(--alerta); /* Borde línea sólida fina */
             padding: 20px;
-            margin: 30px 0;
+            margin: 40px 0;
         }
         .manifesto-box h2 {
             background: var(--alerta);
@@ -121,28 +104,25 @@
         }
         .manifesto-box p { color: var(--alerta); }
 
-        /* --- DIRECTORIO (Grid Alfabético) --- */
+        /* --- DIRECTORIO LIMPIO --- */
         .repo-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 30px;
             margin-top: 20px;
         }
         @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
 
-        .folder {
-            border: 1px solid var(--borde);
-            padding: 10px;
-        }
-        .folder:hover { border-color: var(--texto); }
-
         .folder-title {
             color: var(--texto);
             font-weight: bold;
-            border-bottom: 1px solid var(--borde);
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            border-bottom: 2px solid var(--gris);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
             text-transform: uppercase;
+            font-size: 1.2rem;
+            font-family: "Times New Roman", Times, serif; /* Títulos de sección también en Serif */
+            font-style: italic;
         }
 
         ul { list-style: none; padding: 0; margin: 0; }
@@ -151,26 +131,47 @@
             display: block;
             color: var(--blanco);
             text-decoration: none;
-            padding: 8px 5px;
-            border-bottom: 1px dotted #333;
-            font-size: 13px;
+            padding: 10px 5px;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 14px;
+            transition: all 0.2s;
         }
         li a:hover {
-            background: #111;
-            color: var(--texto);
-            padding-left: 10px;
+            background: var(--texto);
+            color: var(--fondo);
+            padding-left: 15px;
         }
-        li a::before { content: "+ "; color: #555; }
+        li a::before { content: "→ "; color: #555; } /* Flecha minimalista */
+
+        /* --- NAV PAD (BOTONES) --- */
+        .nav-pad {
+            position: fixed;
+            bottom: 20px;
+            right: 35px;
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-btn {
+            background: #000;
+            color: var(--texto);
+            border: 1px solid var(--texto);
+            width: 50px; height: 50px;
+            font-size: 20px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-btn:active { background: var(--texto); color: #000; }
 
         footer {
-            margin-top: 50px;
+            margin-top: 60px;
             text-align: center;
-            font-size: 10px;
-            color: #555;
-            border-top: 1px solid #333;
+            font-size: 12px;
+            color: #444;
+            border-top: 1px solid #222;
             padding-top: 20px;
+            font-family: sans-serif; /* Un toque moderno al final */
         }
-
     </style>
 </head>
 <body>
@@ -182,115 +183,120 @@
 
 <div class="container">
 
-    <div class="ascii-box">
+    <div class="ascii-wrapper">
 <pre>
+                                                                                                        
+                                                                                                    
+                                                                                                    
+                                                                                                    
                                                                                                     
                                                                           =-=           ==          
-                                                                         -+#* **#         
+                                                                         -+#*           **#         
                                                                           ++-#          ==          
                                                                            =-=         +=+          
                                                                            --=         =-#          
                                                                            =-=        +-=           
-                                                                           +=-@      -+:* =+:* =--%           
+                                                                           +=-@      -+:*           
+                                                                           =+:*      =--%           
                                                                            ----      +-+            
                                                                            -=+:+    =+-%            
                                                                             ==:-    +=-             
                                                                             +==-=  -+=-             
                                                                             +==::====--             
                       *++=++++#*+*####%#++                                  ==+-=--***+++           
-                  +*+==++-+==*%##**==--:-+#++=* ++*++:--=-==++==:-=      
-               -+---::::-:---*##+=+##*=-:.+####++* %+#*+---:-:=-----++==-::=  
+                  +*+==++-+==*%##**==--:-+#++=*                            ++*++:--=-==++==:-=      
+               -+---::::-:---*##+=+##*=-:.+####++*                       %+#*+---:-:=-----++==-::=  
             +=---=+#%##%%%%#*%##*-=+*+**+=.:=#@%+-++                    #%%*+=-::=----:=-::+-=* *%  
           ----*%%%+==*#%##*#@@@@%=-:=#**##=:.-*@@%=-=+                 **%@%%#+-=-==-+++--:**-#     
          -=-*#-..::::..:-#%@%%@@@#-==:=%%%#*-.:*%%%+:-+               #+#%%@%#++#%*%-=*%#=+-:-#     
-       =-:+*::+==---=+*----#@@%@@@%=+==+%%##=:.:*@%%%=-=+            %*+%%@#*##*==++****#*=-:-** +-=+:*--:::#=.-*#+.*##@@%@%%#=*--=####-:.=*%#@+-=-+         +=%@%*#%%%*==-----====+#%%%%##   
+       =-:+*::+==---=+*----#@@%@@@%=+==+%%##=:.:*@%%%=-=+            %*+%%@#*##*==++****#*=-:-**    
+       +-=+:*--:::#=.-*#+.*##@@%@%%#=*--=####-:.=*%#@+-=-+         +=%@%*#%%%*==-----====+#%%%%##   
       +-+%+*+%+++++%*=+#%**#*%%#@@%%+=*=+%%%##+=++**%**+--=       %%##@%@%**#%+-++=+*#####%#%*#     
      +-:#*+**######@%#%%@#*##%%##@@%@*%#*#%@@%%+:=**##==:..=     *+%@%*%%%%%*+*#=-+*+==*##%%@+#     
-    =+-=%+*+.:+##%@##%%%@#*##%%#%@%%@%####%%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=** *=.*%*=.:..:-#%#%@%@#*#######%#%@%#%*=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#      
-   ##-:+%#*+*#%##+-+%%@#**####%##%@%#%@@#*=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####        
+    =+-=%+*+.:+##%@##%%%@#*##%%#%@%%@%####%%@#*:.:=-+#=+-:-.-*  *#=###%++*#%%#+++**=-==-=*###*@     
+    ++:*%#=#+++*%##%%%%@@**##%%#%@%%@@####%%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=**      
+    *=.*%*=.:..:-#%#%@%@#*#######%#%@%#%*=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#      
+   ##-:+%#*+*#%##+-+%%@#**##%%##%%#%@@*---+**%**###*%#*++#%@%%**+*==+#%#++#%==+*%@@@%%%###**#       
+   =#+::###*#+=-*#%%@%**####%##%@%#%@@#*=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####        
    =##:-:*%@@@%%#%@%+*###%%%##%@@##@@%#++++**=*%%%%*#%%%@%%#*+--===-:-:**%####*+%@#+=+#%%           
     *%*--.:=+#%#*=:.=###%%###%%%##@@%%%#--+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##           
     *##*=---:....---##%%%##%%##**%@@%*#@%%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#            
     *%#+++*+==+-+++%@%%###****+-#@%%%@%####++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++             
-     +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###* +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
+     +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###*             
+      +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
        +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
-         =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-* =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
+         =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-*                    
+           =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
             ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
-       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-* .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-*** .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
+       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-*                          
+     .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-***                            
+    .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
       :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                 
               #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                   
                          #***%      %#+==+*****++***+===+#                                          
+                                                                                                    
+                                                                                                    
 </pre>
     </div>
 
-    <h1>MOLUSCOS_OS // OFFLINE_V5</h1>
+    <h1>MoluscOS Offline</h1>
 
     <section>
-        <h2>// 00_INTRODUCCIÓN.txt</h2>
+        <h2>00_INTRODUCCIÓN</h2>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper.
         </p>
         <p>
-            Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.
-        </p>
-        <p>
-            Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam, nunc turpis ullamcorper nibh, in tempus sapien eros vitae ligula. Pellentesque rhoncus nunc et augue. Integer id felis. Curabitur aliquet pellentesque diam. Integer quis metus vitae elit lobortis egestas. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi vel erat non mauris convallis vehicula. Nulla et sapien. Integer tortor tellus, aliquam faucibus, convallis id, congue eu, quam. Mauris ullamcorper felis vitae erat. 
+            Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum.
         </p>
     </section>
 
     <section class="manifesto-box">
-        <h2>// 01_MANIFIESTO.nfo</h2>
+        <h2>01_MANIFIESTO</h2>
         <p>
-            <strong>ADVERTENCIA:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+            <strong>ADVERTENCIA:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
         </p>
         <p>
-            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet.
-        </p>
-        <p>
-            Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices.
+            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.
         </p>
     </section>
 
     <section>
-        <div style="color: var(--texto); margin-bottom: 10px; border-bottom: 1px dashed #333; padding-bottom:5px;">
-            root@moluscos:/base_datos# tree -L 1
-        </div>
-        
         <div class="repo-grid">
             
             <div class="folder">
                 <div class="folder-title">/ALIMENTACIÓN</div>
                 <ul>
-                    <li><a href="#">01_Banco_Semillas.db</a></li>
-                    <li><a href="#">02_Compostaje_Rapido.md</a></li>
-                    <li><a href="#">03_Invernaderos_DIY.pdf</a></li>
+                    <li><a href="#">Banco de Semillas</a></li>
+                    <li><a href="#">Compostaje Rápido</a></li>
+                    <li><a href="#">Invernaderos DIY</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/ELECTRÓNICA</div>
                 <ul>
-                    <li><a href="#">01_AI_Offline_Llama3.bin</a></li>
-                    <li><a href="#">02_Base_Datos_Offline.sql</a></li>
-                    <li><a href="#">03_Jammer_Bluetooth.py</a></li>
+                    <li><a href="#">AI Offline Llama3</a></li>
+                    <li><a href="#">Base de Datos Offline</a></li>
+                    <li><a href="#">Jammer Bluetooth</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/INFRAESTRUCTURA</div>
                 <ul>
-                    <li><a href="#">01_Agua_Lluvias.pdf</a></li>
-                    <li><a href="solar.html">02_Energia_Solar.sh</a></li>
-                    <li><a href="#">03_Radio_DIY.schematic</a></li>
+                    <li><a href="#">Almacenamiento Aguas Lluvias</a></li>
+                    <li><a href="solar.html">Energía Solar</a></li>
+                    <li><a href="#">Radio DIY</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/SALUD</div>
                 <ul>
-                    <li><a href="#">01_Fitoterapia.list</a></li>
-                    <li><a href="#">02_Patologias_Colapso.doc</a></li>
-                    <li><a href="#">03_RCP_Basico.img</a></li>
+                    <li><a href="#">Fitoterapia</a></li>
+                    <li><a href="#">Patologías del Colapso</a></li>
+                    <li><a href="#">RCP Básico</a></li>
                 </ul>
             </div>
 
@@ -298,7 +304,7 @@
     </section>
 
     <footer>
-        EOF // MoluscOS 2026 // [GNU GPLv3] // 127.0.0.1
+        MoluscOS Residencia 2026 // GNU GPLv3
     </footer>
 
 </div>
