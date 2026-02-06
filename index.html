@@ -3,190 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOLUSCOS // ROOT_ACCESS</title>
+    <title>MOLUSCOS // ROOT</title>
     <style>
+        /* --- MANIFIESTO VISUAL v2.1 --- */
+        
+        /* 1. FONDO NEGRO ABSOLUTO */
         body {
             background-color: #000000;
-            color: #00FF00;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 20px;
             margin: 0;
-            overflow-x: hidden; /* Evita scroll horizontal blanco */
-        }
-        
-        /* Efecto de monitor viejo (CRT) */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        .container {
+        /* 2. TIPOGRAFÍA MONOESPACIADA */
+        body, pre, button, input {
+            font-family: 'Courier New', 'Courier', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* COLORES SEMÁNTICOS */
+        :root {
+            --verde: #00FF00;  /* Texto estándar / Éxito */
+            --ambar: #FFB000;  /* Manifiesto / Alerta */
+            --cian:  #00FFFF;  /* Enlaces / Datos */
+            --gris:  #333333;  /* Bordes */
+        }
+
+        /* TEXTO BASE */
+        p, h1, h2, li {
+            color: var(--verde);
             max-width: 800px;
-            margin: 0 auto;
-            border: 1px solid #00FF00;
-            padding: 10px;
-            box-shadow: 0 0 10px #00FF00;
-            position: relative;
-            z-index: 1;
         }
 
+        /* EFECTO CRT (Opcional, líneas de barrido) */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* --- COMPONENTES --- */
+
+        /* HEADER & ASCII */
         header {
-            border-bottom: 2px dashed #00FF00;
+            margin-bottom: 40px;
+            border-bottom: 2px dashed var(--verde);
             padding-bottom: 20px;
-            margin-bottom: 20px;
-            text-align: center;
         }
 
-        /* ASCII ART PROTEGIDO */
-        pre {
-            font-size: 8px; /* Tamaño seguro */
-            line-height: 8px;
-            overflow-x: auto; /* Scroll si la pantalla es muy pequeña */
-            color: #00FF00;
+        /* ASCII ART FIX: Interlineado apretado para que no se deforme */
+        .ascii-art {
+            color: var(--verde);
             font-weight: bold;
-            white-space: pre; /* Mantiene los espacios exactos */
-            margin: 0 auto;
-            display: inline-block; /* Centra el bloque */
-            text-align: left;
+            font-size: 10px;        /* Tamaño pequeño */
+            line-height: 8px;       /* ¡CLAVE! Aplasta las líneas verticalmente */
+            white-space: pre;       /* Respeta espacios */
+            overflow-x: auto;       /* Scroll si no cabe */
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            animation: parpadeo 2s infinite;
-            margin-top: 20px;
+        /* SECCIONES DE TEXTO */
+        .section-text {
+            margin-bottom: 50px;
+            padding-left: 10px;
+            border-left: 1px solid var(--verde);
         }
 
-        .grid {
+        /* MANIFIESTO (Color Ámbar para resaltar) */
+        .manifesto-box {
+            color: var(--ambar);
+            border: 1px solid var(--ambar);
+            padding: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 0 10px rgba(255, 176, 0, 0.1);
+        }
+        .manifesto-box h2, .manifesto-box p {
+            color: var(--ambar); /* Fuerza el color ámbar */
+        }
+
+        /* DIRECTORIO / GRID DE NAVEGACIÓN */
+        .directory-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr; /* Móvil: 1 columna */
+            gap: 20px;
+            border-top: 2px solid var(--cian);
+            padding-top: 20px;
         }
 
-        @media(min-width: 600px) {
-            .grid {
+        /* En PC: 2 columnas */
+        @media(min-width: 768px) {
+            .directory-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
         .folder {
-            border: 1px solid #333;
-            padding: 10px;
-            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid var(--gris);
+            padding: 15px;
+            transition: all 0.2s;
+        }
+        .folder:hover {
+            border-color: var(--cian);
+            background: #001111;
         }
 
         .folder-title {
-            background: #00FF00;
+            background-color: var(--cian);
             color: #000;
-            padding: 2px 5px;
             font-weight: bold;
             display: inline-block;
+            padding: 2px 8px;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        a {
+        /* ENLACES ESTILO TERMINAL */
+        a.cmd-link {
             display: block;
-            color: #00FF00;
+            color: var(--cian);
             text-decoration: none;
-            padding: 5px;
-            border-left: 2px solid transparent;
-            transition: all 0.3s;
-            font-size: 14px;
+            padding: 3px 0;
+            font-family: 'Courier New', monospace;
+        }
+        a.cmd-link:hover {
+            color: #fff;
+            background-color: rgba(0, 255, 255, 0.2);
+        }
+        a.cmd-link::before {
+            content: "> ";
+            opacity: 0.5;
         }
 
-        a:hover {
-            background-color: rgba(0, 255, 0, 0.2);
-            border-left: 5px solid #00FF00;
-            padding-left: 10px;
-            cursor: pointer;
+        /* IMÁGENES AUTOMÁTICAS (Estilo Dither/Retro) */
+        img.retro-img {
+            max-width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(150%) brightness(0.9);
+            border: 1px solid var(--verde);
+            margin: 10px 0;
         }
 
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #00aa00;
-        }
-
-        @keyframes parpadeo {
-            0% { opacity: 1; text-shadow: 0 0 10px #00ff00; }
-            50% { opacity: 0.5; text-shadow: none; }
-            100% { opacity: 1; text-shadow: 0 0 10px #00ff00; }
-        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-<pre>
-                                                            
-                                                            
-                                                            
-                                            -=+     ===     
-                                            =-:     --      
-                                            ..:     --      
-                                            +::-   ::+      
-                                             =-:   -:       
-                                             ::=  -=:       
-                                             --:: -:-       
-              ==++++*+*#* =-::++:=+      
-          =-=====*%*+=::-+++=               %++-::--==:::.  
-       ::---+++++#%=-**+-.=%%==+           %%*-.:.::.:--:-= 
-     ::-++=::-+#%@@@-.=*%+.:#@+:=         *#@@#==+-++---+%  
-    ::=::----=-:#@@@@--=#%= .#@#--=     #**#@%#+--===+=-+* --=**+=-*=+#*#%%@@#==*@%+-=*%+-::   *%#@@%##--==*##%%%#  
-  =-=*+-+#%@%%@%#%%%@@%%#%@#:.=*+:..: #=@%##%%*++==-=+***%  
-  ==+#=++++%%@%##%%%%@@%###+: -*%+=-=*#%#*+**+##*=:::-=++   
-  *-+%=+*+++@@##%%#@%%@+-=**+*%@#*#%@%*==*#***=*@@@%##**#   
- **=.+%%##@@###%%#%@%@@#++**%@@*%@@%*---::-%##**%##*%##     
-  *#=..:-:..+#%%#%%#@@%#*##==@@@@@%*=::-.:===*%%**@@#@      
-  %#+++---=#@%#**+=#@%@%%#*%@@@%#*==-.::--:-:..+#%#=#       
-   #%%+.. .*%*##+=#@*%%#@@@@%#**+-++=-::= .  .-: * %        
-    =%@@%@#*#=-*@@%*%@%@%%#*+*##**++==:.+:  :=.-* -#@@%@@@%###@@%%#**###++-=- ....-:.. :=:=* ..:-+==#%%#+++=+=-:::.-:.-:-.:::..: .-=+               
-       ......-::-::: ::--::-..-.:.   .  :+* .    . . . ...: .... ... . . ..   ..=                    
-           +===-:-=+==-----:::-:::-=%                       
+<header>
+<pre class="ascii-art">
+        @                       
+       @ @                      
+      @   @        ,.,.,.,      
+     @     @      ,.,.,.,.,.    
+    @   * @    ,.,       .,.  
+     @     @    ,.,   $$$   .,. 
+      @   @     ,.,   $$$   .,. 
+       @ @       ,.,       .,.  
+   ____|_|________,.,.,.,.,.    
+  /  MOLUSCOS    /         /    
+ /   OFFLINE    /_________/     
+/______________/  # # # #       
 </pre>
-        <h1>MOLUSCOS // SISTEMA_OFFLINE</h1>
-        <p>[ESTADO: CONECTADO AL NODO LOCAL]</p>
-    </header>
+    <h1>MOLUSCOS_OS // v.1.0b</h1>
+    <p>[SYSTEM_STATUS: ONLINE_LOCAL_MODE]</p>
+</header>
 
-    <div class="grid">
-        <div class="folder">
-            <div class="folder-title">/DIR: INFRAESTRUCTURA</div>
-            <a href="solar.html">>> [LOG_001] Dimensionamiento_Solar.sh</a>
-            <a href="#">>> [LOG_002] Banco_Baterias.txt</a>
-            <a href="#">>> [LOG_003] Antena_Oroza.diy</a>
-        </div>
+<section class="section-text">
+    <h2>// 00_INTRODUCCIÓN.txt</h2>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac odio ante. En el contexto de la permacomputación, MoluscOS opera como un nodo de resistencia digital, diseñado para persistir cuando la nube se evapore.
+    </p>
+    <p>
+        Integer quis purus ac magna efficitur maximus nec sed felis. Suspendisse potenti. Ut non elit a urna gravida tincidunt. Este sistema no requiere actualizaciones constantes ni conexión a servidores corporativos. Es una cápsula del tiempo funcional, un archivo vivo de técnicas para la supervivencia comunitaria y la autonomía tecnológica.
+    </p>
+    </section>
 
-        <div class="folder">
-            <div class="folder-title">/DIR: SALUD_TACTICA</div>
-            <a href="#">>> [MED_01] RCP_Basico.md</a>
-            <a href="#">>> [MED_02] Filtrado_Agua.pdf</a>
-            <a href="#">>> [MED_03] Farmacia_Viva.list</a>
-        </div>
+<section class="manifesto-box">
+    <h2>// 01_MANIFIESTO_ÉTICO.nfo</h2>
+    <p>
+        <strong>ADVERTENCIA:</strong> El contenido de este nodo está diseñado para la desobediencia tecnológica. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+    <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. La obsolescencia programada es un crimen contra la memoria y la materia. Nosotros reparamos, nosotros mantenemos, nosotros sobrevivimos.
+    </p>
+    <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Copia este código. Róbalo. Modifícalo.
+    </p>
+</section>
+
+<section>
+    <div style="color: var(--cian); margin-bottom: 10px;">> ls -la /home/knowledge_base/</div>
+    
+    <div class="directory-grid">
         
         <div class="folder">
-            <div class="folder-title">/DIR: MANIFIESTO</div>
-            <a href="#">>> [TXT] Etica_Hacker.txt</a>
-            <a href="#">>> [TXT] Permacomputacion.nfo</a>
+            <div class="folder-title">/DIR: INFRAESTRUCTURA_CRITICA</div>
+            <a href="solar.html" class="cmd-link">01_Energia_Solar.sh</a>
+            <a href="#" class="cmd-link">02_Potabilizacion_Agua.exe</a>
+            <a href="#" class="cmd-link">03_Radio_Frecuencia.diy</a>
+            <a href="#" class="cmd-link">04_Gestion_Residuos.log</a>
         </div>
-    </div>
 
-    <footer>
-        <p>COPIA ESTE NODO -- COMPARTE LA RESISTENCIA</p>
-        <p>MoluscOS © 2026 // GNU GPLv3</p>
-    </footer>
-</div>
+        <div class="folder">
+            <div class="folder-title">/DIR: BIOPOLITICA_SALUD</div>
+            <a href="#" class="cmd-link">10_Primeros_Auxilios.md</a>
+            <a href="#" class="cmd-link">11_Farmacia_Viva.list</a>
+            <a href="#" class="cmd-link">12_Ginecologia_Autonoma.pdf</a>
+            <a href="#" class="cmd-link">13_Nutricion_Crisis.txt</a>
+        </div>
+
+        <div class="folder">
+            <div class="folder-title">/DIR: TACTICAS_RESISTENCIA</div>
+            <a href="#" class="cmd-link">20_Desobediencia_Tecno.nfo</a>
+            <a href="#" class="cmd-link">21_Fabricacion_Digital.obj</a>
+            <a href="#" class="cmd-link">22_Defensa_Digital.gpg</a>
+            <a href="#" class="cmd-link">23_Redes_Malla.net</a>
+        </div>
+
+        <div class="folder">
+            <div class="folder-title">/DIR: NODO_MOLUSCOS</div>
+            <a href="#" class="cmd-link">99_Replicar_Este_Nodo.py</a>
+            <a href="#" class="cmd-link">00_Creditos_Licencia.txt</a>
+        </div>
+
+    </div>
+</section>
+
+<footer style="margin-top: 50px; text-align: center; border-top: 1px solid #333; padding-top: 20px; color: #555;">
+    EOF // MoluscOS 2026 // [GNU GPLv3]
+</footer>
 
 </body>
 </html>
