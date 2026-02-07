@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MOLUSCOS // RADIO_DIY</title>
+    <style>
+        :root {
+            --fondo: #000000;
+            --verde: #00FF00;
+            --gris:  #333333;
+        }
+        * { box-sizing: border-box; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--fondo);
+            overflow-x: hidden;
+        }
+
+        body {
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            padding: 5px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            min-height: calc(100vh - 10px);
+            border: 2px solid var(--verde);
+            padding: 15px;
+            background: rgba(0, 15, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #000;
+            background: var(--verde);
+            padding: 5px 12px;
+            text-decoration: none;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            width: fit-content;
+        }
+
+        h1 { border-bottom: 2px solid var(--verde); padding-bottom: 10px; font-size: 1.3rem; text-transform: uppercase; margin-top: 0; }
+        h2 { background: var(--verde); color: #000; display: inline-block; padding: 3px 8px; font-size: 0.9rem; margin-top: 30px; font-weight: bold; }
+        h3 { border-bottom: 1px dashed var(--verde); margin-top: 20px; font-size: 1rem;}
+        p { line-height: 1.5; color: #ddd; font-size: 0.95rem; text-align: justify; }
+        
+        /* DIAGRAMAS ASCII EN VERDE */
+        .ascii-diagram {
+            font-family: monospace;
+            white-space: pre;
+            color: var(--verde);
+            font-weight: bold;
+            font-size: 10px;
+            line-height: 10px;
+            background: rgba(0, 20, 0, 0.5);
+            padding: 10px;
+            border: 1px solid var(--verde);
+            margin: 15px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        ol { color: #ddd; line-height: 1.6; padding-left: 20px; }
+        li { margin-bottom: 12px; }
+
+        .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
+        .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">< REGRESAR</a>
+    
+    <h1>MANUAL: ANTENAS DE EMERGENCIA</h1>
+    
+    <section>
+        <p>Si no hay satélites, capturamos el aire. Aquí tienes dos diseños de "alta ganancia" fabricados con basura doméstica. Funcionan para TV Digital (UHF) y Radio FM.</p>
+    </section>
+
+    <section>
+        <h2>OPCIÓN A: LA PAJARITA (BOWTIE)</h2>
+        <p>La reina de las antenas DIY. Materiales: Perchas de ropa (metal), tabla de madera, tornillos.</p>
+        
+        <div class="ascii-diagram">
+      \           /
+       \         /   <- 20cm ->
+        \       /
+         \     /
+          \   /
+           \ / 
+      O-----X-----O  <- Tornillos
+           / \ 
+          /   \
+         /     \
+        /       \
+       /         \
+      /           \
+        </div>
+
+        <ol>
+            <li><strong>Corte:</strong> Corta 2 trozos de alambre de 40cm cada uno.</li>
+            <li><strong>Doblado:</strong> Dobla cada alambre en forma de "V" o ">". La apertura de las puntas debe ser de unos 20cm.</li>
+            <li><strong>Montaje:</strong> Atornilla los vértices de las "V" a una madera, separados por 3-5 cm.</li>
+            <li><strong>Conexión:</strong> Pela el cable coaxial. El núcleo de cobre va a un tornillo (lado izquierdo) y la malla trenzada al otro (lado derecho).</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>OPCIÓN B: DIPOLO DE LATA</h2>
+        <p>Ancho de banda brutal. Materiales: 2 Latas de cerveza/refresco, cinta aislante, palo o percha.</p>
+
+        <div class="ascii-diagram">
+      [=======]   [=======]
+      | LATA  |   | LATA  |
+      |   A   |   |   B   |
+      [=======]   [=======]
+          |           |
+          |           |
+      (Núcleo)     (Malla)
+          \           /
+           \         /
+            COAXIAL
+        </div>
+
+        <ol>
+            <li><strong>Preparación:</strong> Lija la parte donde está el agujero de beber para quitar el barniz protector (el aluminio debe brillar).</li>
+            <li><strong>Montaje:</strong> Pega las latas en un palo con cinta, con los agujeros enfrentados pero sin tocarse (deja 2cm de aire).</li>
+            <li><strong>Conexión:</strong> Enrolla el cable de cobre del coaxial en la anilla de la Lata A. Enrolla la malla del coaxial en la anilla de la Lata B.</li>
+            <li><strong>Aislamiento:</strong> Cubre todo con cinta para evitar corrosión.</li>
+        </ol>
+    </section>
+
+    <div class="footer-section">
+        <div class="credits">
+            [MOLUSCOS] -- NODO LOCAL -- [GPLv3]
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
