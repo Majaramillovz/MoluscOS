@@ -8,9 +8,8 @@
         /* --- PALETA V11 --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;
+            --verde: #00FF00;   /* Color principal */
             --ambar: #FFB000;
-            --cian:  #00FFFF;
             --blanco: #E0E0E0;
             --gris:  #333333;
         }
@@ -23,7 +22,7 @@
             color: var(--verde);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 5px; /* Ajuste para que el borde toque casi el final de la pantalla */
+            padding: 5px; 
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -43,7 +42,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Mantiene todo dentro del cuadro */
+            overflow: hidden; 
         }
 
         /* MARQUESINA (AHORA EN EL TOP) */
@@ -55,7 +54,7 @@
             white-space: nowrap;
             overflow: hidden;
             padding: 8px 0;
-            margin: -15px -15px 20px -15px; /* Se ajusta a los bordes del container */
+            margin: -15px -15px 20px -15px; /* Ajuste a bordes internos */
         }
         .marquee-content { display: inline-block; animation: scroll-left 35s linear infinite; padding-left: 100%; font-weight: 800; }
 
@@ -97,7 +96,7 @@
         p {
             margin-bottom: 15px; line-height: 1.6; font-size: 14px;
             text-align: justify; color: #ddd;
-            word-wrap: break-word; /* Evita que el texto largo empuje el container */
+            word-wrap: break-word;
         }
 
         .intro-box { margin-bottom: 40px; }
@@ -115,32 +114,33 @@
         }
         @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
 
+        /* CARPETAS AHORA EN VERDE */
         .folder {
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            background: rgba(0, 20, 20, 0.5);
+            border: 2px solid rgba(0, 255, 0, 0.3); /* Borde verde */
+            background: rgba(0, 20, 0, 0.5); /* Fondo verde oscuro */
             padding: 20px;
             transition: all 0.3s ease;
             position: relative;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
         }
 
         .folder:hover {
-            border-color: var(--cian);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), inset 0 0 10px rgba(0, 255, 255, 0.2);
-            background: rgba(0, 40, 40, 0.8);
+            border-color: var(--verde);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.4), inset 0 0 10px rgba(0, 255, 0, 0.2);
+            background: rgba(0, 40, 0, 0.8);
             transform: translateY(-2px);
         }
 
         .folder::after {
             content: ''; position: absolute; bottom: 5px; right: 5px;
             width: 10px; height: 10px;
-            border-bottom: 2px solid var(--cian); border-right: 2px solid var(--cian);
+            border-bottom: 2px solid var(--verde); border-right: 2px solid var(--verde);
             opacity: 0.5;
         }
 
         .folder-title {
-            color: var(--cian); font-weight: 900;
-            border-bottom: 2px dotted var(--cian);
+            color: var(--verde); font-weight: 900;
+            border-bottom: 2px dotted var(--verde);
             padding-bottom: 10px; margin-bottom: 15px; 
             text-transform: uppercase; font-size: 1.1em; letter-spacing: 1px;
         }
@@ -153,10 +153,10 @@
             background: rgba(0,0,0,0.2); margin-bottom: 5px;
         }
         li a:hover {
-            background: var(--cian); color: #000;
+            background: var(--verde); color: #000;
             border-left: 5px solid #fff; padding-left: 15px;
         }
-        li a::before { content: ":: "; color: var(--cian); opacity: 0.7; }
+        li a::before { content: ":: "; color: var(--verde); opacity: 0.7; }
 
         .footer-section { margin-top: auto; padding-top: 50px; }
         .credits { text-align: center; font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px;}
@@ -219,7 +219,7 @@
     *%*--.:=+#%#*=:.=###%%###%%%##@@%%%#--+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##           
     *##*=---:....---##%%%##%%##**%@@%*#@%%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#            
     *%#+++*+==+-+++%@%%###****+-#@%%%@%####++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++             
-     +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###* +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=:-:-.::=*-::+%  #              
+     +@@#:=:==*%=+:##%#*#%%#*=+%%#+*%%%%@%%@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###* +%@@#++-=---+%####%*++=*#%%**%%**@@@%%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
        +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
          =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-* =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
             ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
@@ -247,7 +247,7 @@
     </div>
 
     <div class="categories-section">
-        <span class="highlight-title" style="background: var(--cian);">03_CATEGORÍAS</span>
+        <span class="highlight-title" style="background: var(--verde);">03_CATEGORÍAS</span>
         
         <div class="repo-grid">
             <div class="folder">
