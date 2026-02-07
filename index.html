@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MoluscOS // Beta 1.0</title>
     <style>
-        /* --- PALETA V11 --- */
+        /* --- PALETA V12 --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;   /* Color principal */
+            --verde: #00FF00;   
+            --rojo-error: rgba(255, 60, 60, 0.6); /* Color para links inactivos */
             --ambar: #FFB000;
-            --blanco: #E0E0E0;
+            --blanco: #FFFFFF;
             --gris:  #333333;
         }
 
@@ -30,14 +31,14 @@
             overflow-x: hidden;
         }
 
-        /* --- FRAME CENTRAL ADAPTADO --- */
+        /* --- FRAME CENTRAL --- */
         .container {
             width: 100%;
             max-width: 720px;
             min-height: calc(100vh - 10px);
             border: 2px solid var(--verde);
             padding: 15px;
-            background: rgba(0, 15, 0, 0.6);
+            background: rgba(0, 15, 0, 0.7); /* Un poco más oscuro para contraste */
             box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.1);
             position: relative;
             display: flex;
@@ -45,7 +46,7 @@
             overflow: hidden; 
         }
 
-        /* MARQUESINA (AHORA EN EL TOP) */
+        /* MARQUESINA */
         .marquee-container {
             border-bottom: 2px solid var(--verde);
             background: #001100;
@@ -54,16 +55,16 @@
             white-space: nowrap;
             overflow: hidden;
             padding: 8px 0;
-            margin: -15px -15px 20px -15px; /* Ajuste a bordes internos */
+            margin: -15px -15px 20px -15px; 
         }
         .marquee-content { display: inline-block; animation: scroll-left 35s linear infinite; padding-left: 100%; font-weight: 800; }
 
-        /* --- SCROLLBAR --- */
+        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 15px; background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--gris); border: 1px solid #000; }
         ::-webkit-scrollbar-thumb:hover { background: var(--verde); }
 
-        /* --- ASCII ART --- */
+        /* ASCII ART */
         .ascii-wrapper {
             display: flex; justify-content: center; margin-bottom: 20px;
             width: 100%; overflow: hidden; opacity: 0.85;
@@ -114,7 +115,7 @@
         }
         @media(min-width: 600px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
 
-        /* CARPETAS EN VERDE */
+        /* CARPETAS */
         .folder {
             border: 2px solid rgba(0, 255, 0, 0.3); 
             background: rgba(0, 20, 0, 0.5); 
@@ -123,21 +124,18 @@
             position: relative;
             box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
         }
-
         .folder:hover {
             border-color: var(--verde);
             box-shadow: 0 0 25px rgba(0, 255, 0, 0.4), inset 0 0 10px rgba(0, 255, 0, 0.2);
             background: rgba(0, 40, 0, 0.8);
             transform: translateY(-2px);
         }
-
         .folder::after {
             content: ''; position: absolute; bottom: 5px; right: 5px;
             width: 10px; height: 10px;
             border-bottom: 2px solid var(--verde); border-right: 2px solid var(--verde);
             opacity: 0.5;
         }
-
         .folder-title {
             color: var(--verde); font-weight: 900;
             border-bottom: 2px dotted var(--verde);
@@ -146,17 +144,38 @@
         }
 
         ul { list-style: none; padding: 0; margin: 0; }
+        
+        /* --- ESTILOS DE ENLACES (NUEVO) --- */
         li a {
-            display: block; color: var(--blanco); text-decoration: none;
+            display: block; 
+            text-decoration: none;
             padding: 10px; border-left: 2px solid transparent;
-            font-size: 13px; transition: all 0.2s; cursor: crosshair;
-            background: rgba(0,0,0,0.2); margin-bottom: 5px;
+            font-size: 13px; transition: all 0.2s;
+            background: rgba(0,0,0,0.3); margin-bottom: 5px;
         }
-        li a:hover {
+
+        /* Enlaces ACTIVOS (Páginas existentes) */
+        li a.active {
+            color: var(--blanco); /* Letra BLANCA */
+            cursor: crosshair;
+        }
+        li a.active:hover {
             background: var(--verde); color: #000;
             border-left: 5px solid #fff; padding-left: 15px;
         }
-        li a::before { content: ":: "; color: var(--verde); opacity: 0.7; }
+        li a.active::before { content: ":: "; color: var(--verde); opacity: 1; }
+
+        /* Enlaces INACTIVOS (Páginas faltantes - Rojo Glitch) */
+        li a.inactive {
+            color: var(--rojo-error); /* Rojo translúcido */
+            cursor: not-allowed; /* Cursor de prohibido */
+            font-style: italic;
+        }
+        li a.inactive:hover {
+            background: rgba(50, 0, 0, 0.5); /* Fondo rojo muy oscuro */
+            border-left: 2px solid var(--rojo-error);
+        }
+        li a.inactive::before { content: "X "; color: var(--rojo-error); opacity: 0.5; }
 
         .footer-section { margin-top: auto; padding-top: 50px; }
         .credits { text-align: center; font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px;}
@@ -223,7 +242,7 @@
        +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
          =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-* =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
             ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
-       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-* .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-*** .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:::+%                               
+       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-* .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-*** .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
       :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                 
               #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                   
                          #***%      %#+==+*****++***+===+#                                          
@@ -253,36 +272,37 @@
             <div class="folder">
                 <div class="folder-title">/ALIMENTACIÓN</div>
                 <ul>
-                    <li><a href="banco-de-semillas.html" onmousedown="playClick()">Banco de Semillas</a></li>
-                    <li><a href="#" onmousedown="playClick()">Compostaje Rápido</a></li>
-                    <li><a href="#" onmousedown="playClick()">Invernaderos DIY</a></li>
+                    <li><a href="banco-de-semillas.html" class="active" onmousedown="playClick()">Banco de Semillas</a></li>
+                    
+                    <li><a href="#" class="inactive" title="Archivo no encontrado">Compostaje Rápido</a></li>
+                    <li><a href="#" class="inactive" title="Archivo no encontrado">Invernaderos DIY</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/ELECTRÓNICA</div>
                 <ul>
-                    <li><a href="#" onmousedown="playClick()">AI Offline Llama3</a></li>
-                    <li><a href="#" onmousedown="playClick()">Base de Datos Offline</a></li>
-                    <li><a href="#" onmousedown="playClick()">Jammer Bluetooth</a></li>
+                    <li><a href="#" class="inactive">AI Offline Llama3</a></li>
+                    <li><a href="#" class="inactive">Base de Datos Offline</a></li>
+                    <li><a href="#" class="inactive">Jammer Bluetooth</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/INFRAESTRUCTURA</div>
                 <ul>
-                    <li><a href="#" onmousedown="playClick()">Almacenamiento Aguas</a></li>
-                    <li><a href="solar.html" onmousedown="playClick()">Energía Solar</a></li>
-                    <li><a href="#" onmousedown="playClick()">Radio DIY</a></li>
+                    <li><a href="#" class="inactive">Almacenamiento Aguas</a></li>
+                    <li><a href="solar.html" class="active" onmousedown="playClick()">Energía Solar</a></li> 
+                    <li><a href="#" class="inactive">Radio DIY</a></li>
                 </ul>
             </div>
 
             <div class="folder">
                 <div class="folder-title">/SALUD</div>
                 <ul>
-                    <li><a href="#" onmousedown="playClick()">Fitoterapia</a></li>
-                    <li><a href="#" onmousedown="playClick()">Patologías del Colapso</a></li>
-                    <li><a href="#" onmousedown="playClick()">RCP Básico</a></li>
+                    <li><a href="#" class="inactive">Fitoterapia</a></li>
+                    <li><a href="#" class="inactive">Patologías del Colapso</a></li>
+                    <li><a href="#" class="inactive">RCP Básico</a></li>
                 </ul>
             </div>
         </div>
