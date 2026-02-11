@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROTOCOLO: DATA_ARK</title>
+    <style>
+        /* --- NÚCLEO ESTÉTICO MOLUSCOS --- */
+        :root {
+            --fondo: #000000;
+            --verde: #00FF00;    
+            --rojo-error: rgba(255, 60, 60, 0.8);
+            --ambar: #FFB000;
+            --blanco: #FFFFFF;
+            --gris:  #333333;
+            --cyan: #00FFFF; /* Color especial para datos/software */
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 10px; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px; 
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            border-left: 1px dashed var(--cyan);
+            padding-left: 15px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--cyan);
+            color: var(--cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            background: var(--cyan);
+            color: #000;
+            padding: 5px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: justify;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* CAJA DE DATOS */
+        .data-box {
+            border: 1px solid var(--verde);
+            background: rgba(0, 255, 0, 0.05);
+            padding: 10px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted var(--gris);
+            padding: 5px 0;
+        }
+        .data-row:last-child { border-bottom: none; }
+
+        .step {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--gris);
+            padding-bottom: 15px;
+        }
+        .step-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--cyan);
+            float: left;
+            margin-right: 15px;
+            line-height: 1;
+        }
+
+        /* BOTÓN REGRESAR */
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--fondo);
+            color: var(--cyan);
+            border: 2px solid var(--cyan);
+            padding: 15px 30px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            z-index: 1000;
+            cursor: pointer;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .back-btn:active {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        .ascii-mini {
+            font-size: 6px;
+            line-height: 6px;
+            color: var(--cyan);
+            white-space: pre;
+            text-align: center;
+            margin: 20px 0;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="ascii-mini">
+      ________________
+     /               /|
+    /_______________/ |
+    |  ___________  | |
+    | |  KIWIX    | | |
+    | |   .ZIM    | | |
+    | |___________| | |
+    |  ___________  | |
+    | | DOWNLOAD  | | |
+    | | COMPLETE  | | |
+    | |___________| | |
+    |_______________|/
+     SERVER_STATUS: OK
+    </div>
+
+    <h1>:: RECURSO_02: BASE_DE_DATOS_OFFLINE</h1>
+
+    <p>
+        <strong>NIVEL:</strong> 1 (Técnica Real / Supervivencia)<br>
+        <strong>ESTADO:</strong> ACTIVO - SINCRONIZACIÓN 2025<br>
+        <strong>HARDWARE:</strong> RASPBERRY PI 5 + 512GB SD
+    </p>
+
+    <div class="data-box">
+        <div class="data-row"><span>WIKIPEDIA_ES</span><span>42 GB</span></div>
+        <div class="data-row"><span>iFIXIT_REPAIR</span><span>12 GB</span></div>
+        <div class="data-row"><span>MEDICINA_HESPERIAN</span><span>500 MB</span></div>
+        <div class="data-row"><span>GUTENBERG_LIBROS</span><span>60 GB</span></div>
+        <div class="data-row"><span>MAPAS_OSM_COL</span><span>2 GB</span></div>
+    </div>
+
+    <h2>01. EL PROBLEMA</h2>
+    <p>
+        Cuando cayó la "Nube", perdimos la memoria externa de la humanidad. No podemos depender de servidores en California que ya están bajo el agua o apagados. Necesitamos una copia local, dura y tangible del conocimiento humano.
+    </p>
+
+    <h2>02. LA SOLUCIÓN (KIWIX)</h2>
+    <p>
+        Usamos el protocolo <strong>KIWIX</strong>. Es un navegador offline que lee archivos comprimidos formato <strong>.ZIM</strong>. Es como meter todo el internet en una botella (o en una tarjeta SD).
+    </p>
+
+    <h2>03. CÓMO REPLICAR ESTE NODO</h2>
+
+    <div class="step">
+        <span class="step-number">A</span>
+        <strong>CONSEGUIR EL CONTENEDOR</strong><br>
+        Necesitas almacenamiento masivo. Discos duros SSD o Tarjetas MicroSD de clase industrial. El conocimiento pesa, pero pesa menos que la ignorancia.
+    </div>
+
+    <div class="step">
+        <span class="step-number">B</span>
+        <strong>DESCARGA DE ARTEFACTOS (.ZIM)</strong><br>
+        Si encuentras un nodo con conexión satelital activa, busca la librería Kiwix. Descarga los archivos .ZIM más críticos: Medicina, Agricultura, Ingeniería Mecánica. Prioriza texto sobre video para ahorrar espacio.
+    </div>
+
+    <div class="step">
+        <span class="step-number">C</span>
+        <strong>SERVIDOR LOCAL (HOTSPOT)</strong><br>
+        Configura la Raspberry Pi como un punto de acceso Wi-Fi (Hotspot).<br>
+        > SSID: MOLUSCOS_LOCAL<br>
+        > PASS: (Abierta)<br>
+        Cualquier dispositivo antiguo (celular, tablet) podrá conectarse y navegar la biblioteca sin salir a internet.
+    </div>
+
+    <p style="color: var(--ambar); border: 1px dashed var(--ambar); padding: 5px;">
+        <strong>NOTA DEL ARCHIVISTA:</strong> El conocimiento no actualizado se pudre. Si encuentras nueva información sobre patrones climáticos o botánica mutante, escríbela en la carpeta /LOCAL_WIKI.
+    </p>
+
+</div>
+
+<a href="index.html" class="back-btn" onmousedown="playSound()">
+    << VOLVER AL NODO
+</a>
+
+<script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playSound() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        /* Sonido tipo "computadora procesando" - Onda senoidal pura */
+        osc.type = 'sine'; 
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+</script>
+
+</body>
+</html>
