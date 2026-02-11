@@ -3,139 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROTOCOLO: DATA_ARK</title>
+    <title>PROYECTO: ARCA_OFFLINE</title>
     <style>
         /* --- NÚCLEO ESTÉTICO MOLUSCOS --- */
         :root {
             --fondo: #000000;
             --verde: #00FF00;    
             --rojo-error: rgba(255, 60, 60, 0.8);
-            --ambar: #FFB000;
             --blanco: #FFFFFF;
             --gris:  #333333;
-            --cyan: #00FFFF; /* Color especial para datos/software */
+            /* TEMA ARCA: ÁMBAR (MEMORIA/ARCHIVO) */
+            --arca: #FFB000; 
         }
 
         * { box-sizing: border-box; }
 
         body {
             background-color: var(--fondo);
-            color: var(--verde);
+            color: var(--arca);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 10px; 
+            padding: 5px; 
             min-height: 100vh;
-            overflow-x: hidden;
-            padding-bottom: 80px; 
+            display: flex;
+            justify-content: center;
         }
 
         .container {
-            max-width: 720px;
-            margin: 0 auto;
-            border-left: 1px dashed var(--cyan);
-            padding-left: 15px;
+            width: 100%;
+            min-height: calc(100vh - 10px); 
+            /* MARCO SÓLIDO */
+            border: 2px solid var(--arca); 
+            padding: 15px;
+            position: relative;
+            background: rgba(20, 10, 0, 0.8); /* Fondo sutilmente cálido */
+            box-shadow: inset 0 0 20px rgba(255, 176, 0, 0.1);
+            padding-bottom: 80px;
         }
 
+        /* --- BOTÓN REGRESAR --- */
+        .top-btn {
+            display: inline-block;
+            background: var(--arca);
+            color: var(--fondo);
+            padding: 5px 10px;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border: 1px solid var(--arca);
+        }
+        .top-btn:active { transform: translate(1px, 1px); background: var(--blanco); }
+
+        /* --- TIPOGRAFÍA --- */
         h1 {
             font-size: 1.4rem;
-            border-bottom: 2px solid var(--cyan);
-            color: var(--cyan);
+            border-bottom: 1px dashed var(--arca);
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin: 0 0 20px 0;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: 1px;
+            color: var(--arca);
+            text-shadow: 0 0 5px rgba(255, 176, 0, 0.5);
+            word-wrap: break-word;
         }
 
         h2 {
-            font-size: 1.1rem;
-            background: var(--cyan);
-            color: #000;
-            padding: 5px;
-            margin-top: 30px;
-            text-transform: uppercase;
+            display: inline-block;
+            background: var(--arca);
+            color: var(--fondo);
+            padding: 2px 6px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            margin-bottom: 10px;
             font-weight: 900;
-        }
-
-        p {
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: justify;
-            color: #ddd;
-            margin-bottom: 15px;
-        }
-
-        /* CAJA DE DATOS */
-        .data-box {
-            border: 1px solid var(--verde);
-            background: rgba(0, 255, 0, 0.05);
-            padding: 10px;
-            font-size: 12px;
-            margin-bottom: 20px;
-        }
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dotted var(--gris);
-            padding: 5px 0;
-        }
-        .data-row:last-child { border-bottom: none; }
-
-        .step {
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--gris);
-            padding-bottom: 15px;
-        }
-        .step-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--cyan);
-            float: left;
-            margin-right: 15px;
-            line-height: 1;
-        }
-
-        /* BOTÓN REGRESAR */
-        .back-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--fondo);
-            color: var(--cyan);
-            border: 2px solid var(--cyan);
-            padding: 15px 30px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
             text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-            z-index: 1000;
-            cursor: pointer;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            text-decoration: none;
-        }
-        .back-btn:active {
-            background: var(--cyan);
-            color: #000;
         }
 
-        .ascii-mini {
+        p, li {
+            font-size: 13px;
+            line-height: 1.4;
+            color: #ddd;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        strong { color: var(--arca); }
+
+        /* --- LAYOUT --- */
+        .layout-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        @media (min-width: 600px) {
+            .layout-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* --- CAJA VISUAL --- */
+        .visual-box {
+            border: 1px dotted var(--arca);
+            padding: 15px;
+            text-align: center;
+            background: rgba(255, 176, 0, 0.05);
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .ascii-art {
             font-size: 6px;
             line-height: 6px;
-            color: var(--cyan);
+            color: var(--blanco);
             white-space: pre;
-            text-align: center;
-            margin: 20px 0;
-            opacity: 0.8;
+            margin-bottom: 15px;
+            overflow-x: hidden;
         }
+
+        .caption {
+            color: var(--arca);
+            font-size: 10px;
+            text-transform: uppercase;
+            border-top: 1px dotted var(--gris);
+            padding-top: 5px;
+        }
+
+        /* --- LISTAS --- */
+        ol { padding-left: 15px; color: var(--gris); margin: 0; }
+        ol li { margin-bottom: 15px; }
+        ol li::marker { content: counter(list-item) "> "; color: var(--arca); font-weight: bold; font-family: monospace; }
+        
+        .warning {
+            color: var(--rojo-error);
+            border: 1px solid var(--rojo-error);
+            background: rgba(50, 0, 0, 0.3);
+            padding: 8px;
+            font-size: 11px;
+            margin: 15px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* --- CONTROLES DE SCROLL --- */
+        .nav-pad {
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .nav-btn {
+            background: rgba(0,0,0,0.9); 
+            color: var(--arca); 
+            border: 2px solid var(--arca);
+            width: 50px; 
+            height: 50px; 
+            font-size: 20px; 
+            cursor: crosshair;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px var(--arca); 
+            opacity: 0.9;
+        }
+        .nav-btn:active { background: var(--arca); color: #000; transform: scale(0.95); }
+
     </style>
 </head>
 <body>
 
+<div class="nav-pad">
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
+</div>
+
 <div class="container">
 
-    <div class="ascii-mini">
+    <a href="index.html" class="top-btn" onmousedown="playClick()"> < REGRESAR </a>
+
+    <h1>PROYECTO: ARCA OFFLINE</h1>
+
+    <div class="layout-grid">
+        
+        <div class="content-col">
+            
+            <h2>00_RESUMEN</h2>
+            <p>
+                Cuando cayó la "Nube", perdimos la memoria externa de la humanidad. El Arca es una copia local, dura y tangible del conocimiento crítico (Medicina, Ingeniería, Agricultura) alojada en una Raspberry Pi.
+            </p>
+
+            <div class="warning">
+                [!] ADVERTENCIA: MANTENER ALEJADO DE IMANES POTENTES. COPIA ÚNICA. SIN BACKUP EN LA NUBE.
+            </div>
+
+            <h2>01_PASOS_CRITICOS</h2>
+            
+            <ol>
+                <li>
+                    <strong>El Contenedor:</strong> Usamos una tarjeta MicroSD de clase industrial o SSD. El conocimiento pesa, pero pesa menos que la ignorancia.
+                </li>
+                <li>
+                    <strong>Protocolo Kiwix:</strong> Software que comprime todo Internet en archivos .ZIM. Permite navegar Wikipedia sin conexión como si fuera 2020.
+                </li>
+                <li>
+                    <strong>Servidor Local:</strong> La Raspberry emite su propia red Wi-Fi ("MOLUSCOS_LOCAL"). Cualquier dispositivo antiguo puede conectarse y descargar libros.
+                </li>
+                <li>
+                    <strong>Mantenimiento:</strong> El dato estático se pudre. Si encuentras nueva información sobre el clima local, actualiza la Wiki manualmente.
+                </li>
+            </ol>
+        </div>
+
+        <div class="visual-box">
+            <div class="ascii-art">
       ________________
      /               /|
     /_______________/ |
@@ -148,78 +230,35 @@
     | | COMPLETE  | | |
     | |___________| | |
     |_______________|/
-     SERVER_STATUS: OK
+            </div>
+            
+            <div class="ascii-art" style="color: var(--arca); text-align: left; font-size: 9px; line-height: 12px; margin-bottom:0;">
+        [ DATA_BANK ]
+        > Wikipedia_ES (42GB)
+        > iFixit_Repair (12GB)
+        > Medicina_Hesperian
+        > Mapas_OSM_COL
+            </div>
+
+            <div class="caption">
+                [ ESTADO: SERVIDOR ACTIVO ]
+            </div>
+        </div>
+
     </div>
-
-    <h1>:: RECURSO_02: BASE_DE_DATOS_OFFLINE</h1>
-
-    <p>
-        <strong>NIVEL:</strong> 1 (Técnica Real / Supervivencia)<br>
-        <strong>ESTADO:</strong> ACTIVO - SINCRONIZACIÓN 2025<br>
-        <strong>HARDWARE:</strong> RASPBERRY PI 5 + 512GB SD
-    </p>
-
-    <div class="data-box">
-        <div class="data-row"><span>WIKIPEDIA_ES</span><span>42 GB</span></div>
-        <div class="data-row"><span>iFIXIT_REPAIR</span><span>12 GB</span></div>
-        <div class="data-row"><span>MEDICINA_HESPERIAN</span><span>500 MB</span></div>
-        <div class="data-row"><span>GUTENBERG_LIBROS</span><span>60 GB</span></div>
-        <div class="data-row"><span>MAPAS_OSM_COL</span><span>2 GB</span></div>
-    </div>
-
-    <h2>01. EL PROBLEMA</h2>
-    <p>
-        Cuando cayó la "Nube", perdimos la memoria externa de la humanidad. No podemos depender de servidores en California que ya están bajo el agua o apagados. Necesitamos una copia local, dura y tangible del conocimiento humano.
-    </p>
-
-    <h2>02. LA SOLUCIÓN (KIWIX)</h2>
-    <p>
-        Usamos el protocolo <strong>KIWIX</strong>. Es un navegador offline que lee archivos comprimidos formato <strong>.ZIM</strong>. Es como meter todo el internet en una botella (o en una tarjeta SD).
-    </p>
-
-    <h2>03. CÓMO REPLICAR ESTE NODO</h2>
-
-    <div class="step">
-        <span class="step-number">A</span>
-        <strong>CONSEGUIR EL CONTENEDOR</strong><br>
-        Necesitas almacenamiento masivo. Discos duros SSD o Tarjetas MicroSD de clase industrial. El conocimiento pesa, pero pesa menos que la ignorancia.
-    </div>
-
-    <div class="step">
-        <span class="step-number">B</span>
-        <strong>DESCARGA DE ARTEFACTOS (.ZIM)</strong><br>
-        Si encuentras un nodo con conexión satelital activa, busca la librería Kiwix. Descarga los archivos .ZIM más críticos: Medicina, Agricultura, Ingeniería Mecánica. Prioriza texto sobre video para ahorrar espacio.
-    </div>
-
-    <div class="step">
-        <span class="step-number">C</span>
-        <strong>SERVIDOR LOCAL (HOTSPOT)</strong><br>
-        Configura la Raspberry Pi como un punto de acceso Wi-Fi (Hotspot).<br>
-        > SSID: MOLUSCOS_LOCAL<br>
-        > PASS: (Abierta)<br>
-        Cualquier dispositivo antiguo (celular, tablet) podrá conectarse y navegar la biblioteca sin salir a internet.
-    </div>
-
-    <p style="color: var(--ambar); border: 1px dashed var(--ambar); padding: 5px;">
-        <strong>NOTA DEL ARCHIVISTA:</strong> El conocimiento no actualizado se pudre. Si encuentras nueva información sobre patrones climáticos o botánica mutante, escríbela en la carpeta /LOCAL_WIKI.
-    </p>
-
 </div>
-
-<a href="index.html" class="back-btn" onmousedown="playSound()">
-    << VOLVER AL NODO
-</a>
 
 <script>
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playSound() {
+    
+    function playClick() {
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        /* Sonido tipo "computadora procesando" - Onda senoidal pura */
-        osc.type = 'sine'; 
-        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+        /* Sonido tipo "computadora antigua procesando" */
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
         gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
         osc.connect(gain);
@@ -227,6 +266,9 @@
         osc.start();
         osc.stop(audioCtx.currentTime + 0.1);
     }
+
+    function scrollDown() { window.scrollBy({ top: 300, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -300, behavior: 'smooth' }); }
 </script>
 
 </body>
