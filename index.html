@@ -13,6 +13,7 @@
             --ambar: #FFB000;
             --blanco: #FFFFFF;
             --gris:  #333333;
+            --rojo-estrella: #FF0000; /* Rojo intenso para la estrella */
         }
 
         /* PARCHE DE SEGURIDAD PARA RASPBERRY */
@@ -79,6 +80,11 @@
             text-align: left; 
             margin: 0; 
             text-shadow: 0 0 2px var(--verde);
+        }
+        /* Estilo para la estrella roja */
+        .star-red {
+            color: var(--rojo-estrella);
+            text-shadow: 0 0 2px var(--rojo-estrella);
         }
 
         h1 {
@@ -214,7 +220,7 @@
     </div>
 
     <div class="ascii-wrapper">
-<pre style="font-family: 'Courier New', monospace; font-weight: bold; line-height: 4px; font-size: 4px; color: #00FF00;">
+<pre>
                                                                                                 
                                                                                                 
                                                                                                 
@@ -225,12 +231,12 @@
                                                        =-=         +=+            
                                                        --=         =-#            
                                                        =-=        +-=             
-                                                       +=-@       -+:* =+:* =--%             
-                                                       ----       +-+              
-                                                       -=+:+     =+-%              
-                                                        ==:-     +=-               
-                                                        +==-=   -+=-               
-                                                        +==::====--               
+                                                       +=-@       <span class="star-red">-+:*</span> =+:* =--%             
+                                                       ----       <span class="star-red">+-+</span>              
+                                                       -=+:+     <span class="star-red">=+-%</span>              
+                                                        ==:-     <span class="star-red">+=-</span>               
+                                                        +==-=   <span class="star-red">-+=-</span>               
+                                                        +==::<span class="star-red">====--</span>               
                       *++=++++#*+*####%#++                       ==+-=--***+++             
                  +*+==++-+==*%##**==--:-+#++=* ++*++:--=-==++==:-=        
               -+---::::-:---*##+=+##*=-:.+####++* %+#*+---:-:=-----++==-::=    
