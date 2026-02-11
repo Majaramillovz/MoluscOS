@@ -3,212 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROTOCOLO: EXO_ORQUIDEA</title>
+    <title>MOLUSCOS // EXO_FLORA</title>
     <style>
-        /* --- NÚCLEO ESTÉTICO MOLUSCOS --- */
+        /* --- TEMA VISUAL: MAGENTA (VIDA/BOTÁNICA_CYBER) --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;    
-            --rojo-error: rgba(255, 60, 60, 0.8);
-            --ambar: #FFB000;
-            --blanco: #FFFFFF;
+            --tema: #FF00FF; /* Magenta */
             --gris:  #333333;
-            --magenta: #FF00FF; /* Color para Vida Orgánica/Floral */
+        }
+        * { box-sizing: border-box; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--fondo);
+            overflow-x: hidden;
         }
 
-        * { box-sizing: border-box; }
-
         body {
-            background-color: var(--fondo);
-            color: var(--verde);
+            color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 10px; 
-            min-height: 100vh;
-            overflow-x: hidden;
-            padding-bottom: 80px; 
+            display: flex;
+            justify-content: center; /* Centrado estricto */
+            padding: 5px;
         }
 
         .container {
-            max-width: 720px;
-            margin: 0 auto;
-            border-left: 1px dashed var(--magenta);
-            padding-left: 15px;
-        }
-
-        h1 {
-            font-size: 1.4rem;
-            border-bottom: 2px solid var(--magenta);
-            color: var(--magenta);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            background: var(--magenta);
-            color: #000;
-            padding: 5px;
-            margin-top: 30px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        p {
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: justify;
-            color: #ddd;
-            margin-bottom: 15px;
-        }
-
-        /* CAJA DE DIAGNÓSTICO */
-        .bio-box {
-            border: 1px dotted var(--magenta);
+            width: 100%;
+            max-width: 720px; /* Ancho restringido */
+            min-height: calc(100vh - 10px);
+            border: 2px solid var(--tema);
             padding: 15px;
-            background: rgba(255, 0, 255, 0.05);
-            margin-bottom: 20px;
-        }
-        .bio-stat {
+            background: rgba(20, 0, 20, 0.8); /* Fondo magenta muy oscuro */
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 12px;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 80px; 
+            box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.15);
         }
 
-        .step {
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--gris);
-            padding-bottom: 15px;
-        }
-        .step-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--magenta);
-            float: left;
-            margin-right: 15px;
-            line-height: 1;
-        }
-
-        /* BOTÓN REGRESAR */
-        .back-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--fondo);
-            color: var(--magenta);
-            border: 2px solid var(--magenta);
-            padding: 15px 30px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
-            z-index: 1000;
-            cursor: pointer;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            text-decoration: none;
-        }
-        .back-btn:active {
-            background: var(--magenta);
+        .back-link {
+            display: inline-block;
             color: #000;
+            background: var(--tema);
+            padding: 5px 12px;
+            text-decoration: none;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            width: fit-content;
+            box-shadow: 2px 2px 0px var(--gris);
         }
+        .back-link:active { transform: translate(1px, 1px); box-shadow: none; }
 
-        .ascii-mini {
+        h1 { 
+            border-bottom: 2px solid var(--tema); 
+            padding-bottom: 10px; 
+            font-size: 1.3rem; 
+            text-transform: uppercase; 
+            margin-top: 0; 
+            text-shadow: 0 0 5px var(--tema); 
+        }
+        
+        h2 { 
+            background: var(--tema); 
+            color: #000; 
+            display: inline-block; 
+            padding: 3px 8px; 
+            font-size: 0.9rem; 
+            margin-top: 30px; 
+            font-weight: bold; 
+        }
+        
+        p { line-height: 1.5; color: #ddd; font-size: 0.95rem; text-align: justify; }
+        
+        /* DIAGRAMAS ASCII */
+        .ascii-diagram {
+            font-family: monospace;
+            white-space: pre;
+            color: var(--tema);
+            font-weight: bold;
             font-size: 8px;
             line-height: 8px;
-            color: var(--verde);
-            white-space: pre;
+            background: rgba(20, 0, 20, 0.5);
+            padding: 15px;
+            border: 1px solid var(--tema);
+            margin: 15px 0;
+            overflow-x: auto;
             text-align: center;
-            margin: 20px 0;
-            opacity: 0.9;
         }
-        .flower { color: var(--magenta); font-weight: bold; }
+
+        ol { color: #ddd; line-height: 1.6; padding-left: 20px; }
+        li { margin-bottom: 12px; }
+        strong { color: var(--tema); }
+
+        .warning {
+            border: 1px solid var(--tema);
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 0.8rem;
+            color: #fff;
+            background: rgba(255, 0, 255, 0.15);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
+        .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
+
+        /* --- BOTONES DE NAVEGACIÓN (IDENTICOS AL INDEX) --- */
+        .nav-pad {
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .nav-btn {
+            background: rgba(0,0,0,0.8); color: var(--tema); border: 2px solid var(--tema);
+            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px var(--tema); opacity: 0.7;
+        }
+        .nav-btn:active { background: var(--tema); color: #000; }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-
-    <div class="ascii-mini">
-          <span class="flower">_(@)_</span>  <-- EPIFITA
-         <span class="flower">/  |  \</span>
-        [ SERVO ]
-          |   |
-        __|   |__
-       /  SYSTEM \
-      |  ROBOTIC  |
-       \ SUPPORT /
-    </div>
-
-    <h1>:: PROTOCOLO_11: PRÓTESIS_PARA_EPÍFITAS</h1>
-
-    <p>
-        <strong>NIVEL:</strong> 3 (Especulación Inter-Especie)<br>
-        <strong>PACIENTE:</strong> Bromelias y Orquídeas Desplazadas<br>
-        <strong>ESTADO:</strong> SIMBIOSIS ARTIFICIAL ACTIVA
-    </p>
-
-    <div class="bio-box">
-        <div class="bio-stat"><span>HOST_NATURAL:</span><span style="color:var(--rojo-error)">EXTINTO (ROBLE)</span></div>
-        <div class="bio-stat"><span>HOST_ARTIFICIAL:</span><span style="color:var(--verde)">ACTIVO (PVC/SERVO)</span></div>
-        <div class="bio-stat"><span>HUMEDAD_CORTEZA:</span><span>EMULADA (85%)</span></div>
-        <div class="bio-stat"><span>LUZ_SOLAR:</span><span>SEGUIMIENTO AUTOMÁTICO</span></div>
-    </div>
-
-    <h2>01. EL DUELO BOTÁNICO</h2>
-    <p>
-        Con la tala de los grandes árboles urbanos en 2050, las epífitas (plantas que viven sobre otras) cayeron al asfalto caliente. No necesitan tierra, necesitan altura y un cuerpo al cual aferrarse. Si la naturaleza ya no provee árboles, nosotros construiremos árboles protésicos.
-    </p>
-
-    <h2>02. ANATOMÍA DEL DISPOSITIVO</h2>
-    <p>
-        Una estructura impresa en 3D o ensamblada con tubería PVC reciclada que imita la rugosidad de la corteza.
-    </p>
-    <ul>
-        <li><strong>La Garra:</strong> Sujeta la planta sin estrangularla.</li>
-        <li><strong>La Piel:</strong> Esponjas viejas y fibra de coco que retienen la humedad de la niebla matutina.</li>
-        <li><strong>El Motor:</strong> Un micro-servo que rota lentamente siguiendo la luz indirecta (o huyendo del sol directo, según la especie).</li>
-    </ul>
-
-    <h2>03. LÓGICA DE SUPERVIVENCIA</h2>
-
-    <div class="step">
-        <span class="step-number">A</span>
-        <strong>HELIOTROPISMO INVERSO</strong><br>
-        Las orquídeas de niebla odian el sol directo del mediodía de 2066 (UV extremo). El sensor de luz (LDR) detecta el pico de radiación y el motor gira la prótesis para poner a la planta bajo su propia sombra artificial.
-    </div>
-
-    <div class="step">
-        <span class="step-number">B</span>
-        <strong>COSECHA DE NIEBLA</strong><br>
-        La estructura incluye mallas de nylon (medias veladas recicladas) que condensan el agua del aire y la gotean directamente en las raíces expuestas de la planta.
-    </div>
-
-    <div class="step">
-        <span class="step-number">C</span>
-        <strong>CUIDADOS INTENSIVOS</strong><br>
-        Si el sensor de humedad de suelo (capacitivo) detecta sequedad crítica (<30%), el dispositivo emite un "chirrido" agudo para alertar al humano cuidador. La planta aprendió a gritar.
-    </div>
-
+<div class="nav-pad">
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
 </div>
 
-<a href="index.html" class="back-btn" onmousedown="playChirp()">
-    << DESCONECTAR SIMBIOSIS
-</a>
+<div class="container">
+    <a href="index.html" class="back-link" onmousedown="playChirp()">< REGRESAR</a>
+    
+    <h1>PROYECTO: PRÓTESIS PARA EPÍFITAS</h1>
+    
+    <section>
+        <p>Con la tala de los grandes árboles urbanos en 2050, las epífitas cayeron al asfalto. No necesitan tierra, necesitan altura. Si la naturaleza ya no provee árboles, nosotros construiremos exoesqueletos para ellas.</p>
+        
+        <div class="warning">
+            [!] ESTADO: SIMBIOSIS ARTIFICIAL ACTIVA. NO DESCONECTAR SENSORES DE HUMEDAD.
+        </div>
+    </section>
+
+    <section>
+        <h2>ANATOMÍA DEL CUIDADO</h2>
+        <p>Una estructura de PVC reciclado y servomotores que imita las funciones biológicas de un árbol anfitrión.</p>
+        
+        <div class="ascii-diagram">
+      _(@)_  <-- ORQUIDEA
+     /  |  \
+    [ SERVO ]
+      |   |
+    __|   |__
+   /  SYSTEM \
+  |  ROBOTIC  |
+   \ SUPPORT /
+        </div>
+
+        <ol>
+            <li><strong>La Garra:</strong> Sujeción no invasiva impresa en 3D o moldeada, diseñada para no estrangular las raíces aéreas.</li>
+            <li><strong>Heliotropismo Inverso:</strong> Un sensor LDR detecta el exceso de radiación UV (común en el Super-Niño) y gira la planta hacia su propia sombra artificial.</li>
+            <li><strong>Cosecha de Niebla:</strong> Mallas de nylon condensan la humedad matutina y la dirigen por capilaridad hacia el sustrato de fibra de coco.</li>
+            <li><strong>Alerta Sonora:</strong> Si la humedad crítica baja del 30%, el dispositivo emite un "chirrido" digital para solicitar asistencia humana.</li>
+        </ol>
+    </section>
+
+    <div class="footer-section">
+        <div class="credits">
+            [MOLUSCOS] -- NODO LOCAL -- [GPLv3]
+        </div>
+    </div>
+</div>
 
 <script>
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playClick() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+
     function playChirp() {
+        // Sonido de "Pájaro Digital / Grillo Cibernético" al volver
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         
-        // Sonido tipo "Grillo Cibernético" o "Pájaro Glitch"
         osc.type = 'sine';
         osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
         osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.1);
@@ -223,6 +217,9 @@
         osc.start();
         osc.stop(audioCtx.currentTime + 0.3);
     }
+
+    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
 
 </body>
