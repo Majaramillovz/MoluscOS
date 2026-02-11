@@ -160,15 +160,16 @@
         }
 
         /* --- CONTROLES DE SCROLL (NAV-PAD) --- */
+        /* Ajustados para coincidir exactamente con index.html (50px) */
         .nav-pad {
             position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             display: flex; flex-direction: column; gap: 15px;
         }
         .nav-btn {
             background: rgba(0,0,0,0.9); color: var(--mylar); border: 2px solid var(--mylar);
-            width: 60px; height: 60px; font-size: 24px; cursor: crosshair;
+            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 10px var(--mylar); opacity: 0.8;
             transition: all 0.1s;
         }
         .nav-btn:active { background: var(--mylar); color: #000; transform: scale(0.95); }
