@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MOLUSCOS // JAMMER</title>
+    <title>MOLUSCOS // ARCA</title>
     <style>
-        /* --- TEMA VISUAL: ROJO (PELIGRO/ARMA/DEFENSA) --- */
+        /* --- TEMA VISUAL: ÁMBAR (MEMORIA/ARCHIVO/RETRO) --- */
         :root {
             --fondo: #000000;
-            --tema: #FF4444; /* Rojo Alerta */
+            --tema: #FFB000; /* Ámbar */
             --gris:  #333333;
         }
         * { box-sizing: border-box; }
@@ -26,22 +26,22 @@
             color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
-            justify-content: center; /* Centrado horizontal estricto */
+            justify-content: center; /* Centrado estricto */
             padding: 5px;
         }
 
         .container {
             width: 100%;
-            max-width: 720px; /* Ancho restringido igual al Banco de Semillas */
+            max-width: 720px; /* Ancho restringido */
             min-height: calc(100vh - 10px);
             border: 2px solid var(--tema);
             padding: 15px;
-            background: rgba(20, 0, 0, 0.8); /* Fondo rojizo muy oscuro */
+            background: rgba(20, 10, 0, 0.8); /* Fondo ámbar muy oscuro */
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 80px; /* Espacio para no tapar contenido */
-            box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.1);
+            padding-bottom: 80px; 
+            box-shadow: inset 0 0 20px rgba(255, 176, 0, 0.1);
         }
 
         .back-link {
@@ -88,7 +88,7 @@
             font-weight: bold;
             font-size: 8px;
             line-height: 8px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(20, 10, 0, 0.5);
             padding: 15px;
             border: 1px solid var(--tema);
             margin: 15px 0;
@@ -106,13 +106,10 @@
             margin: 15px 0;
             font-size: 0.8rem;
             color: #fff;
-            background: rgba(255, 0, 0, 0.2);
+            background: rgba(255, 176, 0, 0.15);
             text-align: center;
             font-weight: bold;
-            animation: blink 2s infinite;
         }
-
-        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.7;} 100% {opacity: 1;} }
 
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
@@ -140,38 +137,43 @@
 </div>
 
 <div class="container">
-    <a href="index.html" class="back-link" onmousedown="playStatic()">< CORTAR SEÑAL</a>
+    <a href="index.html" class="back-link" onmousedown="playProcess()">< REGRESAR</a>
     
-    <h1>PROYECTO: JAMMING CONTRA DRONES</h1>
+    <h1>PROYECTO: ARCA OFFLINE</h1>
     
     <section>
-        <p>Los drones policiales y corporativos "escuchan" en 2.4GHz. Si gritamos electrónicamente más fuerte que su piloto, entran en modo "Failsafe" y aterrizan. No es derribo cinético, es negación de área.</p>
+        <p>Cuando cayó la "Nube", perdimos la memoria externa de la humanidad. El Arca es una copia local, dura y tangible del conocimiento crítico (Medicina, Ingeniería, Agricultura) alojada en este dispositivo.</p>
         
         <div class="warning">
-            [!] PELIGRO: ILEGAL BAJO LEY MARCIAL 2060. USAR SOLO EN DEFENSA DE HÁBITAT.
+            [!] ADVERTENCIA: MANTENER ALEJADO DE IMANES POTENTES. COPIA ÚNICA SIN BACKUP REMOTO.
         </div>
     </section>
 
     <section>
-        <h2>ARQUITECTURA DEL RUIDO</h2>
-        <p>Usamos un chip IoT común (ESP8266) montado en una guía de ondas direccional (lata) para enfocar la interferencia.</p>
+        <h2>PROTOCOLO DE PRESERVACIÓN</h2>
+        <p>Este nodo utiliza tecnología Kiwix para comprimir librerías enteras en archivos .ZIM, permitiendo navegación web sin internet.</p>
         
         <div class="ascii-diagram">
-      \ /
-  -- ( X ) --  < DRONE
-      / \      (PÉRDIDA DE ENLACE)
-       ^
-       |
-       |  < RUIDO DIRIGIDO
-      [ ]
-    (LATA)
+      ________________
+     /               /|
+    /_______________/ |
+    |  ___________  | |
+    | |  KIWIX    | | |
+    | |   .ZIM    | | |
+    | |___________| | |
+    |  ___________  | |
+    | | DOWNLOAD  | | |
+    | | COMPLETE  | | |
+    | |___________| | |
+    |_______________|/
+     STATUS: ONLINE
         </div>
 
         <ol>
-            <li><strong>El Cerebro:</strong> Módulo NodeMCU o ESP8266. Económico y abundante en chatarra electrónica.</li>
-            <li><strong>El Software:</strong> Inyectamos paquetes de desautenticación (Deauth). Para el drone, es como si mil routers le gritaran a la vez.</li>
-            <li><strong>La Cantenna:</strong> Inserta la antena del módulo dentro de una lata de metal (Pringles/Cerveza) a 1/4 de onda del fondo. Esto convierte la señal omnidireccional en un "rifle".</li>
-            <li><strong>Uso:</strong> Apunta, activa y mantén la posición. El drone se detendrá en el aire o volverá a casa.</li>
+            <li><strong>El Contenedor:</strong> Tarjeta MicroSD de clase industrial o SSD externo. El conocimiento pesa, pero pesa menos que la ignorancia.</li>
+            <li><strong>La Red:</strong> La Raspberry emite su propia señal Wi-Fi ("MOLUSCOS_LOCAL"). Cualquier dispositivo antiguo puede conectarse y descargar los libros.</li>
+            <li><strong>Contenido Vital:</strong> Wikipedia (Compacta), iFixit (Reparaciones), Guías Médicas Hesperian, Mapas Topográficos Locales.</li>
+            <li><strong>Mantenimiento:</strong> El dato estático se pudre. Si encuentras nueva información sobre botánica mutante, actualiza la Wiki local manualmente.</li>
         </ol>
     </section>
 
@@ -186,7 +188,6 @@
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     function playClick() {
-        // Sonido normal de scroll
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
@@ -201,22 +202,25 @@
         osc.stop(audioCtx.currentTime + 0.1);
     }
 
-    function playStatic() {
-        // Sonido de Estática al volver
+    function playProcess() {
+        // Sonido de procesamiento de datos al volver
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        const bufferSize = audioCtx.sampleRate * 0.3;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
+        const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        osc.type = 'square';
+        
+        // Secuencia rápida de tonos tipo módem
+        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+        osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime + 0.2);
+        
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-        noise.connect(gain);
+        
+        osc.connect(gain);
         gain.connect(audioCtx.destination);
-        noise.start();
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
     }
 
     function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
