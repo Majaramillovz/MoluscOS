@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROTOCOLO: JAMMING_DRONES</title>
+    <style>
+        /* --- NÚCLEO ESTÉTICO MOLUSCOS --- */
+        :root {
+            --fondo: #000000;
+            --verde: #00FF00;    
+            --rojo-error: #FF3C3C;
+            --ambar: #FFB000;
+            --blanco: #FFFFFF;
+            --gris:  #333333;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 10px; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px; 
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            border-left: 1px dashed var(--rojo-error); /* Borde rojo por ser "arma" */
+            padding-left: 15px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--rojo-error);
+            color: var(--rojo-error);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            background: var(--rojo-error);
+            color: #000;
+            padding: 5px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: justify;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* CAJA DE COMPONENTES */
+        .tech-box {
+            border: 1px solid var(--verde);
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .tech-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .tech-item::before {
+            content: "[+]";
+            color: var(--verde);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .step {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--gris);
+            padding-bottom: 15px;
+        }
+        .step-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--rojo-error);
+            float: left;
+            margin-right: 15px;
+            line-height: 1;
+        }
+
+        .warning-blink {
+            color: var(--rojo-error);
+            font-weight: bold;
+            animation: blink 2s infinite;
+            text-align: center;
+            border: 2px solid var(--rojo-error);
+            padding: 10px;
+            margin: 20px 0;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        /* BOTÓN REGRESAR */
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--fondo);
+            color: var(--rojo-error);
+            border: 2px solid var(--rojo-error);
+            padding: 15px 30px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 60, 60, 0.3);
+            z-index: 1000;
+            cursor: pointer;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .back-btn:active {
+            background: var(--rojo-error);
+            color: #000;
+        }
+
+        .ascii-mini {
+            font-size: 6px;
+            line-height: 6px;
+            color: var(--rojo-error);
+            white-space: pre;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.5;} 100% {opacity: 1;} }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="ascii-mini">
+          \ /
+      -- ( X ) --  < DETECTADO
+          / \
+           |
+      ^    ^    ^
+      |    |    |
+     [!]  [!]  [!]
+     INTERFERENCIA
+     RF_2.4GHz_ON
+    </div>
+
+    <h1>:: PROTOCOLO_09: JAMMING_CONTRA_DRONES</h1>
+
+    <p>
+        <strong>NIVEL:</strong> 2 (Híbrido / Defensa)<br>
+        <strong>OBJETIVO:</strong> Negación de Área Aérea (A2/AD)<br>
+        <strong>ALCANCE:</strong> 150m (Con Antena Direccional)
+    </p>
+
+    <div class="warning-blink">
+        [!] PELIGRO: ESTE DISPOSITIVO ES ILEGAL SEGÚN LA LEY MARCIAL DE 2060. USAR SOLO EN CASO DE INVASIÓN DE HÁBITAT.
+    </div>
+
+    <h2>01. TEORÍA DEL RUIDO</h2>
+    <p>
+        Los drones comerciales y policiales "escuchan" a sus pilotos en la frecuencia 2.4GHz o 5.8GHz. Si gritamos más fuerte que el piloto (electrónicamente hablando), el drone entra en modo "Failsafe" y aterriza o regresa a casa. No derribamos el drone; lo confundimos.
+    </p>
+
+    <h2>02. ARQUITECTURA (BOM)</h2>
+    <div class="tech-box">
+        <div class="tech-item">Módulo ESP8266 (Sacado de bombillas inteligentes viejas)</div>
+        <div class="tech-item">Batería LiPo 3.7v (Reciclada de Vapes)</div>
+        <div class="tech-item">Lata de Metal (Pringles/Cerveza) -> "Cantenna"</div>
+        <div class="tech-item">Cable Coaxial (Antena TV vieja)</div>
+    </div>
+
+    <h2>03. MONTAJE TÁCTICO</h2>
+
+    <div class="step">
+        <span class="step-number">A</span>
+        <strong>FIRMWARE DE ATAQUE</strong><br>
+        Usamos el script <em>"Deauther"</em>. Este inunda el canal Wi-Fi con paquetes de desautenticación. Para el drone, es como si 1000 personas le gritaran a la vez. El MoluscOS ya incluye el binario en la carpeta /BIN.
+    </div>
+
+    <div class="step">
+        <span class="step-number">B</span>
+        <strong>LA "CANTENNA" (DIRECCIONAL)</strong><br>
+        El chip ESP8266 es débil por sí solo. Necesitamos enfocar su energía.
+        <br>1. Perfora la lata de metal a 1/4 de onda del fondo.<br>
+        2. Introduce la antena del módulo ahí.<br>
+        3. Ahora tienes un "rifle" de interferencia. Apunta directamente al drone.
+    </div>
+
+    <div class="step">
+        <span class="step-number">C</span>
+        <strong>EJECUCIÓN</strong><br>
+        Al activar el jammer, verás que el drone se detiene en el aire ("Hovering") o inicia descenso vertical. 
+        <br><em>CONSEJO:</em> Usa la Ruana de Mylar mientras operas esto para evitar detección térmica.
+    </div>
+
+</div>
+
+<a href="index.html" class="back-btn" onmousedown="playStatic()">
+    << CORTAR SEÑAL (VOLVER)
+</a>
+
+<script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playStatic() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
+        // Generar Ruido Blanco (Estática)
+        const bufferSize = audioCtx.sampleRate * 0.3; // 0.3 segundos
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+
+        noise.connect(gain);
+        gain.connect(audioCtx.destination);
+        noise.start();
+    }
+</script>
+
+</body>
+</html>
