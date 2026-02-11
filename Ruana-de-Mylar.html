@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROTOCOLO: RUANA_MYLAR</title>
+    <style>
+        /* --- NÚCLEO ESTÉTICO MOLUSCOS --- */
+        :root {
+            --fondo: #000000;
+            --verde: #00FF00;    
+            --rojo-error: rgba(255, 60, 60, 0.8);
+            --ambar: #FFB000;
+            --blanco: #FFFFFF;
+            --gris:  #333333;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--verde);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 10px; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Espacio para el botón de volver */
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            border-left: 1px dashed var(--gris);
+            padding-left: 15px;
+        }
+
+        /* TIPOGRAFÍA Y JERARQUÍA */
+        h1 {
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--verde);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            word-break: break-all;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            background: var(--verde);
+            color: var(--fondo);
+            padding: 5px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: justify;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* ELEMENTOS DE TUTORIAL */
+        .materials-box {
+            border: 1px dotted var(--ambar);
+            padding: 15px;
+            background: rgba(255, 176, 0, 0.05);
+        }
+        .materials-list li {
+            margin-bottom: 8px;
+            list-style: square;
+            color: var(--ambar);
+        }
+
+        .step {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--gris);
+            padding-bottom: 15px;
+        }
+        .step-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--gris);
+            float: left;
+            margin-right: 15px;
+            line-height: 1;
+        }
+        .step-title {
+            font-weight: bold;
+            color: var(--blanco);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* BOTÓN REGRESAR (FLOTANTE) */
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--fondo);
+            color: var(--verde);
+            border: 2px solid var(--verde);
+            padding: 15px 30px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+            z-index: 1000;
+            cursor: pointer;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .back-btn:active {
+            background: var(--verde);
+            color: var(--fondo);
+        }
+
+        /* ASCII MINIATURA */
+        .ascii-mini {
+            font-size: 6px;
+            line-height: 6px;
+            color: var(--blanco);
+            white-space: pre;
+            text-align: center;
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+        
+        .warning {
+            color: var(--rojo-error);
+            border: 1px solid var(--rojo-error);
+            padding: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="ascii-mini">
+              .           .
+            /' \         /`\
+           /   | .---.  |   \
+          |    |/  _  \|    |
+          |    |\  _  /|    |
+          |    | '---' |    |
+          |    |       |    |
+         /     |       |     \
+        |      |       |      |
+        |______|       |______|
+       MYLAR_V3 // ANTI-DRONE_KIT
+    </div>
+
+    <h1>:: PROTOCOLO_07: RUANA_DE_MYLAR</h1>
+
+    <p>
+        <strong>NIVEL:</strong> 2 (Híbrido/Subvertido)<br>
+        <strong>OBJETIVO:</strong> Evasión Térmica + Protección UV<br>
+        <strong>ESTADO:</strong> PROBADO EN BOGOTÁ (2066)
+    </p>
+
+    <div class="warning">
+        [!] ADVERTENCIA: EL MYLAR ES RUIDOSO. NO USAR EN ZONAS DE SILENCIO TÁCTICO. RIESGO DE SOBRECALENTAMIENTO CORPORAL.
+    </div>
+
+    <h2>01. CONCEPTO</h2>
+    <p>
+        Ante el "Super-Niño" y la vigilancia corporativa, la ruana tradicional de lana se vuelve obsoleta. Necesitamos reflejar el 99% de la radiación solar y disolver nuestra firma de calor ante los sensores infrarrojos de los drones.
+    </p>
+
+    <h2>02. RECURSOS</h2>
+    <div class="materials-box">
+        <ul class="materials-list">
+            <li>2 Mantas Térmicas de Emergencia (Mylar/Plata).</li>
+            <li>Cinta de Ducto (Gaffer/Gorilla) - La cinta transparente se derrite.</li>
+            <li>Tijeras o Navaja.</li>
+            <li>4 Monedas o piedras planas (Lastre).</li>
+        </ul>
+    </div>
+
+    <h2>03. FABRICACIÓN</h2>
+
+    <div class="step">
+        <span class="step-number">A</span>
+        <span class="step-title">FUSIÓN DE PANELES</span>
+        Extiende las dos mantas en el suelo. Une el lado largo con cinta de ducto por ambas caras. Esto crea un cuadrado grande de aprox 2x2 metros.
+    </div>
+
+    <div class="step">
+        <span class="step-number">B</span>
+        <span class="step-title">EL CORTE DE CUELLO</span>
+        En el centro exacto, corta una hendidura de 30cm. 
+        <br><strong>IMPORTANTE:</strong> Refuerza los bordes del corte con cinta INMEDIATAMENTE. El Mylar se rasga como papel si no tiene bordes reforzados.
+    </div>
+
+    <div class="step">
+        <span class="step-number">C</span>
+        <span class="step-title">SISTEMA DE LASTRE</span>
+        El Mylar es muy ligero y vuela con el viento. Pega una moneda o piedra plana en cada una de las 4 esquinas usando cinta. Esto le dará la caída ("drapeado") de una ruana real.
+    </div>
+
+    <div class="step">
+        <span class="step-number">D</span>
+        <span class="step-title">VENTILACIÓN (HACK)</span>
+        Haz pequeños cortes en forma de "V" bajo la zona de las axilas y refuérzalos. Si no lo haces, te cocinarás en tu propio sudor en 15 minutos.
+    </div>
+
+</div>
+
+<a href="index.html" class="back-btn" onmousedown="playSound()">
+    << VOLVER AL NODO
+</a>
+
+<script>
+    // SONIDO DE CLICK (Mismo script del index para consistencia)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playSound() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth'; /* Sonido más áspero para la subpágina */
+        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+    }
+</script>
+
+</body>
+</html>
