@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MOLUSCOS // BANCO_SEMILLAS</title>
     <style>
+        /* --- TEMA VISUAL: VERDE LIMA (VIDA/CLOROFILA) --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;
+            --tema: #2FFF00; /* Verde más vibrante para semillas */
             --gris:  #333333;
         }
         * { box-sizing: border-box; }
@@ -22,7 +23,7 @@
         }
 
         body {
-            color: var(--verde);
+            color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
@@ -33,19 +34,20 @@
             width: 100%;
             max-width: 720px;
             min-height: calc(100vh - 10px);
-            border: 2px solid var(--verde);
+            border: 2px solid var(--tema);
             padding: 15px;
-            background: rgba(0, 15, 0, 0.6);
+            background: rgba(0, 20, 0, 0.7);
             display: flex;
             flex-direction: column;
             position: relative;
+            padding-bottom: 80px; 
+            box-shadow: inset 0 0 20px rgba(47, 255, 0, 0.1);
         }
 
-        /* BOTÓN REGRESAR */
         .back-link {
             display: inline-block;
             color: #000;
-            background: var(--verde);
+            background: var(--tema);
             padding: 5px 12px;
             text-decoration: none;
             font-weight: 900;
@@ -53,67 +55,79 @@
             text-transform: uppercase;
             font-size: 0.9rem;
             width: fit-content;
+            box-shadow: 2px 2px 0px var(--gris);
         }
+        .back-link:active { transform: translate(1px, 1px); box-shadow: none; }
 
-        h1 { border-bottom: 2px solid var(--verde); padding-bottom: 10px; font-size: 1.3rem; text-transform: uppercase; margin-top: 0; }
-        h2 { background: var(--verde); color: #000; display: inline-block; padding: 3px 8px; font-size: 0.9rem; margin-top: 20px; font-weight: bold; }
+        h1 { border-bottom: 2px solid var(--tema); padding-bottom: 10px; font-size: 1.3rem; text-transform: uppercase; margin-top: 0; text-shadow: 0 0 5px var(--tema); }
+        h2 { background: var(--tema); color: #000; display: inline-block; padding: 3px 8px; font-size: 0.9rem; margin-top: 30px; font-weight: bold; }
         p { line-height: 1.5; color: #ddd; font-size: 0.95rem; text-align: justify; }
 
         /* ESTRUCTURA TEXTO + IMAGEN */
         .content-flex {
             display: flex;
-            flex-wrap: wrap; 
+            flex-direction: column;
             gap: 20px;
             margin-top: 10px;
         }
-        .text-side {
-            flex: 1;
-            min-width: 280px;
-        }
+        
         .image-side {
-            flex: 1;
-            min-width: 280px;
-            border: 1px dashed var(--verde);
+            border: 1px dashed var(--tema);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 255, 0, 0.05);
-            min-height: 250px;
-        }
-        .placeholder-text {
-            font-size: 0.8rem;
-            color: var(--verde);
-            text-align: center;
+            background: rgba(47, 255, 0, 0.05);
             padding: 20px;
+            text-align: center;
+        }
+
+        .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            color: var(--tema);
+            font-weight: bold;
+            font-size: 10px;
+            line-height: 10px;
+            margin-bottom: 15px;
         }
 
         ol { color: #ddd; line-height: 1.6; padding-left: 20px; }
         li { margin-bottom: 12px; }
+        strong { color: var(--tema); }
 
-        /* FOOTER IDÉNTICO A MAIN PAGE */
-        .footer-section {
-            margin-top: auto;
-            padding-top: 40px;
-            text-align: center;
+        .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
+        .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
+
+        /* --- BOTONES DE NAVEGACIÓN (IDENTICOS AL INDEX) --- */
+        .nav-pad {
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 15px;
         }
-        .credits {
-            font-size: 11px;
-            color: #666;
-            letter-spacing: 1px;
-            padding-bottom: 10px;
+        .nav-btn {
+            background: rgba(0,0,0,0.8); color: var(--tema); border: 2px solid var(--tema);
+            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px var(--tema); opacity: 0.7;
         }
+        .nav-btn:active { background: var(--tema); color: #000; }
     </style>
 </head>
 <body>
 
+<div class="nav-pad">
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
+</div>
+
 <div class="container">
-    <a href="index.html" class="back-link">< REGRESAR</a>
+    <a href="index.html" class="back-link" onmousedown="playClick()">< REGRESAR</a>
     
     <h1>PROYECTO: BANCO DE SEMILLAS</h1>
     
     <section>
         <h2>00_RESUMEN</h2>
-        <p>Un banco de semillas es una cápsula de tiempo biológica. Su objetivo es preservar la biodiversidad local frente al colapso de las cadenas de suministro industriales y la homogeneización genética.</p>
+        <p>Un banco de semillas es una cápsula de tiempo biológica. Su objetivo es preservar la biodiversidad local frente al colapso de las cadenas de suministro industriales y la homogeneización genética inducida por el Super-Niño.</p>
     </section>
 
     <section>
@@ -121,27 +135,56 @@
         <div class="content-flex">
             <div class="text-side">
                 <ol>
-                    <li><strong>Selección:</strong> Elegir semillas de variedades locales, criollas o nativas. Evitar híbridos comerciales F1.</li>
-                    <li><strong>Secado:</strong> Reducir la humedad por debajo del 10% en un lugar seco y a la sombra. Vital para evitar pudrición.</li>
-                    <li><strong>Envasado:</strong> Utilizar frascos de vidrio con tapa hermética. Incluir desecantes naturales si es posible.</li>
-                    <li><strong>Etiquetado:</strong> Registro de especie, fecha, procedencia y condiciones de cosecha.</li>
+                    <li><strong>Selección:</strong> Elegir variedades nativas o criollas. Evitar híbridos comerciales F1, ya que no son fértiles en segunda generación.</li>
+                    <li><strong>Secado:</strong> Reducir la humedad por debajo del 10%. Usar desecantes naturales (arroz tostado) en frascos herméticos.</li>
+                    <li><strong>Limpieza:</strong> Eliminar restos de pulpa o tierra para evitar la proliferación de hongos en el almacenamiento.</li>
+                    <li><strong>Etiquetado:</strong> Crucial marcar fecha, especie y ubicación de cosecha para mantener la trazabilidad genética.</li>
                 </ol>
             </div>
             
             <div class="image-side">
-                <div class="placeholder-text">
-                    [ ESPACIO PARA ARQUITECTURA <br> DE ALMACENAMIENTO ]
+                <div class="ascii-art">
+     .  .
+      \ | /
+    '-.ooo.-'
+      --o--
+    .-'ooo'-.
+      / | \
+     '  '
+    [ SEED_ARK ]
                 </div>
+                <p style="font-size: 0.8rem; color: var(--tema);">[ DISEÑO DE ALMACENAMIENTO TÉRMICO ]</p>
             </div>
         </div>
     </section>
 
     <div class="footer-section">
         <div class="credits">
-            [MOLUSCOS] -- NODO LOCAL -- [GPLv3]
+            [MOLUSCOS] -- NODO ALIMENTACIÓN -- [GPLv3]
         </div>
     </div>
 </div>
+
+<script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playClick() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
+</script>
 
 </body>
 </html>
