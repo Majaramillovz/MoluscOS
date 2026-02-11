@@ -3,246 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROTOCOLO: JAMMING_DRONES</title>
+    <title>MOLUSCOS // JAMMER</title>
     <style>
-        /* --- NÚCLEO ESTÉTICO MOLUSCOS --- */
+        /* --- TEMA VISUAL: ROJO (PELIGRO/ARMA/DEFENSA) --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;    
-            --rojo-error: #FF3C3C;
-            --ambar: #FFB000;
-            --blanco: #FFFFFF;
+            --tema: #FF4444; /* Rojo Alerta */
             --gris:  #333333;
         }
-
         * { box-sizing: border-box; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--fondo);
+            overflow-x: hidden;
+        }
 
         body {
-            background-color: var(--fondo);
-            color: var(--verde);
+            color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 10px; 
-            min-height: 100vh;
-            overflow-x: hidden;
-            padding-bottom: 80px; 
+            display: flex;
+            justify-content: center; /* Centrado horizontal estricto */
+            padding: 5px;
         }
 
         .container {
-            max-width: 720px;
-            margin: 0 auto;
-            border-left: 1px dashed var(--rojo-error); /* Borde rojo por ser "arma" */
-            padding-left: 15px;
-        }
-
-        h1 {
-            font-size: 1.4rem;
-            border-bottom: 2px solid var(--rojo-error);
-            color: var(--rojo-error);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            background: var(--rojo-error);
-            color: #000;
-            padding: 5px;
-            margin-top: 30px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        p {
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: justify;
-            color: #ddd;
-            margin-bottom: 15px;
-        }
-
-        /* CAJA DE COMPONENTES */
-        .tech-box {
-            border: 1px solid var(--verde);
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-        .tech-item {
+            width: 100%;
+            max-width: 720px; /* Ancho restringido igual al Banco de Semillas */
+            min-height: calc(100vh - 10px);
+            border: 2px solid var(--tema);
+            padding: 15px;
+            background: rgba(20, 0, 0, 0.8); /* Fondo rojizo muy oscuro */
             display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .tech-item::before {
-            content: "[+]";
-            color: var(--verde);
-            margin-right: 10px;
-            font-weight: bold;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 80px; /* Espacio para no tapar contenido */
+            box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.1);
         }
 
-        .step {
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--gris);
-            padding-bottom: 15px;
+        .back-link {
+            display: inline-block;
+            color: #000;
+            background: var(--tema);
+            padding: 5px 12px;
+            text-decoration: none;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            width: fit-content;
+            box-shadow: 2px 2px 0px var(--gris);
         }
-        .step-number {
-            font-size: 2rem;
+        .back-link:active { transform: translate(1px, 1px); box-shadow: none; }
+
+        h1 { 
+            border-bottom: 2px solid var(--tema); 
+            padding-bottom: 10px; 
+            font-size: 1.3rem; 
+            text-transform: uppercase; 
+            margin-top: 0; 
+            text-shadow: 0 0 5px var(--tema); 
+        }
+        
+        h2 { 
+            background: var(--tema); 
+            color: #000; 
+            display: inline-block; 
+            padding: 3px 8px; 
+            font-size: 0.9rem; 
+            margin-top: 30px; 
+            font-weight: bold; 
+        }
+        
+        p { line-height: 1.5; color: #ddd; font-size: 0.95rem; text-align: justify; }
+        
+        /* DIAGRAMAS ASCII */
+        .ascii-diagram {
+            font-family: monospace;
+            white-space: pre;
+            color: var(--tema);
             font-weight: bold;
-            color: var(--rojo-error);
-            float: left;
-            margin-right: 15px;
-            line-height: 1;
+            font-size: 8px;
+            line-height: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border: 1px solid var(--tema);
+            margin: 15px 0;
+            overflow-x: auto;
+            text-align: center;
         }
 
-        .warning-blink {
-            color: var(--rojo-error);
+        ol { color: #ddd; line-height: 1.6; padding-left: 20px; }
+        li { margin-bottom: 12px; }
+        strong { color: var(--tema); }
+
+        .warning {
+            border: 1px solid var(--tema);
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 0.8rem;
+            color: #fff;
+            background: rgba(255, 0, 0, 0.2);
+            text-align: center;
             font-weight: bold;
             animation: blink 2s infinite;
-            text-align: center;
-            border: 2px solid var(--rojo-error);
-            padding: 10px;
-            margin: 20px 0;
-            text-transform: uppercase;
-            font-size: 12px;
         }
 
-        /* BOTÓN REGRESAR */
-        .back-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--fondo);
-            color: var(--rojo-error);
-            border: 2px solid var(--rojo-error);
-            padding: 15px 30px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 60, 60, 0.3);
-            z-index: 1000;
-            cursor: pointer;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            text-decoration: none;
-        }
-        .back-btn:active {
-            background: var(--rojo-error);
-            color: #000;
-        }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.7;} 100% {opacity: 1;} }
 
-        .ascii-mini {
-            font-size: 6px;
-            line-height: 6px;
-            color: var(--rojo-error);
-            white-space: pre;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
-        }
+        .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
+        .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
 
-        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.5;} 100% {opacity: 1;} }
+        /* --- BOTONES DE NAVEGACIÓN (IDENTICOS AL INDEX) --- */
+        .nav-pad {
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .nav-btn {
+            background: rgba(0,0,0,0.8); color: var(--tema); border: 2px solid var(--tema);
+            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px var(--tema); opacity: 0.7;
+        }
+        .nav-btn:active { background: var(--tema); color: #000; }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-
-    <div class="ascii-mini">
-          \ /
-      -- ( X ) --  < DETECTADO
-          / \
-           |
-      ^    ^    ^
-      |    |    |
-     [!]  [!]  [!]
-     INTERFERENCIA
-     RF_2.4GHz_ON
-    </div>
-
-    <h1>:: PROTOCOLO_09: JAMMING_CONTRA_DRONES</h1>
-
-    <p>
-        <strong>NIVEL:</strong> 2 (Híbrido / Defensa)<br>
-        <strong>OBJETIVO:</strong> Negación de Área Aérea (A2/AD)<br>
-        <strong>ALCANCE:</strong> 150m (Con Antena Direccional)
-    </p>
-
-    <div class="warning-blink">
-        [!] PELIGRO: ESTE DISPOSITIVO ES ILEGAL SEGÚN LA LEY MARCIAL DE 2060. USAR SOLO EN CASO DE INVASIÓN DE HÁBITAT.
-    </div>
-
-    <h2>01. TEORÍA DEL RUIDO</h2>
-    <p>
-        Los drones comerciales y policiales "escuchan" a sus pilotos en la frecuencia 2.4GHz o 5.8GHz. Si gritamos más fuerte que el piloto (electrónicamente hablando), el drone entra en modo "Failsafe" y aterriza o regresa a casa. No derribamos el drone; lo confundimos.
-    </p>
-
-    <h2>02. ARQUITECTURA (BOM)</h2>
-    <div class="tech-box">
-        <div class="tech-item">Módulo ESP8266 (Sacado de bombillas inteligentes viejas)</div>
-        <div class="tech-item">Batería LiPo 3.7v (Reciclada de Vapes)</div>
-        <div class="tech-item">Lata de Metal (Pringles/Cerveza) -> "Cantenna"</div>
-        <div class="tech-item">Cable Coaxial (Antena TV vieja)</div>
-    </div>
-
-    <h2>03. MONTAJE TÁCTICO</h2>
-
-    <div class="step">
-        <span class="step-number">A</span>
-        <strong>FIRMWARE DE ATAQUE</strong><br>
-        Usamos el script <em>"Deauther"</em>. Este inunda el canal Wi-Fi con paquetes de desautenticación. Para el drone, es como si 1000 personas le gritaran a la vez. El MoluscOS ya incluye el binario en la carpeta /BIN.
-    </div>
-
-    <div class="step">
-        <span class="step-number">B</span>
-        <strong>LA "CANTENNA" (DIRECCIONAL)</strong><br>
-        El chip ESP8266 es débil por sí solo. Necesitamos enfocar su energía.
-        <br>1. Perfora la lata de metal a 1/4 de onda del fondo.<br>
-        2. Introduce la antena del módulo ahí.<br>
-        3. Ahora tienes un "rifle" de interferencia. Apunta directamente al drone.
-    </div>
-
-    <div class="step">
-        <span class="step-number">C</span>
-        <strong>EJECUCIÓN</strong><br>
-        Al activar el jammer, verás que el drone se detiene en el aire ("Hovering") o inicia descenso vertical. 
-        <br><em>CONSEJO:</em> Usa la Ruana de Mylar mientras operas esto para evitar detección térmica.
-    </div>
-
+<div class="nav-pad">
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
 </div>
 
-<a href="index.html" class="back-btn" onmousedown="playStatic()">
-    << CORTAR SEÑAL (VOLVER)
-</a>
+<div class="container">
+    <a href="index.html" class="back-link" onmousedown="playStatic()">< REGRESAR</a>
+    
+    <h1>PROYECTO: JAMMING CONTRA DRONES</h1>
+    
+    <section>
+        <p>Los drones policiales y corporativos "escuchan" en 2.4GHz. Si gritamos electrónicamente más fuerte que su piloto, entran en modo "Failsafe" y aterrizan. No es derribo cinético, es negación de área.</p>
+        
+        <div class="warning">
+            [!] PELIGRO: ILEGAL BAJO LEY MARCIAL 2060. USAR SOLO EN DEFENSA DE HÁBITAT.
+        </div>
+    </section>
+
+    <section>
+        <h2>ARQUITECTURA DEL RUIDO</h2>
+        <p>Usamos un chip IoT común (ESP8266) montado en una guía de ondas direccional (lata) para enfocar la interferencia.</p>
+        
+        <div class="ascii-diagram">
+      \ /
+  -- ( X ) --  < DRONE
+      / \      (PÉRDIDA DE ENLACE)
+       ^
+       |
+       |  < RUIDO DIRIGIDO
+      [ ]
+    (LATA)
+        </div>
+
+        <ol>
+            <li><strong>El Cerebro:</strong> Módulo NodeMCU o ESP8266. Económico y abundante en chatarra electrónica.</li>
+            <li><strong>El Software:</strong> Inyectamos paquetes de desautenticación (Deauth). Para el drone, es como si mil routers le gritaran a la vez.</li>
+            <li><strong>La Cantenna:</strong> Inserta la antena del módulo dentro de una lata de metal (Pringles/Cerveza) a 1/4 de onda del fondo. Esto convierte la señal omnidireccional en un "rifle".</li>
+            <li><strong>Uso:</strong> Apunta, activa y mantén la posición. El drone se detendrá en el aire o volverá a casa.</li>
+        </ol>
+    </section>
+
+    <div class="footer-section">
+        <div class="credits">
+            [MOLUSCOS] -- NODO LOCAL -- [GPLv3]
+        </div>
+    </div>
+</div>
 
 <script>
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playStatic() {
+    
+    function playClick() {
+        // Sonido normal de scroll
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        
-        // Generar Ruido Blanco (Estática)
-        const bufferSize = audioCtx.sampleRate * 0.3; // 0.3 segundos
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function playStatic() {
+        // Sonido de Estática al volver
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const bufferSize = audioCtx.sampleRate * 0.3;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
-
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
 
         const noise = audioCtx.createBufferSource();
         noise.buffer = buffer;
-
         const gain = audioCtx.createGain();
         gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-
         noise.connect(gain);
         gain.connect(audioCtx.destination);
         noise.start();
     }
+
+    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
 
 </body>
