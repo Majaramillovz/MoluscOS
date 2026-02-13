@@ -122,7 +122,6 @@
             width: 100%;
             height: auto;
             display: block;
-            /* Sin filtros, imagen original */
         }
         .img-caption {
             font-size: 0.8rem;
@@ -143,7 +142,7 @@
 
         /* --- ESTILOS DEL VISUALIZADOR (MODAL) --- */
         .modal {
-            display: none; /* Oculto por defecto */
+            display: none; 
             position: fixed; 
             z-index: 2000; 
             padding-top: 50px; 
@@ -156,7 +155,6 @@
             background-color: rgba(0,0,0,0.95); 
         }
 
-        /* Imagen dentro del modal */
         .modal-content {
             margin: auto;
             display: block;
@@ -166,7 +164,6 @@
             box-shadow: 0 0 30px var(--tema);
         }
 
-        /* Botón de cerrar */
         .close {
             position: absolute;
             top: 15px;
@@ -184,7 +181,6 @@
             cursor: pointer;
         }
 
-        /* Animación de zoom */
         .modal-content {  
             animation-name: zoom;
             animation-duration: 0.3s;
@@ -194,7 +190,6 @@
             to {transform:scale(1)}
         }
 
-        /* Listas y otros estilos */
         ul, ol { padding-left: 25px; }
         li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
         strong.highlight { color: var(--tema); background: rgba(0, 68, 255, 0.2); padding: 0 3px;}
@@ -212,15 +207,6 @@
             gap: 10px;
         }
         .warning-icon { font-size: 1.5rem; }
-
-        .ascii-footer {
-            font-size: 8px;
-            color: var(--tema);
-            text-align: center;
-            white-space: pre;
-            opacity: 0.6;
-            margin-top: 30px;
-        }
 
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
@@ -253,7 +239,7 @@
 </div>
 
 <div class="container">
-    <a href="index.html" class="back-link" onmousedown="playRadioClick()">< REGRESAR AL NODO</a>
+    <a href="index.html" class="back-link" onmousedown="playRadioClick()">< REGRESAR</a>
     
     <h1>MANUAL: ANTENA DIPOLO AJUSTABLE (CINTA MÉTRICA)</h1>
     
@@ -267,7 +253,7 @@
     <div class="technical-image-container" onclick="openModal(); playRadioClick();">
         <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
         <img src="antena-radio.jpg" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image" id="myImg">
-        <div class="img-caption">FIG.1: ESQUEMA DE MONTAJE Y DESPLIEGUE ARBÓREO</div>
+        <div class="img-caption">FIG.1: ESQUEMA DEL DISPOSITIVO</div>
     </div>
 
     <section>
@@ -321,15 +307,6 @@
             <strong>Sintonía:</strong> Para la banda de 2 metros (aprox. 145 MHz), extiende cada lado de la cinta métrica a aproximadamente 49 cm desde el centro. Usa un medidor de ROE (SWR) si tienes uno. Si la ROE es alta en frecuencias bajas, acorta la cinta. Si es alta en frecuencias altas, alarga la cinta.
         </p>
     </section>
-
-    <div class="ascii-footer">
-   .   .
-    \ /
-   --X--  < SEÑAL
-    / \
-   '   '
-[TX/RX OK]
-    </div>
 
     <div class="footer-section">
         <div class="credits">
