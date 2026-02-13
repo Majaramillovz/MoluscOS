@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MOLUSCOS // RADIO_DIY_V2</title>
+    <title>MOLUSCOS // RADIO_DIY</title>
     <style>
-        /* --- TEMA VISUAL: NARANJA QUEMADO (RADIOFRECUENCIA/DIY/ANALÓGICO) --- */
+        /* --- TEMA VISUAL: AZUL COBALTO (TÉCNICO/SOBRIO) --- */
         :root {
             --fondo: #000000;
-            --tema: #FF9900; /* Naranja intenso tipo filamento o señal de alerta */
+            --tema: #0044FF; /* Azul profundo, cero cian */
             --gris:  #333333;
-            --rojo-aviso: #FF4444;
+            --blanco: #FFFFFF;
         }
         * { box-sizing: border-box; }
         
@@ -20,32 +20,31 @@
             margin: 0;
             padding: 0;
             background-color: var(--fondo);
-            overflow-x: hidden;
         }
 
         body {
             color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
-            justify-content: center; /* Centrado estricto */
+            justify-content: center;
             padding: 5px;
         }
 
+        /* CONTENEDOR CORREGIDO: El borde ahora sigue al contenido hasta el final */
         .container {
             width: 100%;
-            max-width: 720px; /* Ancho restringido */
+            max-width: 720px;
             min-height: calc(100vh - 10px);
+            height: auto; 
             border: 2px solid var(--tema);
             padding: 15px;
-            background: rgba(20, 10, 0, 0.85); /* Fondo naranja oscuro y denso */
+            background: rgba(0, 5, 20, 0.8);
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 80px; 
-            box-shadow: inset 0 0 25px rgba(255, 153, 0, 0.15);
+            padding-bottom: 100px; /* Espacio para botones de scroll */
         }
 
-        /* BOTÓN REGRESAR */
         .back-link {
             display: inline-block;
             color: #000;
@@ -53,108 +52,37 @@
             padding: 5px 12px;
             text-decoration: none;
             font-weight: 900;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             font-size: 0.9rem;
             width: fit-content;
-            box-shadow: 3px 3px 0px var(--gris);
+            box-shadow: 2px 2px 0px var(--gris);
+        }
+        .back-link:active { transform: translate(1px, 1px); box-shadow: none; }
+
+        h1 { border-bottom: 2px solid var(--tema); padding-bottom: 10px; font-size: 1.3rem; text-transform: uppercase; margin-top: 0; }
+        h2 { background: var(--tema); color: #000; display: inline-block; padding: 3px 8px; font-size: 0.9rem; margin-top: 30px; font-weight: bold; text-transform: uppercase; }
+        h3 { border-bottom: 1px dashed var(--tema); margin-top: 25px; font-size: 1rem; text-transform: uppercase; }
+        p { line-height: 1.5; color: #ddd; font-size: 0.95rem; text-align: justify; }
+
+        /* CONTENEDOR DE LA IMAGEN */
+        .img-wrapper {
+            width: 100%;
             border: 1px solid var(--tema);
-        }
-        .back-link:active { transform: translate(2px, 2px); box-shadow: none; background: #fff; }
-
-        /* TIPOGRAFÍA */
-        h1 { 
-            border-bottom: 2px dashed var(--tema); 
-            padding-bottom: 15px; 
-            font-size: 1.4rem; 
-            text-transform: uppercase; 
-            margin-top: 10px; 
-            text-shadow: 0 0 8px var(--tema);
-            letter-spacing: 1px;
-        }
-        
-        h2 { 
-            background: var(--tema); 
-            color: #000; 
-            display: block; /* Ocupa todo el ancho */
-            padding: 5px 10px; 
-            font-size: 1rem; 
-            margin-top: 35px; 
-            margin-bottom: 15px;
-            font-weight: 900; 
-            text-transform: uppercase;
-            border-left: 5px solid #000;
-        }
-
-        h3 {
-            color: var(--tema);
-            border-bottom: 1px dotted var(--tema);
-            padding-bottom: 5px;
-            margin-top: 25px;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-        }
-        
-        p, li { 
-            line-height: 1.6; 
-            color: #ddd; 
-            font-size: 0.95rem; 
-            text-align: justify; 
-            margin-bottom: 15px;
-        }
-
-        /* CONTENEDOR DE IMAGEN TÉCNICA */
-        .technical-image-container {
-            margin: 25px 0;
-            border: 2px solid var(--tema);
+            margin: 20px 0;
             padding: 5px;
-            background: rgba(0,0,0,0.5);
+            background: #000;
         }
-        .technical-image {
+        .img-wrapper img {
             width: 100%;
             height: auto;
             display: block;
-            filter: sepia(100%) hue-rotate(320deg) saturate(200%) contrast(120%); /* Filtro para integrar la imagen al esquema de color naranja/sepia */
-            mix-blend-mode: screen; /* Fusión con el fondo negro */
-        }
-        .img-caption {
-            font-size: 0.8rem;
-            color: var(--tema);
-            text-align: center;
-            padding: 5px;
-            border-top: 1px dotted var(--tema);
-            font-weight: bold;
+            filter: brightness(0.8) contrast(1.2); /* Ajuste para que no brille de más en la pantalla */
         }
 
-        /* LISTAS Y ÉNFASIS */
-        ul, ol { padding-left: 25px; }
-        li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
-        strong.highlight { color: var(--tema); background: rgba(255, 153, 0, 0.1); padding: 0 3px;}
-
-        /* CAJA DE ADVERTENCIA */
-        .warning-box {
-            border: 2px dashed var(--rojo-aviso);
-            background: rgba(50, 0, 0, 0.3);
-            padding: 15px;
-            margin: 20px 0;
-            color: var(--rojo-aviso);
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .warning-icon { font-size: 1.5rem; }
-
-        /* DIAGRAMA ASCII */
-        .ascii-footer {
-            font-size: 8px;
-            color: var(--tema);
-            text-align: center;
-            white-space: pre;
-            opacity: 0.6;
-            margin-top: 30px;
-        }
+        ol { color: #ddd; line-height: 1.6; padding-left: 20px; }
+        li { margin-bottom: 12px; }
+        strong { color: var(--tema); }
 
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
@@ -165,155 +93,80 @@
             display: flex; flex-direction: column; gap: 15px;
         }
         .nav-btn {
-            background: rgba(0,0,0,0.9); color: var(--tema); border: 2px solid var(--tema);
+            background: rgba(0,0,0,0.8); color: var(--tema); border: 2px solid var(--tema);
             width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px var(--tema); opacity: 0.8;
-            transition: all 0.1s;
+            box-shadow: 0 0 10px var(--tema); opacity: 0.7;
         }
-        .nav-btn:active { background: var(--tema); color: #000; transform: scale(0.95); box-shadow: 0 0 5px var(--tema); }
-
+        .nav-btn:active { background: var(--tema); color: #000; }
     </style>
 </head>
 <body>
 
 <div class="nav-pad">
-    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollUp()">▲</button>
-    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
 </div>
 
 <div class="container">
-    <a href="index.html" class="back-link" onmousedown="playRadioClick()">< REGRESAR AL NODO</a>
+    <a href="index.html" class="back-link" onmousedown="playClick()">< REGRESAR</a>
     
-    <h1>MANUAL: ANTENA DIPOLO AJUSTABLE (CINTA MÉTRICA)</h1>
+    <h1>MANUAL: ANTENA DIPOLO DE CINTA MÉTRICA</h1>
     
     <section>
-        <h2>00_PRINCIPIO_DE_OPERACIÓN</h2>
-        <p>
-            En ausencia de infraestructura global, la comunicación local (VHF/UHF) es vital. Este diseño utiliza <strong class="highlight">cintas métricas metálicas</strong> como elementos radiantes. Su ventaja es doble: son flexibles (resisten el viento) y, crucialmente, son <strong class="highlight">ajustables en longitud</strong>, lo que permite sintonizar la antena para diferentes frecuencias (ej. banda marina, radioaficionado 2m, o radio FM de emergencia) simplemente extendiendo o retrayendo la cinta.
-        </p>
+        <p>Este tutorial detalla la construcción de una antena dipolo ajustable de alta eficiencia. Es ideal para comunicaciones VHF/UHF cuando la infraestructura global no está disponible.</p>
     </section>
 
-    <div class="technical-image-container">
-        <img src="image_8.png" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image">
-        <div class="img-caption">FIG.1: ESQUEMA DE MONTAJE Y DESPLIEGUE ARBÓREO</div>
+    <div class="img-wrapper">
+        <img src="antena-radio.jpg" alt="Diagrama Técnico de Antena">
+        <p style="font-size: 10px; text-align: center; color: var(--tema); margin-top: 5px;">[ ESQUEMA DE MONTAJE E IZADO V.2066 ]</p>
     </div>
 
     <section>
-        <h2>01_LISTA_DE_MATERIALES (BOM)</h2>
-        <ul>
-            <li><strong>2x Cintas Métricas Metálicas:</strong> De bajo costo. El ancho de la cinta mejora el ancho de banda (la recepción). Se cortarán según la necesidad.</li>
-            <li><strong>Bloque Central Aislante:</strong> Madera tratada, PVC o impresión 3D (PETG). Debe separar eléctricamente los dos brazos de la antena.</li>
-            <li><strong>Cable Coaxial (RG-58):</strong> La línea de transmisión hacia tu radio. 50 Ohmios de impedancia estándar.</li>
-            <li><strong>Ferrita Toroidal (Balun 1:1):</strong> Recuperada de fuentes de poder viejas o cables de monitor. Vital para evitar que el cable coaxial irradie interferencia.</li>
-            <li><strong>Caja de Empalme Impermeable:</strong> Una caja de derivación eléctrica pequeña para proteger la conexión central.</li>
-            <li><strong>Sistema de Izado:</strong> Cuerda de driza resistente a UV y una polea simple para elevar la antena sobre el follaje.</li>
-        </ul>
+        <h2>01_LISTA_DE_MATERIALES</h2>
+        <ol>
+            <li><strong>Cintas métricas:</strong> Dos cintas metálicas de 1 metro. Funcionan como elementos radiantes ajustables.</li>
+            <li><strong>Bloque central:</strong> Un trozo de madera o PVC para aislar los dos brazos de la antena.</li>
+            <li><strong>Cable Coaxial (RG-58):</strong> Línea de transmisión de 50 Ohmios.</li>
+            <li><strong>Balun de ferrita:</strong> Núcleo toroidal recuperado para evitar interferencias en el cable.</li>
+        </ol>
     </section>
 
     <section>
-        <h2>02_PROTOCOLO_DE_CONSTRUCCIÓN</h2>
+        <h2>02_PROTOCOLO_MONTAJE</h2>
+        <h3>PASO A: NÚCLEO</h3>
+        <p>Lija los extremos de las cintas para asegurar contacto eléctrico. Atorníllalas al bloque de madera dejando 2cm de separación en el centro.</p>
         
-        <h3>FASE A: PREPARACIÓN DEL NÚCLEO</h3>
-        <ol>
-            <li>Lija los extremos de las cintas métricas donde harás la conexión eléctrica para eliminar la pintura y asegurar un buen contacto.</li>
-            <li>Fija las cintas al <strong>Bloque Central</strong>. Deben quedar alineadas horizontalmente pero <strong>separadas entre sí</strong> por al menos 2-3 cm en el centro. No deben tocarse.</li>
-        </ol>
+        <h3>PASO B: CONEXIÓN</h3>
+        <p>Conecta el núcleo central del cable coaxial a un brazo y la malla trenzada al otro. Usa terminales soldados para evitar corrosión.</p>
 
-        <h3>FASE B: EL BALUN (Choque de RF)</h3>
-        <p>Como muestra el detalle en la <em>Fig.1</em>, el cable coaxial es asimétrico y la antena dipolo es simétrica. Sin un balun, el exterior del cable actuará como parte de la antena, arruinando el patrón de radiación y captando ruido.</p>
-        <ol>
-            <li>Toma el cable coaxial RG-58 cerca del extremo que va a la antena.</li>
-            <li>Enrolla de 6 a 8 vueltas apretadas del cable coaxial a través de la <strong>Ferrita Toroidal</strong>. Esto crea un choque de RF (Balun 1:1 de corriente) que fuerza la señal a ir solo a la antena.</li>
-        </ol>
-
-        <h3>FASE C: CONEXIÓN Y SELLADO</h3>
-        <ol>
-            <li>Dentro de la <strong>Caja Impermeable</strong>, pela el extremo del coaxial que sale del balun.</li>
-            <li>Separa el vivo (núcleo central) de la malla (blindaje).</li>
-            <li>Conecta el <strong>vivo central</strong> a una de las cintas métricas (usa tornillos y terminales de anillo soldados para mayor robustez).</li>
-            <li>Conecta la <strong>malla trenzada</strong> a la OTRA cinta métrica.</li>
-            <li>Sella la caja herméticamente con silicona o prensaestopas. La humedad destruirá el coaxial.</li>
-        </ol>
+        <h3>PASO C: DESPLIEGUE</h3>
+        <p>Usa una cuerda de driza para elevar la antena. Como muestra el diagrama, la altura sobre el follaje es crítica para el alcance de la señal.</p>
     </section>
-
-    <section>
-        <h2>03_DESPLIEGUE Y SINTONÍA</h2>
-        <div class="warning-box">
-            <span class="warning-icon">[!]</span>
-            <span>ADVERTENCIA: PELIGRO DE MUERTE. Nunca despliegues antenas cerca de líneas eléctricas. Mantén una distancia de caída de 2x la altura del mástil o árbol.</span>
-        </div>
-        <p>
-            Usa el sistema de driza y polea para elevar la antena lo más alto posible en una rama despejada. La altura es señal.
-        </p>
-        <p>
-            <strong>Sintonía:</strong> Para la banda de 2 metros (aprox. 145 MHz), extiende cada lado de la cinta métrica a aproximadamente 49 cm desde el centro. Usa un medidor de ROE (SWR) si tienes uno. Si la ROE es alta en frecuencias bajas, acorta la cinta. Si es alta en frecuencias altas, alarga la cinta.
-        </p>
-    </section>
-
-    <div class="ascii-footer">
-   .   .
-    \ /
-   --X--  < SEÑAL
-    / \
-   '   '
-[TX/RX OK]
-    </div>
 
     <div class="footer-section">
         <div class="credits">
-            [MOLUSCOS] -- NODO COMUNICACIONES -- [GPLv3]
+            [MOLUSCOS] -- NODO LOCAL -- [GPLv3]
         </div>
     </div>
 </div>
 
 <script>
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playRadioClick() {
+    function playClick() {
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        
         const osc = audioCtx.createOscillator();
-        const noise = audioCtx.createBufferSource();
         const gain = audioCtx.createGain();
-        const filter = audioCtx.createBiquadFilter();
-
-        // Generar ruido blanco corto para simular estática de radio
-        const bufferSize = audioCtx.sampleRate * 0.1; // 100ms de ruido
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
-        noise.buffer = buffer;
-
-        // Filtro paso banda para darle carácter de radio antigua
-        filter.type = 'bandpass';
-        filter.frequency.value = 1200;
-        filter.Q.value = 1.5;
-
-        // Oscilador para un tono sutil de fondo
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
-        
-        // Envolvente de volumen
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-
-        // Conexiones
-        noise.connect(filter);
-        filter.connect(gain);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-
-        // Play
         osc.start();
-        noise.start();
-        osc.stop(audioCtx.currentTime + 0.15);
-        noise.stop(audioCtx.currentTime + 0.15);
+        osc.stop(audioCtx.currentTime + 0.1);
     }
-
     function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
     function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
