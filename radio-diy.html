@@ -3,249 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MoluscOS // RADIO_DIY</title>
+    <title>MOLUSCOS // RADIO_DIY_V2</title>
     <style>
-        /* --- PALETA MOLUSCOS --- */
+        /* --- TEMA VISUAL: NARANJA QUEMADO (RADIOFRECUENCIA/DIY/ANALÓGICO) --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;     
-            --rojo-error: rgba(255, 60, 60, 0.8);
-            --ambar: #FFB000;
-            --blanco: #FFFFFF;
+            --tema: #FF9900; /* Naranja intenso tipo filamento o señal de alerta */
             --gris:  #333333;
+            --rojo-aviso: #FF4444;
+        }
+        * { box-sizing: border-box; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--fondo);
+            overflow-x: hidden;
         }
 
-        /* --- ESTILOS GENERALES --- */
         body {
-            background-color: var(--fondo);
-            color: var(--verde);
+            color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 10px;
             display: flex;
-            justify-content: center;
-            line-height: 1.5;
-            min-height: 100vh;
+            justify-content: center; /* Centrado estricto */
+            padding: 5px;
         }
 
         .container {
             width: 100%;
-            max-width: 720px;
-            border: 2px solid var(--verde);
-            padding: 20px;
-            background: rgba(0, 10, 0, 0.95);
-            box-shadow: 0 0 25px rgba(0, 255, 0, 0.15);
+            max-width: 720px; /* Ancho restringido */
+            min-height: calc(100vh - 10px);
+            border: 2px solid var(--tema);
+            padding: 15px;
+            background: rgba(20, 10, 0, 0.85); /* Fondo naranja oscuro y denso */
+            display: flex;
+            flex-direction: column;
             position: relative;
+            padding-bottom: 80px; 
+            box-shadow: inset 0 0 25px rgba(255, 153, 0, 0.15);
         }
 
-        /* --- NAVEGACIÓN --- */
-        .nav-bar {
-            border-bottom: 1px dashed var(--verde);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        /* BOTÓN REGRESAR */
+        .back-link {
+            display: inline-block;
+            color: #000;
+            background: var(--tema);
+            padding: 5px 12px;
+            text-decoration: none;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            width: fit-content;
+            box-shadow: 3px 3px 0px var(--gris);
+            border: 1px solid var(--tema);
+        }
+        .back-link:active { transform: translate(2px, 2px); box-shadow: none; background: #fff; }
+
+        /* TIPOGRAFÍA */
+        h1 { 
+            border-bottom: 2px dashed var(--tema); 
+            padding-bottom: 15px; 
+            font-size: 1.4rem; 
+            text-transform: uppercase; 
+            margin-top: 10px; 
+            text-shadow: 0 0 8px var(--tema);
+            letter-spacing: 1px;
         }
         
-        a.back-btn {
-            color: var(--fondo);
-            background: var(--verde);
-            text-decoration: none;
-            padding: 5px 10px;
-            font-weight: 900;
+        h2 { 
+            background: var(--tema); 
+            color: #000; 
+            display: block; /* Ocupa todo el ancho */
+            padding: 5px 10px; 
+            font-size: 1rem; 
+            margin-top: 35px; 
+            margin-bottom: 15px;
+            font-weight: 900; 
             text-transform: uppercase;
-            display: inline-block;
-        }
-        a.back-btn:hover {
-            background: var(--blanco);
-            color: var(--fondo);
+            border-left: 5px solid #000;
         }
 
-        /* --- TITULOS --- */
-        h1 {
-            text-align: center;
-            border-bottom: 4px double var(--verde);
-            padding-bottom: 10px;
-            margin: 20px 0;
+        h3 {
+            color: var(--tema);
+            border-bottom: 1px dotted var(--tema);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px var(--verde);
+        }
+        
+        p, li { 
+            line-height: 1.6; 
+            color: #ddd; 
+            font-size: 0.95rem; 
+            text-align: justify; 
+            margin-bottom: 15px;
         }
 
-        .meta-info {
-            font-size: 0.8rem;
-            color: #888;
-            border: 1px solid #333;
+        /* CONTENEDOR DE IMAGEN TÉCNICA */
+        .technical-image-container {
+            margin: 25px 0;
+            border: 2px solid var(--tema);
             padding: 5px;
-            margin-bottom: 20px;
-            background: #050505;
+            background: rgba(0,0,0,0.5);
         }
-
-        /* --- PASOS E INSTRUCCIONES --- */
-        .step-container {
-            margin-bottom: 30px;
-            border-left: 2px solid var(--verde);
-            padding-left: 15px;
-        }
-
-        .step-title {
-            color: var(--ambar);
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            background: rgba(255, 176, 0, 0.1);
-            padding: 5px;
-            display: inline-block;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li::before {
-            content: ">> ";
-            color: var(--verde);
-        }
-
-        /* --- ESTILOS DE IMAGEN (Scanlines) --- */
-        .image-wrapper {
-            border: 2px solid var(--gris);
-            padding: 5px;
-            background: #000;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .blueprint-img {
+        .technical-image {
             width: 100%;
             height: auto;
-            /* Filtros para que parezca imagen vieja o escaneada */
-            filter: grayscale(100%) contrast(120%) brightness(90%); 
             display: block;
-            border: 1px solid #111;
+            filter: sepia(100%) hue-rotate(320deg) saturate(200%) contrast(120%); /* Filtro para integrar la imagen al esquema de color naranja/sepia */
+            mix-blend-mode: screen; /* Fusión con el fondo negro */
         }
-
         .img-caption {
-            font-size: 10px;
-            color: var(--verde);
-            border-top: 1px dashed var(--gris);
-            margin-top: 5px;
-            padding-top: 5px;
-            font-family: monospace;
-        }
-
-        /* --- FORMULAS Y AVISOS --- */
-        .formula-box {
+            font-size: 0.8rem;
+            color: var(--tema);
             text-align: center;
-            border: 1px dashed var(--blanco);
-            padding: 15px;
-            margin: 15px 0;
-            background: #111;
-            font-size: 1.2rem;
-        }
-
-        .warning-box {
-            border: 2px solid var(--rojo-error);
-            color: var(--rojo-error);
-            padding: 10px;
+            padding: 5px;
+            border-top: 1px dotted var(--tema);
             font-weight: bold;
-            text-align: center;
+        }
+
+        /* LISTAS Y ÉNFASIS */
+        ul, ol { padding-left: 25px; }
+        li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
+        strong.highlight { color: var(--tema); background: rgba(255, 153, 0, 0.1); padding: 0 3px;}
+
+        /* CAJA DE ADVERTENCIA */
+        .warning-box {
+            border: 2px dashed var(--rojo-aviso);
             background: rgba(50, 0, 0, 0.3);
+            padding: 15px;
+            margin: 20px 0;
+            color: var(--rojo-aviso);
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .warning-icon { font-size: 1.5rem; }
+
+        /* DIAGRAMA ASCII */
+        .ascii-footer {
+            font-size: 8px;
+            color: var(--tema);
+            text-align: center;
+            white-space: pre;
+            opacity: 0.6;
             margin-top: 30px;
         }
 
-        footer {
-            margin-top: 50px;
-            font-size: 10px;
-            text-align: center;
-            color: #555;
-            border-top: 1px solid #333;
-            padding-top: 10px;
+        .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
+        .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
+
+        /* --- BOTONES DE NAVEGACIÓN --- */
+        .nav-pad {
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 15px;
         }
+        .nav-btn {
+            background: rgba(0,0,0,0.9); color: var(--tema); border: 2px solid var(--tema);
+            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px var(--tema); opacity: 0.8;
+            transition: all 0.1s;
+        }
+        .nav-btn:active { background: var(--tema); color: #000; transform: scale(0.95); box-shadow: 0 0 5px var(--tema); }
 
     </style>
 </head>
 <body>
 
-<div class="container">
-    
-    <div class="nav-bar">
-        <a href="index.html" class="back-btn"><< REGRESAR AL NODO</a>
-    </div>
-
-    <h1>Antena Dipolo Multibanda</h1>
-    
-    <div class="meta-info">
-        [TIPO: NIVEL 1 - TÉCNICA REAL] <br>
-        [ESTADO: FUNCIONAL / PRE-COLAPSO] <br>
-        [FUENTE: QST / ARRL / DIY ARCHIVES]
-    </div>
-
-    <p>
-        Este diseño utiliza cintas métricas metálicas como elementos radiantes. Su ventaja táctica es la capacidad de ajustar la frecuencia (sintonía) simplemente retrayendo o extendiendo la cinta, sin necesidad de cortar cables.
-    </p>
-
-    <div class="step-container">
-        <div class="step-title">01 // MATERIALES (SCAVENGER LIST)</div>
-        <ul>
-            <li>2 x Cintas métricas (Flexómetros) de 5m o más.</li>
-            <li>1 x Bloque de madera o PVC (Aislante central).</li>
-            <li>1 x Núcleo de ferrita toroidal (Recuperado de fuentes de poder viejas).</li>
-            <li>1 x Cable coaxial RG-58 (Bajada a la estación).</li>
-            <li>1 x Caja de empalme impermeable.</li>
-            <li>Cuerda de driza y polea simple.</li>
-        </ul>
-    </div>
-
-    <div class="image-wrapper">
-        <img src="antena_dipolo.jpg" alt="Esquema Técnico Dipolo" class="blueprint-img">
-        <div class="img-caption">
-            FIG 1.0: ESQUEMA DE MONTAJE Y BALUN [ARCHIVO RECUPERADO: 5516t9]
-        </div>
-    </div>
-
-    <div class="step-container">
-        <div class="step-title">02 // EL BALUN 1:1 (CHOQUE)</div>
-        <p>
-            Es vital para evitar que la línea de transmisión (el cable coaxial) irradie señal y cause interferencia.
-        </p>
-        <p>
-            <strong>Instrucción:</strong> Enrolla el cable coaxial (o alambres esmaltados conectados al conector SO-239) alrededor del toroide de ferrita. 8 a 10 vueltas son suficientes para HF.
-        </p>
-    </div>
-
-    <div class="step-container">
-        <div class="step-title">03 // CÁLCULO DE RESONANCIA</div>
-        <p>
-            Para transmitir, la antena debe medir media longitud de onda de la frecuencia deseada. Usa esta fórmula para saber cuánto extender cada cinta métrica:
-        </p>
-        
-        <div class="formula-box">
-            L (metros por lado) = 71.25 / Frecuencia (MHz)
-        </div>
-
-        <p><em>Ejemplo Práctico (Banda de 40m / 7.1 MHz):</em><br>
-        71.25 / 7.1 = <strong>10.03 metros por cada lado.</strong></p>
-    </div>
-
-    <div class="step-container">
-        <div class="step-title">04 // INSTALACIÓN DE GUERRILLA</div>
-        <p>
-            Utiliza el esquema de polea en árbol (ver Fig 1.0 derecha). Esto permite bajar la antena rápidamente para mantenimiento, ajuste de frecuencia o para ocultarla ante patrullas de detección.
-        </p>
-    </div>
-
-    <div class="warning-box">
-        ¡PELIGRO DE ALTA TENSIÓN! <br>
-        Las puntas de las cintas acumulan alto voltaje RF al transmitir. <br>
-        Mantener alejado del contacto humano durante la operación.
-    </div>
-
-    <footer>
-        [MOLUSCOS_OS] -- NODO BOGOTÁ -- 2066 <br>
-        NO COPYRIGHT INTENDED. SURVIVAL USE ONLY.
-    </footer>
-
+<div class="nav-pad">
+    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
 </div>
+
+<div class="container">
+    <a href="index.html" class="back-link" onmousedown="playRadioClick()">< REGRESAR AL NODO</a>
+    
+    <h1>MANUAL: ANTENA DIPOLO AJUSTABLE (CINTA MÉTRICA)</h1>
+    
+    <section>
+        <h2>00_PRINCIPIO_DE_OPERACIÓN</h2>
+        <p>
+            En ausencia de infraestructura global, la comunicación local (VHF/UHF) es vital. Este diseño utiliza <strong class="highlight">cintas métricas metálicas</strong> como elementos radiantes. Su ventaja es doble: son flexibles (resisten el viento) y, crucialmente, son <strong class="highlight">ajustables en longitud</strong>, lo que permite sintonizar la antena para diferentes frecuencias (ej. banda marina, radioaficionado 2m, o radio FM de emergencia) simplemente extendiendo o retrayendo la cinta.
+        </p>
+    </section>
+
+    <div class="technical-image-container">
+        <img src="image_8.png" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image">
+        <div class="img-caption">FIG.1: ESQUEMA DE MONTAJE Y DESPLIEGUE ARBÓREO</div>
+    </div>
+
+    <section>
+        <h2>01_LISTA_DE_MATERIALES (BOM)</h2>
+        <ul>
+            <li><strong>2x Cintas Métricas Metálicas:</strong> De bajo costo. El ancho de la cinta mejora el ancho de banda (la recepción). Se cortarán según la necesidad.</li>
+            <li><strong>Bloque Central Aislante:</strong> Madera tratada, PVC o impresión 3D (PETG). Debe separar eléctricamente los dos brazos de la antena.</li>
+            <li><strong>Cable Coaxial (RG-58):</strong> La línea de transmisión hacia tu radio. 50 Ohmios de impedancia estándar.</li>
+            <li><strong>Ferrita Toroidal (Balun 1:1):</strong> Recuperada de fuentes de poder viejas o cables de monitor. Vital para evitar que el cable coaxial irradie interferencia.</li>
+            <li><strong>Caja de Empalme Impermeable:</strong> Una caja de derivación eléctrica pequeña para proteger la conexión central.</li>
+            <li><strong>Sistema de Izado:</strong> Cuerda de driza resistente a UV y una polea simple para elevar la antena sobre el follaje.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>02_PROTOCOLO_DE_CONSTRUCCIÓN</h2>
+        
+        <h3>FASE A: PREPARACIÓN DEL NÚCLEO</h3>
+        <ol>
+            <li>Lija los extremos de las cintas métricas donde harás la conexión eléctrica para eliminar la pintura y asegurar un buen contacto.</li>
+            <li>Fija las cintas al <strong>Bloque Central</strong>. Deben quedar alineadas horizontalmente pero <strong>separadas entre sí</strong> por al menos 2-3 cm en el centro. No deben tocarse.</li>
+        </ol>
+
+        <h3>FASE B: EL BALUN (Choque de RF)</h3>
+        <p>Como muestra el detalle en la <em>Fig.1</em>, el cable coaxial es asimétrico y la antena dipolo es simétrica. Sin un balun, el exterior del cable actuará como parte de la antena, arruinando el patrón de radiación y captando ruido.</p>
+        <ol>
+            <li>Toma el cable coaxial RG-58 cerca del extremo que va a la antena.</li>
+            <li>Enrolla de 6 a 8 vueltas apretadas del cable coaxial a través de la <strong>Ferrita Toroidal</strong>. Esto crea un choque de RF (Balun 1:1 de corriente) que fuerza la señal a ir solo a la antena.</li>
+        </ol>
+
+        <h3>FASE C: CONEXIÓN Y SELLADO</h3>
+        <ol>
+            <li>Dentro de la <strong>Caja Impermeable</strong>, pela el extremo del coaxial que sale del balun.</li>
+            <li>Separa el vivo (núcleo central) de la malla (blindaje).</li>
+            <li>Conecta el <strong>vivo central</strong> a una de las cintas métricas (usa tornillos y terminales de anillo soldados para mayor robustez).</li>
+            <li>Conecta la <strong>malla trenzada</strong> a la OTRA cinta métrica.</li>
+            <li>Sella la caja herméticamente con silicona o prensaestopas. La humedad destruirá el coaxial.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>03_DESPLIEGUE Y SINTONÍA</h2>
+        <div class="warning-box">
+            <span class="warning-icon">[!]</span>
+            <span>ADVERTENCIA: PELIGRO DE MUERTE. Nunca despliegues antenas cerca de líneas eléctricas. Mantén una distancia de caída de 2x la altura del mástil o árbol.</span>
+        </div>
+        <p>
+            Usa el sistema de driza y polea para elevar la antena lo más alto posible en una rama despejada. La altura es señal.
+        </p>
+        <p>
+            <strong>Sintonía:</strong> Para la banda de 2 metros (aprox. 145 MHz), extiende cada lado de la cinta métrica a aproximadamente 49 cm desde el centro. Usa un medidor de ROE (SWR) si tienes uno. Si la ROE es alta en frecuencias bajas, acorta la cinta. Si es alta en frecuencias altas, alarga la cinta.
+        </p>
+    </section>
+
+    <div class="ascii-footer">
+   .   .
+    \ /
+   --X--  < SEÑAL
+    / \
+   '   '
+[TX/RX OK]
+    </div>
+
+    <div class="footer-section">
+        <div class="credits">
+            [MOLUSCOS] -- NODO COMUNICACIONES -- [GPLv3]
+        </div>
+    </div>
+</div>
+
+<script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playRadioClick() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
+        const osc = audioCtx.createOscillator();
+        const noise = audioCtx.createBufferSource();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        // Generar ruido blanco corto para simular estática de radio
+        const bufferSize = audioCtx.sampleRate * 0.1; // 100ms de ruido
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+        noise.buffer = buffer;
+
+        // Filtro paso banda para darle carácter de radio antigua
+        filter.type = 'bandpass';
+        filter.frequency.value = 1200;
+        filter.Q.value = 1.5;
+
+        // Oscilador para un tono sutil de fondo
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
+        
+        // Envolvente de volumen
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+        // Conexiones
+        noise.connect(filter);
+        filter.connect(gain);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        // Play
+        osc.start();
+        noise.start();
+        osc.stop(audioCtx.currentTime + 0.15);
+        noise.stop(audioCtx.currentTime + 0.15);
+    }
+
+    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
+</script>
 
 </body>
 </html>
