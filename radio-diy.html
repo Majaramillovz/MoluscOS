@@ -250,9 +250,9 @@
         </p>
     </section>
 
-    <div class="technical-image-container" onclick="openModal(); playRadioClick();">
+    <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
         <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
-        <img src="antena-radio.jpg" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image" id="myImg">
+        <img src="antena-radio.jpg" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image">
         <div class="img-caption">FIG.1: ESQUEMA DEL DISPOSITIVO</div>
     </div>
 
@@ -266,6 +266,12 @@
             <li><strong>Caja de Empalme Impermeable:</strong> Una caja de derivación eléctrica pequeña para proteger la conexión central.</li>
             <li><strong>Sistema de Izado:</strong> Cuerda de driza resistente a UV y una polea simple para elevar la antena sobre el follaje.</li>
         </ul>
+        
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="antena-radio.jpg" alt="Lista de materiales" class="technical-image">
+            <div class="img-caption">FIG.2: DETALLE DE MATERIALES</div>
+        </div>
     </section>
 
     <section>
@@ -277,12 +283,24 @@
             <li>Fija las cintas al <strong>Bloque Central</strong>. Deben quedar alineadas horizontalmente pero <strong>separadas entre sí</strong> por al menos 2-3 cm en el centro. No deben tocarse.</li>
         </ol>
 
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="antena-radio.jpg" alt="Preparación del núcleo" class="technical-image">
+            <div class="img-caption">FIG.3: MONTAJE DEL NÚCLEO</div>
+        </div>
+
         <h3>FASE B: EL BALUN (Choque de RF)</h3>
         <p>Como muestra el detalle en la <em>Fig.1</em>, el cable coaxial es asimétrico y la antena dipolo es simétrica. Sin un balun, el exterior del cable actuará como parte de la antena, arruinando el patrón de radiación y captando ruido.</p>
         <ol>
             <li>Toma el cable coaxial RG-58 cerca del extremo que va a la antena.</li>
             <li>Enrolla de 6 a 8 vueltas apretadas del cable coaxial a través de la <strong>Ferrita Toroidal</strong>. Esto crea un choque de RF (Balun 1:1 de corriente) que fuerza la señal a ir solo a la antena.</li>
         </ol>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="antena-radio.jpg" alt="Construcción del Balun" class="technical-image">
+            <div class="img-caption">FIG.4: BOBINADO DEL BALUN</div>
+        </div>
 
         <h3>FASE C: CONEXIÓN Y SELLADO</h3>
         <ol>
@@ -292,6 +310,12 @@
             <li>Conecta la <strong>malla trenzada</strong> a la OTRA cinta métrica.</li>
             <li>Sella la caja herméticamente con silicona o prensaestopas. La humedad destruirá el coaxial.</li>
         </ol>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="antena-radio.jpg" alt="Conexión final" class="technical-image">
+            <div class="img-caption">FIG.5: CONEXIÓN Y SELLADO</div>
+        </div>
     </section>
 
     <section>
@@ -306,6 +330,12 @@
         <p>
             <strong>Sintonía:</strong> Para la banda de 2 metros (aprox. 145 MHz), extiende cada lado de la cinta métrica a aproximadamente 49 cm desde el centro. Usa un medidor de ROE (SWR) si tienes uno. Si la ROE es alta en frecuencias bajas, acorta la cinta. Si es alta en frecuencias altas, alarga la cinta.
         </p>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="antena-radio.jpg" alt="Antena izada" class="technical-image">
+            <div class="img-caption">FIG.6: SISTEMA OPERATIVO</div>
+        </div>
     </section>
 
     <div class="footer-section">
@@ -316,12 +346,13 @@
 </div>
 
 <script>
-    // --- LÓGICA DEL MODAL ---
+    // --- LÓGICA DEL MODAL MEJORADA ---
     var modal = document.getElementById("myModal");
-    var img = document.getElementById("myImg");
     var modalImg = document.getElementById("img01");
 
-    function openModal(){
+    // Ahora la función busca la imagen DENTRO del elemento clickeado
+    function openModal(element){
+        var img = element.querySelector('img'); // Busca la etiqueta img dentro del div
         modal.style.display = "block";
         modalImg.src = img.src;
     }
