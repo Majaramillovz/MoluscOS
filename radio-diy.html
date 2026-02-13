@@ -11,10 +11,10 @@
             --tema: #0044FF; /* Azul Oscuro puro */
             --gris:  #333333;
             --rojo-aviso: #FF4444;
+            --blanco: #ffffff;
         }
         * { box-sizing: border-box; }
         
-        /* CORRECCIÓN DEL BORDE: Usamos min-height */
         html {
             min-height: 100%;
             background-color: var(--fondo);
@@ -22,9 +22,9 @@
 
         body {
             width: 100%;
-            min-height: 100vh; /* Permite que el cuerpo crezca con el contenido */
+            min-height: 100vh;
             margin: 0;
-            padding: 5px; /* Margen externo pequeño */
+            padding: 5px;
             background-color: var(--fondo);
             color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
@@ -36,26 +36,18 @@
         .container {
             width: 100%;
             max-width: 720px;
-            /* La altura es automática para abrazar todo el texto */
             height: auto; 
             min-height: calc(100vh - 10px);
-            
-            /* EL BORDE AZUL */
             border: 2px solid var(--tema);
-            
             padding: 15px;
-            background: rgba(0, 5, 20, 0.85); /* Fondo azul muy oscuro */
+            background: rgba(0, 5, 20, 0.85);
             display: flex;
             flex-direction: column;
             position: relative;
-            
-            /* Espacio extra abajo para que los botones de scroll no tapen el texto */
             padding-bottom: 120px; 
-            
             box-shadow: inset 0 0 25px rgba(0, 68, 255, 0.15);
         }
 
-        /* BOTÓN REGRESAR */
         .back-link {
             display: inline-block;
             color: #000;
@@ -72,7 +64,6 @@
         }
         .back-link:active { transform: translate(2px, 2px); box-shadow: none; background: #fff; }
 
-        /* TIPOGRAFÍA */
         h1 { 
             border-bottom: 2px dashed var(--tema); 
             padding-bottom: 15px; 
@@ -113,20 +104,25 @@
             margin-bottom: 15px;
         }
 
-        /* CONTENEDOR DE IMAGEN TÉCNICA */
+        /* --- ESTILOS DE LA IMAGEN PEQUEÑA --- */
         .technical-image-container {
             margin: 25px 0;
             border: 2px solid var(--tema);
             padding: 5px;
             background: rgba(0,0,0,0.5);
+            cursor: pointer; /* Manito para indicar clic */
+            transition: transform 0.2s;
         }
+        .technical-image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--tema);
+        }
+
         .technical-image {
             width: 100%;
             height: auto;
             display: block;
-            /* Filtro para que la imagen se vea "azulada/técnica" */
-            filter: grayscale(100%) sepia(100%) hue-rotate(190deg) saturate(300%) contrast(1.2);
-            mix-blend-mode: screen;
+            /* Sin filtros, imagen original */
         }
         .img-caption {
             font-size: 0.8rem;
@@ -136,13 +132,73 @@
             border-top: 1px dotted var(--tema);
             font-weight: bold;
         }
+        .click-hint {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #fff;
+            background: var(--tema);
+            color: #000;
+            font-weight: bold;
+        }
 
-        /* LISTAS Y ÉNFASIS */
+        /* --- ESTILOS DEL VISUALIZADOR (MODAL) --- */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; 
+            z-index: 2000; 
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.95); 
+        }
+
+        /* Imagen dentro del modal */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 95%;
+            max-width: 1200px;
+            border: 2px solid var(--tema);
+            box-shadow: 0 0 30px var(--tema);
+        }
+
+        /* Botón de cerrar */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--tema);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animación de zoom */
+        .modal-content {  
+            animation-name: zoom;
+            animation-duration: 0.3s;
+        }
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        /* Listas y otros estilos */
         ul, ol { padding-left: 25px; }
         li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
         strong.highlight { color: var(--tema); background: rgba(0, 68, 255, 0.2); padding: 0 3px;}
 
-        /* CAJA DE ADVERTENCIA */
         .warning-box {
             border: 2px dashed var(--rojo-aviso);
             background: rgba(50, 0, 0, 0.3);
@@ -157,7 +213,6 @@
         }
         .warning-icon { font-size: 1.5rem; }
 
-        /* DIAGRAMA ASCII */
         .ascii-footer {
             font-size: 8px;
             color: var(--tema);
@@ -170,7 +225,6 @@
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
 
-        /* --- BOTONES DE NAVEGACIÓN (IDENTICOS AL INDEX) --- */
         .nav-pad {
             position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             display: flex; flex-direction: column; gap: 15px;
@@ -193,6 +247,11 @@
     <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
 </div>
 
+<div id="myModal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+</div>
+
 <div class="container">
     <a href="index.html" class="back-link" onmousedown="playRadioClick()">< REGRESAR AL NODO</a>
     
@@ -205,8 +264,9 @@
         </p>
     </section>
 
-    <div class="technical-image-container">
-        <img src="antena-radio.jpg" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image">
+    <div class="technical-image-container" onclick="openModal(); playRadioClick();">
+        <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+        <img src="antena-radio.jpg" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image" id="myImg">
         <div class="img-caption">FIG.1: ESQUEMA DE MONTAJE Y DESPLIEGUE ARBÓREO</div>
     </div>
 
@@ -279,6 +339,21 @@
 </div>
 
 <script>
+    // --- LÓGICA DEL MODAL ---
+    var modal = document.getElementById("myModal");
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+
+    function openModal(){
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // --- SONIDO ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     function playRadioClick() {
@@ -289,8 +364,7 @@
         const gain = audioCtx.createGain();
         const filter = audioCtx.createBiquadFilter();
 
-        // Generar ruido blanco corto para simular estática de radio
-        const bufferSize = audioCtx.sampleRate * 0.1; // 100ms de ruido
+        const bufferSize = audioCtx.sampleRate * 0.1; 
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) {
@@ -298,27 +372,22 @@
         }
         noise.buffer = buffer;
 
-        // Filtro paso banda para darle carácter de radio antigua
         filter.type = 'bandpass';
         filter.frequency.value = 1200;
         filter.Q.value = 1.5;
 
-        // Oscilador para un tono sutil de fondo
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(150, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
         
-        // Envolvente de volumen
         gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
 
-        // Conexiones
         noise.connect(filter);
         filter.connect(gain);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
 
-        // Play
         osc.start();
         noise.start();
         osc.stop(audioCtx.currentTime + 0.15);
