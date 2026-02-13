@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MOLUSCOS // RADIO_DIY_V2</title>
     <style>
-        /* --- TEMA VISUAL: AZUL COBALTO (TÉCNICO/SOBRIO) --- */
+        /* --- TEMA VISUAL: NARANJA QUEMADO (RADIOFRECUENCIA/DIY/ANALÓGICO) --- */
         :root {
             --fondo: #000000;
-            --tema: #0044FF; /* Azul profundo (NO CIAN) */
+            --tema: #FF9900; /* Naranja intenso tipo filamento o señal de alerta */
             --gris:  #333333;
             --rojo-aviso: #FF4444;
         }
@@ -31,21 +31,23 @@
             padding: 5px;
         }
 
-        /* CONTENEDOR CON BORDE COMPLETO */
+        /* --- CORRECCIÓN AQUÍ --- */
         .container {
             width: 100%;
             max-width: 720px; /* Ancho restringido */
             min-height: calc(100vh - 10px);
-            height: auto;
+            /* SE AÑADE height: auto PARA QUE EL CUADRO CREZCA CON EL CONTENIDO */
+            height: auto; 
             border: 2px solid var(--tema);
             padding: 15px;
-            background: rgba(0, 5, 20, 0.85); /* Fondo azul muy oscuro */
+            background: rgba(20, 10, 0, 0.85); /* Fondo naranja oscuro y denso */
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 100px; 
-            box-shadow: inset 0 0 25px rgba(0, 68, 255, 0.15);
+            padding-bottom: 80px; 
+            box-shadow: inset 0 0 25px rgba(255, 153, 0, 0.15);
         }
+        /* ----------------------- */
 
         /* BOTÓN REGRESAR */
         .back-link {
@@ -116,9 +118,8 @@
             width: 100%;
             height: auto;
             display: block;
-            /* Filtro opcional para integrar la imagen al azul, si prefieres a color quítalo */
-            filter: grayscale(100%) sepia(100%) hue-rotate(190deg) saturate(300%) contrast(1.2); 
-            mix-blend-mode: screen; 
+            filter: sepia(100%) hue-rotate(320deg) saturate(200%) contrast(120%); /* Filtro para integrar la imagen al esquema de color naranja/sepia */
+            mix-blend-mode: screen; /* Fusión con el fondo negro */
         }
         .img-caption {
             font-size: 0.8rem;
@@ -132,7 +133,7 @@
         /* LISTAS Y ÉNFASIS */
         ul, ol { padding-left: 25px; }
         li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
-        strong.highlight { color: var(--tema); background: rgba(0, 68, 255, 0.2); padding: 0 3px;}
+        strong.highlight { color: var(--tema); background: rgba(255, 153, 0, 0.1); padding: 0 3px;}
 
         /* CAJA DE ADVERTENCIA */
         .warning-box {
@@ -198,7 +199,7 @@
     </section>
 
     <div class="technical-image-container">
-        <img src="antena-radio.jpg" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image">
+        <img src="image_8.png" alt="Esquema técnico de antena dipolo de cinta métrica" class="technical-image">
         <div class="img-caption">FIG.1: ESQUEMA DE MONTAJE Y DESPLIEGUE ARBÓREO</div>
     </div>
 
