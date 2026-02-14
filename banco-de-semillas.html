@@ -13,25 +13,38 @@
             --rojo-aviso: #FF4444;
             --blanco: #ffffff;
         }
-        * { box-sizing: border-box; }
         
-        html {
+        /* BLOQUEO DE SELECCIÓN DE TEXTO (Vital para el arrastre) */
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+            -webkit-user-drag: none;
+        }
+        
+        html, body {
             min-height: 100%;
             background-color: var(--fondo);
             overscroll-behavior: none; 
+            /* Cursor de mano para indicar que se puede agarrar */
+            cursor: grab; 
         }
 
         body {
-            width: 100%;
-            min-height: 100vh;
             margin: 0;
             padding: 5px;
-            background-color: var(--fondo);
             color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             overflow-x: hidden;
+        }
+
+        /* CLASE PARA CUANDO ESTÁS ARRASTRANDO */
+        body.grabbing {
+            cursor: grabbing;
         }
 
         .container {
@@ -133,6 +146,7 @@
             width: 100%;
             height: auto;
             display: block;
+            pointer-events: none; /* Evita interferencia con el arrastre */
         }
         .img-caption {
             font-size: 0.8rem;
@@ -228,35 +242,15 @@
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
 
-        .nav-pad {
-            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
-            display: flex; flex-direction: column; gap: 15px;
-        }
-        .nav-btn {
-            background: rgba(0,0,0,0.9); color: var(--tema); border: 2px solid var(--tema);
-            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px var(--tema); opacity: 0.8;
-            transition: all 0.1s;
-        }
-        .nav-btn:active { background: var(--tema); color: #000; transform: scale(0.95); box-shadow: 0 0 5px var(--tema); }
-
     </style>
 </head>
 <body>
 
-<div class="nav-pad">
-    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollUp()">▲</button>
-    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
-</div>
-
 <div id="myModal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
-  
   <div class="modal-wrapper">
       <img class="modal-content" id="img01">
   </div>
-  
   <div class="zoom-controls">
       <button class="zoom-btn" onclick="manualZoom(-0.5)">-</button>
       <button class="zoom-btn" onclick="resetZoom()">R</button>
@@ -367,99 +361,91 @@
 </div>
 
 <script>
-    // --- MOTOR DE ZOOM (PINCH & DRAG) ---
+    // --- 1. SCRIPT DE ARRASTRE (DRAG TO SCROLL) ---
+    const body = document.body;
+    let isDown = false;
+    let startY;
+    let scrollTop;
+
+    window.addEventListener('mousedown', (e) => {
+        // Evitar que el scroll funcione si el modal está abierto
+        if (document.getElementById("myModal").style.display === "block") return;
+        
+        isDown = true;
+        body.classList.add('grabbing');
+        startY = e.pageY - document.documentElement.scrollTop;
+        scrollTop = document.documentElement.scrollTop;
+    });
+
+    window.addEventListener('mouseleave', () => { isDown = false; body.classList.remove('grabbing'); });
+    window.addEventListener('mouseup', () => { isDown = false; body.classList.remove('grabbing'); });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const y = e.pageY - document.documentElement.scrollTop;
+        const walk = (y - startY) * 1.5;
+        window.scrollTo({ top: scrollTop - walk });
+    });
+
+    // --- 2. LÓGICA DEL MODAL Y ZOOM ---
     var modal = document.getElementById("myModal");
     var modalImg = document.getElementById("img01");
-    
-    // Variables
     let currentScale = 1;
-    let currentX = 0;
-    let currentY = 0;
-    let startX = 0;
-    let startY = 0;
-    let isDragging = false;
-    let initialPinchDistance = 0;
+    let currentX = 0, currentY = 0, startXZoom = 0, startYZoom = 0;
+    let isDraggingZoom = false;
 
-    // Abrir Modal
     function openModal(element){
         var img = element.querySelector('img'); 
         modal.style.display = "block";
         modalImg.src = img.src;
         resetZoom();
     }
-
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    function resetZoom() {
-        currentScale = 1;
-        currentX = 0;
-        currentY = 0;
-        updateTransform();
-    }
-
+    function closeModal() { modal.style.display = "none"; }
+    function resetZoom() { currentScale = 1; currentX = 0; currentY = 0; updateTransform(); }
     function updateTransform() {
         if (currentScale < 1) currentScale = 1; 
         modalImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale})`;
     }
+    function manualZoom(delta) { currentScale += delta; updateTransform(); }
 
-    function manualZoom(delta) {
-        currentScale += delta;
-        updateTransform();
-    }
-
-    // --- EVENTOS DE RATÓN (PC) ---
+    // Eventos Zoom Mouse
     modalImg.addEventListener('mousedown', (e) => {
-        if (currentScale > 1) {
-            isDragging = true;
-            startX = e.clientX - currentX;
-            startY = e.clientY - currentY;
-            modalImg.style.cursor = 'grabbing';
-        }
+        if (currentScale > 1) { isDraggingZoom = true; startXZoom = e.clientX - currentX; startYZoom = e.clientY - currentY; }
     });
-
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-        modalImg.style.cursor = 'grab';
-    });
-
     window.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            e.preventDefault();
-            currentX = e.clientX - startX;
-            currentY = e.clientY - startY;
-            updateTransform();
-        }
+        if (isDraggingZoom) { e.preventDefault(); currentX = e.clientX - startXZoom; currentY = e.clientY - startYZoom; updateTransform(); }
     });
+    window.addEventListener('mouseup', () => { isDraggingZoom = false; });
 
-    modal.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = e.deltaY * -0.002;
-        currentScale += delta;
-        updateTransform();
-    });
-
-    // --- EVENTOS TÁCTILES (MÓVIL) ---
+    // Eventos Zoom Táctil
+    let initialPinchDistance = 0;
     modalImg.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1 && currentScale > 1) {
-            isDragging = true;
-            startX = e.touches[0].clientX - currentX;
-            startY = e.touches[0].clientY - currentY;
+            isDraggingZoom = true;
+            startXZoom = e.touches[0].clientX - currentX;
+            startYZoom = e.touches[0].clientY - currentY;
         } else if (e.touches.length === 2) {
-            isDragging = false;
-            initialPinchDistance = getDistance(e.touches);
+            isDraggingZoom = false;
+            initialPinchDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
         }
     });
 
     modalImg.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        if (e.touches.length === 1 && isDragging) {
-            currentX = e.touches[0].clientX - startX;
-            currentY = e.touches[0].clientY - startY;
+        if (e.touches.length === 1 && isDraggingZoom) {
+            e.preventDefault();
+            currentX = e.touches[0].clientX - startXZoom;
+            currentY = e.touches[0].clientY - startYZoom;
             updateTransform();
         } else if (e.touches.length === 2) {
-            const currentDistance = getDistance(e.touches);
+            e.preventDefault();
+            const currentDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
             const scaleChange = currentDistance / initialPinchDistance;
             if (scaleChange > 1) currentScale += 0.05; 
             else if (scaleChange < 1) currentScale -= 0.05;
@@ -467,17 +453,7 @@
             updateTransform();
         }
     });
-
-    modalImg.addEventListener('touchend', () => {
-        isDragging = false;
-    });
-
-    function getDistance(touches) {
-        return Math.hypot(
-            touches[0].clientX - touches[1].clientX,
-            touches[0].clientY - touches[1].clientY
-        );
-    }
+    modalImg.addEventListener('touchend', () => { isDraggingZoom = false; });
 
     // --- SONIDO ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -500,9 +476,6 @@
         noise.connect(filter); filter.connect(gain); osc.connect(gain); gain.connect(audioCtx.destination);
         osc.start(); noise.start(); osc.stop(audioCtx.currentTime + 0.15); noise.stop(audioCtx.currentTime + 0.15);
     }
-    
-    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
-    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
 
 </body>
