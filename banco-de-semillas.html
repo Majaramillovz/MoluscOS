@@ -18,6 +18,8 @@
         html {
             min-height: 100%;
             background-color: var(--fondo);
+            /* Evita el rebote de scroll en móviles para mejorar el zoom */
+            overscroll-behavior: none; 
         }
 
         body {
@@ -48,7 +50,7 @@
             box-shadow: inset 0 0 25px rgba(0, 68, 255, 0.15);
         }
 
-        /* BOTONES DE NAVEGACIÓN Y DESCARGA */
+        /* BOTONES */
         .back-link, .download-btn {
             display: inline-block;
             color: #000;
@@ -155,24 +157,36 @@
             display: none; 
             position: fixed; 
             z-index: 2000; 
-            padding-top: 50px; 
             left: 0;
             top: 0;
             width: 100%; 
             height: 100%; 
-            overflow: auto; 
             background-color: rgba(0,0,0,0.95); 
+            overflow: hidden; /* Importante para el zoom */
+        }
+
+        /* Contenedor interno para centrar y hacer zoom */
+        .modal-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .modal-content {
-            margin: auto;
-            display: block;
-            width: 95%;
-            max-width: 1200px;
+            max-width: 95%;
+            max-height: 90%;
             border: 2px solid var(--tema);
             box-shadow: 0 0 30px var(--tema);
-            animation-name: zoom;
-            animation-duration: 0.3s;
+            /* Transform origin al centro para que el zoom sea desde el medio */
+            transform-origin: center center;
+            transition: transform 0.1s ease-out; /* Suavizado ligero */
+            cursor: grab;
+        }
+        .modal-content:active {
+            cursor: grabbing;
         }
 
         .close {
@@ -184,12 +198,31 @@
             font-weight: bold;
             transition: 0.3s;
             cursor: pointer;
+            z-index: 2001; /* Encima de todo */
+            background: rgba(0,0,0,0.5);
+            padding: 0 10px;
+            border-radius: 5px;
         }
         .close:hover { color: #fff; }
 
-        @keyframes zoom {
-            from {transform:scale(0)} 
-            to {transform:scale(1)}
+        /* Controles de Zoom manual (Opcional por si no saben pellizcar) */
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 2001;
+        }
+        .zoom-btn {
+            background: rgba(0,0,0,0.8);
+            color: var(--tema);
+            border: 1px solid var(--tema);
+            width: 40px; height: 40px;
+            font-size: 20px;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         /* OTROS ESTILOS */
@@ -236,9 +269,18 @@
     <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
 </div>
 
-<div id="myModal" class="modal" onclick="closeModal()">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
+<div id="myModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  
+  <div class="modal-wrapper">
+      <img class="modal-content" id="img01">
+  </div>
+  
+  <div class="zoom-controls">
+      <button class="zoom-btn" onclick="manualZoom(-0.5)">-</button>
+      <button class="zoom-btn" onclick="resetZoom()">R</button>
+      <button class="zoom-btn" onclick="manualZoom(0.5)">+</button>
+  </div>
 </div>
 
 <div class="container">
@@ -247,161 +289,3 @@
     <h1>MANUAL: BANCO DE SEMILLAS (MK-2 BIO)</h1>
     
     <section>
-        <h2>00_PRINCIPIO_DE_OPERACIÓN</h2>
-        <p>
-            En la era de la escasez, la <strong class="highlight">soberanía alimentaria</strong> es la única arma real. Este dispositivo recupera la tecnología ancestral de las "Nendo Dango" (bolas de arcilla), utilizada por culturas antiguas para preservar la vida en tiempos de sequía.
-        </p>
-        <p>
-            La carcasa de arcilla actúa como una bóveda del tiempo: protege el germen de las semillas de la radiación, las aves y los roedores. Al contacto con el agua, la "granada" se disuelve, liberando la vida contenida. Su diseño de arma es intencional: en un mundo hostil, sembrar es un acto de guerra contra el hambre.
-        </p>
-    </section>
-
-    <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
-        <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
-        <img src="granada-esquema.png" alt="Esquema técnico de la granada" class="technical-image">
-        <div class="img-caption">FIG.1: ANATOMÍA DEL BANCO DE SEMILLAS</div>
-    </div>
-
-    <section>
-        <h2>01_MATRIZ 3D Y MOLDEO</h2>
-        <p>
-            Para el mecanismo de transporte (el gatillo/espoleta), necesitamos precisión mecánica. Usaremos impresión 3D para crear el molde maestro.
-        </p>
-        <ul>
-            <li><strong>Descargar OBJ:</strong> Archivo "gatillo_mk2.obj".</li>
-            <li><strong>Impresión:</strong> Usar PLA o PETG con altura de capa 0.2mm.</li>
-            <li><strong>Molde:</strong> Sumergir la pieza impresa en una caja con Yeso de París. Al secar, tendremos un negativo perfecto para replicar la pieza en arcilla infinitas veces.</li>
-        </ul>
-        
-        <a href="gatillo_mk2.obj" class="download-btn" download>[⬇ DESCARGAR ARCHIVO OBJ]</a>
-
-        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
-            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
-            <img src="granada-fase1.png" alt="Proceso de impresión y molde" class="technical-image">
-            <div class="img-caption">FIG.2: IMPRESIÓN 3D Y VACIADO EN YESO</div>
-        </div>
-    </section>
-
-    <section>
-        <h2>02_MODELADO DEL CUERPO (CARGA)</h2>
-        <p>
-            Esta es la fase crítica. Usaremos arcilla roja natural.
-        </p>
-        <ol>
-            <li><strong>Forma Base:</strong> Modela un óvalo hueco (tipo huevo) con paredes de 1cm de grosor. Rellénalo con la mezcla de <em>Compost + Tierra</em>.</li>
-            <li><strong>Blindaje (Sembrado):</strong> Inserta granos de maíz grandes en la superficie exterior. 
-            <br><strong class="highlight">IMPORTANTE:</strong> El "germen" (la punta blanca del grano) debe ir hacia ADENTRO, enterrado en la arcilla. Si queda expuesto, el sol lo matará.</li>
-        </ol>
-
-        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
-            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
-            <img src="granada-fase2.png" alt="Modelado del cuerpo" class="technical-image">
-            <div class="img-caption">FIG.3: INSERCIÓN GEOMÉTRICA DE MAÍZ</div>
-        </div>
-    </section>
-
-    <section>
-        <h2>03_FABRICACIÓN DEL SEGURO</h2>
-        <p>
-            El anillo y el pasador son puramente estéticos pero funcionales para el transporte (permiten colgar la granada).
-        </p>
-        <ul>
-            <li>Modela un "churro" o cilindro fino de arcilla.</li>
-            <li>Dale forma circular (3cm de diámetro) y deja secar al sol hasta que endurezca (estado de cuero).</li>
-        </ul>
-
-        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
-            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
-            <img src="granada-fase3.png" alt="Modelado del aro" class="technical-image">
-            <div class="img-caption">FIG.4: DETALLE DEL ANILLO DE ARCILLA</div>
-        </div>
-    </section>
-
-    <section>
-        <h2>04_ENSAMBLAJE FINAL</h2>
-        <p>
-            Une todas las piezas antes de que la arcilla se seque por completo.
-        </p>
-        <ol>
-            <li>Prepara <strong>Barbotina</strong> (mezcla de arcilla y agua con consistencia de yogur) para usar como pegamento.</li>
-            <li>Aplica barbotina en la base del gatillo (que sacaste del molde de yeso de la Fase 1) y únelo al cuerpo de la granada.</li>
-            <li>Inserta el anillo en el orificio del gatillo.</li>
-            <li>Deja secar a la sombra durante 48 horas para evitar grietas.</li>
-        </ol>
-
-        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
-            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
-            <img src="granada-fase4.png" alt="Ensamblaje con barbotina" class="technical-image">
-            <div class="img-caption">FIG.5: UNIÓN CON BARBOTINA</div>
-        </div>
-    </section>
-
-    <div class="footer-section">
-        <div class="credits">
-            [MoluscOS] -- [GPLv3]
-        </div>
-    </div>
-</div>
-
-<script>
-    // --- LÓGICA DEL MODAL INTELIGENTE ---
-    var modal = document.getElementById("myModal");
-    var modalImg = document.getElementById("img01");
-
-    function openModal(element){
-        var img = element.querySelector('img'); 
-        modal.style.display = "block";
-        modalImg.src = img.src;
-    }
-
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    // --- SONIDO ---
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playRadioClick() {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        
-        const osc = audioCtx.createOscillator();
-        const noise = audioCtx.createBufferSource();
-        const gain = audioCtx.createGain();
-        const filter = audioCtx.createBiquadFilter();
-
-        const bufferSize = audioCtx.sampleRate * 0.1; 
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
-        noise.buffer = buffer;
-
-        filter.type = 'bandpass';
-        filter.frequency.value = 1200;
-        filter.Q.value = 1.5;
-
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
-        
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        noise.start();
-        osc.stop(audioCtx.currentTime + 0.15);
-        noise.stop(audioCtx.currentTime + 0.15);
-    }
-
-    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
-    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
-</script>
-
-</body>
-</html>
