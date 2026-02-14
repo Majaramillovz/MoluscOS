@@ -19,6 +19,7 @@
         /* --- PARCHE DE INTERFAZ TÁCTIL/MOUSE (MODO AGARRE) --- */
         * { 
             box-sizing: border-box; 
+            /* Bloqueo total de selección de texto para permitir arrastre */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -258,7 +259,8 @@
                                   
                                                                                                       
             
-
+                                      
+            
 </pre>
     </div>
 
@@ -285,7 +287,7 @@
             <div class="folder">
                 <div class="folder-title">/ALIMENTACIÓN</div>
                 <ul>
-                    <li><a href="banco-de-semillas.html" class="active" onmousedown="playClick()">Banco de Semillas</a></li>
+                    <li><a href="granada-arcilla.html" class="active" onmousedown="playClick()">Banco de Semillas</a></li>
                     <li><a href="#" class="inactive">Compostaje Rápido</a></li>
                     <li><a href="#" class="inactive">Cultivos Resistentes Sequía</a></li>
                     <li><a href="#" class="inactive">Fermentados</a></li>
@@ -369,6 +371,13 @@
         const y = e.pageY - document.documentElement.scrollTop;
         const walk = (y - startY) * 1.5; 
         window.scrollTo({ top: scrollTop - walk });
+    });
+
+    // --- BLOQUEO DE ENLACES INACTIVOS (NUEVO) ---
+    document.querySelectorAll('a.inactive').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Detiene el salto y la recarga
+        });
     });
 
     // --- SONIDO CLIC ---
