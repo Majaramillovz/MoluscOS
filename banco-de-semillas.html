@@ -18,7 +18,6 @@
         html {
             min-height: 100%;
             background-color: var(--fondo);
-            /* Evita el rebote de scroll en móviles para mejorar el zoom */
             overscroll-behavior: none; 
         }
 
@@ -152,7 +151,7 @@
             font-weight: bold;
         }
 
-        /* --- ESTILOS DEL VISUALIZADOR (MODAL) --- */
+        /* --- ESTILOS DEL VISUALIZADOR (MODAL CON ZOOM) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -162,10 +161,9 @@
             width: 100%; 
             height: 100%; 
             background-color: rgba(0,0,0,0.95); 
-            overflow: hidden; /* Importante para el zoom */
+            overflow: hidden; 
         }
 
-        /* Contenedor interno para centrar y hacer zoom */
         .modal-wrapper {
             width: 100%;
             height: 100%;
@@ -180,14 +178,11 @@
             max-height: 90%;
             border: 2px solid var(--tema);
             box-shadow: 0 0 30px var(--tema);
-            /* Transform origin al centro para que el zoom sea desde el medio */
             transform-origin: center center;
-            transition: transform 0.1s ease-out; /* Suavizado ligero */
+            transition: transform 0.1s ease-out;
             cursor: grab;
         }
-        .modal-content:active {
-            cursor: grabbing;
-        }
+        .modal-content:active { cursor: grabbing; }
 
         .close {
             position: absolute;
@@ -198,14 +193,14 @@
             font-weight: bold;
             transition: 0.3s;
             cursor: pointer;
-            z-index: 2001; /* Encima de todo */
+            z-index: 2001;
             background: rgba(0,0,0,0.5);
             padding: 0 10px;
             border-radius: 5px;
         }
         .close:hover { color: #fff; }
 
-        /* Controles de Zoom manual (Opcional por si no saben pellizcar) */
+        /* Controles de Zoom Manual */
         .zoom-controls {
             position: absolute;
             bottom: 30px;
@@ -229,20 +224,6 @@
         ul, ol { padding-left: 25px; }
         li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
         strong.highlight { color: var(--tema); background: rgba(0, 68, 255, 0.2); padding: 0 3px;}
-
-        .warning-box {
-            border: 2px dashed var(--rojo-aviso);
-            background: rgba(50, 0, 0, 0.3);
-            padding: 15px;
-            margin: 20px 0;
-            color: var(--rojo-aviso);
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .warning-icon { font-size: 1.5rem; }
 
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
@@ -289,3 +270,240 @@
     <h1>MANUAL: BANCO DE SEMILLAS (MK-2 BIO)</h1>
     
     <section>
+        <h2>00_PRINCIPIO_DE_OPERACIÓN</h2>
+        <p>
+            En la era de la escasez, la <strong class="highlight">soberanía alimentaria</strong> es la única arma real. Este dispositivo recupera la tecnología ancestral de las "Nendo Dango" (bolas de arcilla), utilizada por culturas antiguas para preservar la vida en tiempos de sequía.
+        </p>
+        <p>
+            La carcasa de arcilla actúa como una bóveda del tiempo: protege el germen de las semillas de la radiación, las aves y los roedores. Al contacto con el agua, la "granada" se disuelve, liberando la vida contenida. Su diseño de arma es intencional: en un mundo hostil, sembrar es un acto de guerra contra el hambre.
+        </p>
+    </section>
+
+    <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+        <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+        <img src="granada-esquema.png" alt="Esquema técnico de la granada" class="technical-image">
+        <div class="img-caption">FIG.1: ANATOMÍA DEL BANCO DE SEMILLAS</div>
+    </div>
+
+    <section>
+        <h2>01_MATRIZ 3D Y MOLDEO</h2>
+        <p>
+            Para el mecanismo de transporte (el gatillo/espoleta), necesitamos precisión mecánica. Usaremos impresión 3D para crear el molde maestro.
+        </p>
+        <ul>
+            <li><strong>Descargar OBJ:</strong> Archivo "gatillo_mk2.obj".</li>
+            <li><strong>Impresión:</strong> Usar PLA o PETG con altura de capa 0.2mm.</li>
+            <li><strong>Molde:</strong> Sumergir la pieza impresa en una caja con Yeso de París. Al secar, tendremos un negativo perfecto para replicar la pieza en arcilla infinitas veces.</li>
+        </ul>
+        
+        <a href="gatillo_mk2.obj" class="download-btn" download>[⬇ DESCARGAR ARCHIVO OBJ]</a>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase1.png" alt="Proceso de impresión y molde" class="technical-image">
+            <div class="img-caption">FIG.2: IMPRESIÓN 3D Y VACIADO EN YESO</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>02_MODELADO DEL CUERPO (CARGA)</h2>
+        <p>
+            Esta es la fase crítica. Usaremos arcilla roja natural.
+        </p>
+        <ol>
+            <li><strong>Forma Base:</strong> Modela un óvalo hueco (tipo huevo) con paredes de 1cm de grosor. Rellénalo con la mezcla de <em>Compost + Tierra</em>.</li>
+            <li><strong>Blindaje (Sembrado):</strong> Inserta granos de maíz grandes en la superficie exterior. 
+            <br><strong class="highlight">IMPORTANTE:</strong> El "germen" (la punta blanca del grano) debe ir hacia ADENTRO, enterrado en la arcilla. Si queda expuesto, el sol lo matará.</li>
+        </ol>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase2.png" alt="Modelado del cuerpo" class="technical-image">
+            <div class="img-caption">FIG.3: INSERCIÓN GEOMÉTRICA DE MAÍZ</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>03_FABRICACIÓN DEL SEGURO</h2>
+        <p>
+            El anillo y el pasador son puramente estéticos pero funcionales para el transporte (permiten colgar la granada).
+        </p>
+        <ul>
+            <li>Modela un "churro" o cilindro fino de arcilla.</li>
+            <li>Dale forma circular (3cm de diámetro) y deja secar al sol hasta que endurezca (estado de cuero).</li>
+        </ul>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase3.png" alt="Modelado del aro" class="technical-image">
+            <div class="img-caption">FIG.4: DETALLE DEL ANILLO DE ARCILLA</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>04_ENSAMBLAJE FINAL</h2>
+        <p>
+            Une todas las piezas antes de que la arcilla se seque por completo.
+        </p>
+        <ol>
+            <li>Prepara <strong>Barbotina</strong> (mezcla de arcilla y agua con consistencia de yogur) para usar como pegamento.</li>
+            <li>Aplica barbotina en la base del gatillo (que sacaste del molde de yeso de la Fase 1) y únelo al cuerpo de la granada.</li>
+            <li>Inserta el anillo en el orificio del gatillo.</li>
+            <li>Deja secar a la sombra durante 48 horas para evitar grietas.</li>
+        </ol>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase4.png" alt="Ensamblaje con barbotina" class="technical-image">
+            <div class="img-caption">FIG.5: UNIÓN CON BARBOTINA</div>
+        </div>
+    </section>
+
+    <div class="footer-section">
+        <div class="credits">
+            [MoluscOS] -- [GPLv3]
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- MOTOR DE ZOOM (PINCH & DRAG) ---
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+    
+    // Variables
+    let currentScale = 1;
+    let currentX = 0;
+    let currentY = 0;
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    let initialPinchDistance = 0;
+
+    // Abrir Modal
+    function openModal(element){
+        var img = element.querySelector('img'); 
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        resetZoom();
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    function resetZoom() {
+        currentScale = 1;
+        currentX = 0;
+        currentY = 0;
+        updateTransform();
+    }
+
+    function updateTransform() {
+        if (currentScale < 1) currentScale = 1; 
+        modalImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale})`;
+    }
+
+    function manualZoom(delta) {
+        currentScale += delta;
+        updateTransform();
+    }
+
+    // --- EVENTOS DE RATÓN (PC) ---
+    modalImg.addEventListener('mousedown', (e) => {
+        if (currentScale > 1) {
+            isDragging = true;
+            startX = e.clientX - currentX;
+            startY = e.clientY - currentY;
+            modalImg.style.cursor = 'grabbing';
+        }
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        modalImg.style.cursor = 'grab';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            updateTransform();
+        }
+    });
+
+    modal.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY * -0.002;
+        currentScale += delta;
+        updateTransform();
+    });
+
+    // --- EVENTOS TÁCTILES (MÓVIL) ---
+    modalImg.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1 && currentScale > 1) {
+            isDragging = true;
+            startX = e.touches[0].clientX - currentX;
+            startY = e.touches[0].clientY - currentY;
+        } else if (e.touches.length === 2) {
+            isDragging = false;
+            initialPinchDistance = getDistance(e.touches);
+        }
+    });
+
+    modalImg.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (e.touches.length === 1 && isDragging) {
+            currentX = e.touches[0].clientX - startX;
+            currentY = e.touches[0].clientY - startY;
+            updateTransform();
+        } else if (e.touches.length === 2) {
+            const currentDistance = getDistance(e.touches);
+            const scaleChange = currentDistance / initialPinchDistance;
+            if (scaleChange > 1) currentScale += 0.05; 
+            else if (scaleChange < 1) currentScale -= 0.05;
+            initialPinchDistance = currentDistance;
+            updateTransform();
+        }
+    });
+
+    modalImg.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    function getDistance(touches) {
+        return Math.hypot(
+            touches[0].clientX - touches[1].clientX,
+            touches[0].clientY - touches[1].clientY
+        );
+    }
+
+    // --- SONIDO ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playRadioClick() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const noise = audioCtx.createBufferSource();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+        const bufferSize = audioCtx.sampleRate * 0.1; 
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
+        noise.buffer = buffer;
+        filter.type = 'bandpass'; filter.frequency.value = 1200; filter.Q.value = 1.5;
+        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+        noise.connect(filter); filter.connect(gain); osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); noise.start(); osc.stop(audioCtx.currentTime + 0.15); noise.stop(audioCtx.currentTime + 0.15);
+    }
+    
+    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
+    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
+</script>
+
+</body>
+</html>
