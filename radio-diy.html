@@ -18,6 +18,8 @@
         html {
             min-height: 100%;
             background-color: var(--fondo);
+            /* Evita el rebote de scroll para mejorar la experiencia de zoom */
+            overscroll-behavior: none;
         }
 
         body {
@@ -142,30 +144,39 @@
             font-weight: bold;
         }
 
-        /* --- ESTILOS DEL VISUALIZADOR (MODAL) --- */
+        /* --- ESTILOS DEL VISUALIZADOR (MODAL CON ZOOM) --- */
         .modal {
             display: none; 
             position: fixed; 
             z-index: 2000; 
-            padding-top: 50px; 
             left: 0;
             top: 0;
             width: 100%; 
             height: 100%; 
-            overflow: auto; 
             background-color: rgba(0,0,0,0.95); 
+            overflow: hidden; /* Importante para el zoom */
+        }
+
+        /* Wrapper para centrar */
+        .modal-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .modal-content {
-            margin: auto;
-            display: block;
-            width: 95%;
-            max-width: 1200px;
+            max-width: 95%;
+            max-height: 90%;
             border: 2px solid var(--tema);
             box-shadow: 0 0 30px var(--tema);
-            animation-name: zoom;
-            animation-duration: 0.3s;
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
+            cursor: grab;
         }
+        .modal-content:active { cursor: grabbing; }
 
         .close {
             position: absolute;
@@ -176,12 +187,31 @@
             font-weight: bold;
             transition: 0.3s;
             cursor: pointer;
+            z-index: 2001;
+            background: rgba(0,0,0,0.5);
+            padding: 0 10px;
+            border-radius: 5px;
         }
         .close:hover { color: #fff; }
 
-        @keyframes zoom {
-            from {transform:scale(0)} 
-            to {transform:scale(1)}
+        /* Controles Manuales de Zoom */
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 2001;
+        }
+        .zoom-btn {
+            background: rgba(0,0,0,0.8);
+            color: var(--tema);
+            border: 1px solid var(--tema);
+            width: 40px; height: 40px;
+            font-size: 20px;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         /* OTROS ESTILOS */
@@ -228,9 +258,18 @@
     <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
 </div>
 
-<div id="myModal" class="modal" onclick="closeModal()">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
+<div id="myModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  
+  <div class="modal-wrapper">
+      <img class="modal-content" id="img01">
+  </div>
+  
+  <div class="zoom-controls">
+      <button class="zoom-btn" onclick="manualZoom(-0.5)">-</button>
+      <button class="zoom-btn" onclick="resetZoom()">R</button>
+      <button class="zoom-btn" onclick="manualZoom(0.5)">+</button>
+  </div>
 </div>
 
 <div class="container">
@@ -341,61 +380,140 @@
 </div>
 
 <script>
-    // --- LÓGICA DEL MODAL INTELIGENTE ---
+    // --- MOTOR DE ZOOM (PINCH & DRAG) ---
     var modal = document.getElementById("myModal");
     var modalImg = document.getElementById("img01");
+    
+    // Variables
+    let currentScale = 1;
+    let currentX = 0;
+    let currentY = 0;
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    let initialPinchDistance = 0;
 
+    // Abrir Modal
     function openModal(element){
         var img = element.querySelector('img'); 
         modal.style.display = "block";
         modalImg.src = img.src;
+        resetZoom();
     }
 
     function closeModal() {
         modal.style.display = "none";
     }
 
+    function resetZoom() {
+        currentScale = 1;
+        currentX = 0;
+        currentY = 0;
+        updateTransform();
+    }
+
+    function updateTransform() {
+        if (currentScale < 1) currentScale = 1; 
+        modalImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale})`;
+    }
+
+    function manualZoom(delta) {
+        currentScale += delta;
+        updateTransform();
+    }
+
+    // --- EVENTOS DE RATÓN (PC) ---
+    modalImg.addEventListener('mousedown', (e) => {
+        if (currentScale > 1) {
+            isDragging = true;
+            startX = e.clientX - currentX;
+            startY = e.clientY - currentY;
+            modalImg.style.cursor = 'grabbing';
+        }
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        modalImg.style.cursor = 'grab';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            updateTransform();
+        }
+    });
+
+    modal.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY * -0.002;
+        currentScale += delta;
+        updateTransform();
+    });
+
+    // --- EVENTOS TÁCTILES (MÓVIL) ---
+    modalImg.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1 && currentScale > 1) {
+            isDragging = true;
+            startX = e.touches[0].clientX - currentX;
+            startY = e.touches[0].clientY - currentY;
+        } else if (e.touches.length === 2) {
+            isDragging = false;
+            initialPinchDistance = getDistance(e.touches);
+        }
+    });
+
+    modalImg.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (e.touches.length === 1 && isDragging) {
+            currentX = e.touches[0].clientX - startX;
+            currentY = e.touches[0].clientY - startY;
+            updateTransform();
+        } else if (e.touches.length === 2) {
+            const currentDistance = getDistance(e.touches);
+            const scaleChange = currentDistance / initialPinchDistance;
+            if (scaleChange > 1) currentScale += 0.05; 
+            else if (scaleChange < 1) currentScale -= 0.05;
+            initialPinchDistance = currentDistance;
+            updateTransform();
+        }
+    });
+
+    modalImg.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    function getDistance(touches) {
+        return Math.hypot(
+            touches[0].clientX - touches[1].clientX,
+            touches[0].clientY - touches[1].clientY
+        );
+    }
+
     // --- SONIDO ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
     function playRadioClick() {
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        
         const osc = audioCtx.createOscillator();
         const noise = audioCtx.createBufferSource();
         const gain = audioCtx.createGain();
         const filter = audioCtx.createBiquadFilter();
-
         const bufferSize = audioCtx.sampleRate * 0.1; 
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
+        for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
         noise.buffer = buffer;
-
-        filter.type = 'bandpass';
-        filter.frequency.value = 1200;
-        filter.Q.value = 1.5;
-
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        filter.type = 'bandpass'; filter.frequency.value = 1200; filter.Q.value = 1.5;
+        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
-        
         gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        noise.start();
-        osc.stop(audioCtx.currentTime + 0.15);
-        noise.stop(audioCtx.currentTime + 0.15);
+        noise.connect(filter); filter.connect(gain); osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); noise.start(); osc.stop(audioCtx.currentTime + 0.15); noise.stop(audioCtx.currentTime + 0.15);
     }
-
+    
     function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
     function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
