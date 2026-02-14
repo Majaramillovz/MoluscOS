@@ -5,45 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MOLUSCOS // RADIO_DIY_V2</title>
     <style>
-        /* --- TEMA VISUAL: AZUL COBALTO (TÉCNICO/PROFUNDO) --- */
+        /* --- TEMA VISUAL: AZUL COBALTO --- */
         :root {
             --fondo: #000000;
-            --tema: #0044FF; /* Azul Oscuro puro */
+            --tema: #0044FF; 
             --gris:  #333333;
             --rojo-aviso: #FF4444;
-            --blanco: #ffffff;
         }
         
-        /* --- CORRECCIÓN MAGISTRAL: BLOQUEO DE SELECCIÓN DE TEXTO --- */
+        /* BLOQUEO TOTAL DE SELECCIÓN PARA TU PANTALLA */
         * { 
             box-sizing: border-box; 
-            /* Esto evita que se ponga azul el texto al arrastrar el dedo */
-            -webkit-user-select: none; /* Safari / Chrome */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Estándar */
-            -webkit-touch-callout: none; /* Evita menú contextual en iOS */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+            -webkit-user-drag: none;
         }
         
-        html {
+        html, body {
             min-height: 100%;
             background-color: var(--fondo);
-            /* Evita el efecto elástico de rebote en móviles */
             overscroll-behavior: none;
+            /* Cursor de mano para indicar que se puede agarrar */
+            cursor: grab; 
         }
 
         body {
-            width: 100%;
-            min-height: 100vh;
             margin: 0;
             padding: 5px;
-            background-color: var(--fondo);
             color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             overflow-x: hidden;
-            /* Mejora la respuesta táctil */
-            touch-action: pan-y; 
+        }
+
+        /* CLASE PARA CUANDO ESTÁS ARRASTRANDO (CAMBIA EL CURSOR) */
+        body.grabbing {
+            cursor: grabbing;
         }
 
         .container {
@@ -61,7 +61,7 @@
             box-shadow: inset 0 0 25px rgba(0, 68, 255, 0.15);
         }
 
-        /* BOTONES */
+        /* --- BOTONES --- */
         .back-link {
             display: inline-block;
             color: #000;
@@ -75,10 +75,11 @@
             width: fit-content;
             box-shadow: 3px 3px 0px var(--gris);
             border: 1px solid var(--tema);
+            cursor: pointer;
         }
         .back-link:active { transform: translate(2px, 2px); box-shadow: none; background: #fff; }
 
-        /* TIPOGRAFÍA */
+        /* --- TIPOGRAFÍA --- */
         h1 { 
             border-bottom: 2px dashed var(--tema); 
             padding-bottom: 15px; 
@@ -119,7 +120,7 @@
             margin-bottom: 15px;
         }
 
-        /* --- ESTILOS DE LA IMAGEN PEQUEÑA --- */
+        /* --- IMÁGENES --- */
         .technical-image-container {
             margin: 25px 0;
             border: 2px solid var(--tema);
@@ -137,7 +138,7 @@
             width: 100%;
             height: auto;
             display: block;
-            pointer-events: none; /* Evita que la imagen pequeña capture eventos raros */
+            pointer-events: none; /* Truco para que la imagen no interfiera con el arrastre */
         }
         .img-caption {
             font-size: 0.8rem;
@@ -156,7 +157,7 @@
             font-weight: bold;
         }
 
-        /* --- ESTILOS DEL VISUALIZADOR (MODAL CON ZOOM) --- */
+        /* --- MODAL (ZOOM) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -166,11 +167,9 @@
             width: 100%; 
             height: 100%; 
             background-color: rgba(0,0,0,0.95); 
-            overflow: hidden; /* Importante para el zoom */
-            touch-action: none; /* EVITA QUE EL NAVEGADOR INTERFIERA EN EL ZOOM */
+            overflow: hidden;
         }
 
-        /* Wrapper para centrar */
         .modal-wrapper {
             width: 100%;
             height: 100%;
@@ -188,8 +187,6 @@
             transform-origin: center center;
             transition: transform 0.1s ease-out;
             cursor: grab;
-            /* Asegura que la imagen no se ponga azul al tocarla mucho */
-            -webkit-user-drag: none; 
         }
         .modal-content:active { cursor: grabbing; }
 
@@ -207,32 +204,15 @@
             padding: 0 10px;
             border-radius: 5px;
         }
-        .close:hover { color: #fff; }
 
-        /* Controles Manuales de Zoom */
         .zoom-controls {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 2001;
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 20px; z-index: 2001;
         }
         .zoom-btn {
-            background: rgba(0,0,0,0.8);
-            color: var(--tema);
-            border: 1px solid var(--tema);
-            width: 40px; height: 40px;
-            font-size: 20px;
-            border-radius: 50%;
-            cursor: pointer;
+            background: rgba(0,0,0,0.8); color: var(--tema); border: 1px solid var(--tema);
+            width: 40px; height: 40px; font-size: 20px; border-radius: 50%; cursor: pointer;
         }
-
-        /* OTROS ESTILOS */
-        ul, ol { padding-left: 25px; }
-        li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
-        strong.highlight { color: var(--tema); background: rgba(0, 68, 255, 0.2); padding: 0 3px;}
 
         .warning-box {
             border: 2px dashed var(--rojo-aviso);
@@ -242,9 +222,7 @@
             color: var(--rojo-aviso);
             font-weight: bold;
             font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
         .warning-icon { font-size: 1.5rem; }
 
@@ -275,11 +253,9 @@
 
 <div id="myModal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
-  
   <div class="modal-wrapper">
       <img class="modal-content" id="img01">
   </div>
-  
   <div class="zoom-controls">
       <button class="zoom-btn" onclick="manualZoom(-0.5)">-</button>
       <button class="zoom-btn" onclick="resetZoom()">R</button>
@@ -395,119 +371,82 @@
 </div>
 
 <script>
-    // --- MOTOR DE ZOOM MEJORADO ---
+    // --- 1. SCRIPT DE ARRASTRE (DRAG TO SCROLL) PARA TU PANTALLA ---
+    // Este script detecta si haces clic y arrastras, y mueve la página en vez de seleccionar
+    const body = document.body;
+    let isDown = false;
+    let startY;
+    let scrollTop;
+
+    window.addEventListener('mousedown', (e) => {
+        // Si estamos en el modal, no hacemos esto para no interferir con el zoom
+        if (document.getElementById("myModal").style.display === "block") return;
+        
+        isDown = true;
+        body.classList.add('grabbing');
+        startY = e.pageY - document.documentElement.scrollTop; // Posición inicial
+        scrollTop = document.documentElement.scrollTop;
+    });
+
+    window.addEventListener('mouseleave', () => {
+        isDown = false;
+        body.classList.remove('grabbing');
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDown = false;
+        body.classList.remove('grabbing');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault(); // IMPORTANTE: Esto evita que el texto se seleccione
+        const y = e.pageY - document.documentElement.scrollTop;
+        const walk = (y - startY) * 1.5; // Velocidad del scroll
+        // Movemos la ventana manualmente
+        window.scrollTo({ top: scrollTop - walk });
+    });
+
+
+    // --- 2. BOTONES MÁS SUAVES ---
+    function scrollDown() { 
+        // Cambiado de 350 a 150 para que el salto sea más corto (aprox 1/3 de pantalla)
+        window.scrollBy({ top: 150, behavior: 'smooth' }); 
+    }
+    function scrollUp() { 
+        window.scrollBy({ top: -150, behavior: 'smooth' }); 
+    }
+
+
+    // --- 3. LÓGICA DEL MODAL Y ZOOM ---
     var modal = document.getElementById("myModal");
     var modalImg = document.getElementById("img01");
-    
-    // Variables
     let currentScale = 1;
-    let currentX = 0;
-    let currentY = 0;
-    let startX = 0;
-    let startY = 0;
-    let isDragging = false;
-    let initialPinchDistance = 0;
+    let currentX = 0, currentY = 0, startXZoom = 0, startYZoom = 0;
+    let isDraggingZoom = false;
 
-    // Abrir Modal
     function openModal(element){
         var img = element.querySelector('img'); 
         modal.style.display = "block";
         modalImg.src = img.src;
         resetZoom();
     }
-
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    function resetZoom() {
-        currentScale = 1;
-        currentX = 0;
-        currentY = 0;
-        updateTransform();
-    }
-
+    function closeModal() { modal.style.display = "none"; }
+    function resetZoom() { currentScale = 1; currentX = 0; currentY = 0; updateTransform(); }
     function updateTransform() {
         if (currentScale < 1) currentScale = 1; 
         modalImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale})`;
     }
+    function manualZoom(delta) { currentScale += delta; updateTransform(); }
 
-    function manualZoom(delta) {
-        currentScale += delta;
-        updateTransform();
-    }
-
-    // --- EVENTOS DE RATÓN (PC) ---
+    // Eventos Zoom Mouse
     modalImg.addEventListener('mousedown', (e) => {
-        if (currentScale > 1) {
-            isDragging = true;
-            startX = e.clientX - currentX;
-            startY = e.clientY - currentY;
-            modalImg.style.cursor = 'grabbing';
-        }
+        if (currentScale > 1) { isDraggingZoom = true; startXZoom = e.clientX - currentX; startYZoom = e.clientY - currentY; }
     });
-
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-        modalImg.style.cursor = 'grab';
-    });
-
     window.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            e.preventDefault();
-            currentX = e.clientX - startX;
-            currentY = e.clientY - startY;
-            updateTransform();
-        }
+        if (isDraggingZoom) { e.preventDefault(); currentX = e.clientX - startXZoom; currentY = e.clientY - startYZoom; updateTransform(); }
     });
-
-    modal.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = e.deltaY * -0.002;
-        currentScale += delta;
-        updateTransform();
-    });
-
-    // --- EVENTOS TÁCTILES (MÓVIL) ---
-    modalImg.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1 && currentScale > 1) {
-            isDragging = true;
-            startX = e.touches[0].clientX - currentX;
-            startY = e.touches[0].clientY - currentY;
-        } else if (e.touches.length === 2) {
-            isDragging = false;
-            initialPinchDistance = getDistance(e.touches);
-        }
-    });
-
-    modalImg.addEventListener('touchmove', (e) => {
-        // e.preventDefault(); // Comentado para permitir comportamiento nativo si no hay drag
-        if (e.touches.length === 1 && isDragging) {
-            e.preventDefault(); // Solo prevenimos scroll si estamos arrastrando la imagen
-            currentX = e.touches[0].clientX - startX;
-            currentY = e.touches[0].clientY - startY;
-            updateTransform();
-        } else if (e.touches.length === 2) {
-            e.preventDefault();
-            const currentDistance = getDistance(e.touches);
-            const scaleChange = currentDistance / initialPinchDistance;
-            if (scaleChange > 1) currentScale += 0.05; 
-            else if (scaleChange < 1) currentScale -= 0.05;
-            initialPinchDistance = currentDistance;
-            updateTransform();
-        }
-    });
-
-    modalImg.addEventListener('touchend', () => {
-        isDragging = false;
-    });
-
-    function getDistance(touches) {
-        return Math.hypot(
-            touches[0].clientX - touches[1].clientX,
-            touches[0].clientY - touches[1].clientY
-        );
-    }
+    window.addEventListener('mouseup', () => { isDraggingZoom = false; });
 
     // --- SONIDO ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -530,9 +469,6 @@
         noise.connect(filter); filter.connect(gain); osc.connect(gain); gain.connect(audioCtx.destination);
         osc.start(); noise.start(); osc.stop(audioCtx.currentTime + 0.15); noise.stop(audioCtx.currentTime + 0.15);
     }
-    
-    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
-    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
 
 </body>
