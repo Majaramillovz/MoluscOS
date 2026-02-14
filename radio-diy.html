@@ -13,12 +13,21 @@
             --rojo-aviso: #FF4444;
             --blanco: #ffffff;
         }
-        * { box-sizing: border-box; }
+        
+        /* --- CORRECCIÓN MAGISTRAL: BLOQUEO DE SELECCIÓN DE TEXTO --- */
+        * { 
+            box-sizing: border-box; 
+            /* Esto evita que se ponga azul el texto al arrastrar el dedo */
+            -webkit-user-select: none; /* Safari / Chrome */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Estándar */
+            -webkit-touch-callout: none; /* Evita menú contextual en iOS */
+        }
         
         html {
             min-height: 100%;
             background-color: var(--fondo);
-            /* Evita el rebote de scroll para mejorar la experiencia de zoom */
+            /* Evita el efecto elástico de rebote en móviles */
             overscroll-behavior: none;
         }
 
@@ -33,6 +42,8 @@
             display: flex;
             justify-content: center;
             overflow-x: hidden;
+            /* Mejora la respuesta táctil */
+            touch-action: pan-y; 
         }
 
         .container {
@@ -126,6 +137,7 @@
             width: 100%;
             height: auto;
             display: block;
+            pointer-events: none; /* Evita que la imagen pequeña capture eventos raros */
         }
         .img-caption {
             font-size: 0.8rem;
@@ -155,6 +167,7 @@
             height: 100%; 
             background-color: rgba(0,0,0,0.95); 
             overflow: hidden; /* Importante para el zoom */
+            touch-action: none; /* EVITA QUE EL NAVEGADOR INTERFIERA EN EL ZOOM */
         }
 
         /* Wrapper para centrar */
@@ -175,6 +188,8 @@
             transform-origin: center center;
             transition: transform 0.1s ease-out;
             cursor: grab;
+            /* Asegura que la imagen no se ponga azul al tocarla mucho */
+            -webkit-user-drag: none; 
         }
         .modal-content:active { cursor: grabbing; }
 
@@ -380,7 +395,7 @@
 </div>
 
 <script>
-    // --- MOTOR DE ZOOM (PINCH & DRAG) ---
+    // --- MOTOR DE ZOOM MEJORADO ---
     var modal = document.getElementById("myModal");
     var modalImg = document.getElementById("img01");
     
@@ -466,12 +481,14 @@
     });
 
     modalImg.addEventListener('touchmove', (e) => {
-        e.preventDefault();
+        // e.preventDefault(); // Comentado para permitir comportamiento nativo si no hay drag
         if (e.touches.length === 1 && isDragging) {
+            e.preventDefault(); // Solo prevenimos scroll si estamos arrastrando la imagen
             currentX = e.touches[0].clientX - startX;
             currentY = e.touches[0].clientY - startY;
             updateTransform();
         } else if (e.touches.length === 2) {
+            e.preventDefault();
             const currentDistance = getDistance(e.touches);
             const scaleChange = currentDistance / initialPinchDistance;
             if (scaleChange > 1) currentScale += 0.05; 
