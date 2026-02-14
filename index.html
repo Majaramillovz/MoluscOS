@@ -8,28 +8,45 @@
         /* --- PALETA V12 --- */
         :root {
             --fondo: #000000;
-            --verde: #00FF00;    
-            --rojo-error: rgba(255, 60, 60, 0.6); /* Color para links inactivos */
+            --verde: #00FF00;     
+            --rojo-error: rgba(255, 60, 60, 0.6);
             --ambar: #FFB000;
             --blanco: #FFFFFF;
             --gris:  #333333;
-            --rojo-estrella: #FF0000; /* Rojo intenso para la estrella */
+            --rojo-estrella: #FF0000;
         }
 
-        /* PARCHE DE SEGURIDAD PARA RASPBERRY */
-        * { box-sizing: border-box; }
+        /* --- PARCHE DE INTERFAZ TÁCTIL/MOUSE (MODO AGARRE) --- */
+        * { 
+            box-sizing: border-box; 
+            /* Bloqueo total de selección de texto para permitir arrastre */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        html, body {
+            min-height: 100%;
+            background-color: var(--fondo);
+            overscroll-behavior: none; /* Evita rebote elástico */
+            cursor: grab; /* Cursor de mano abierta */
+        }
 
         body {
-            background-color: var(--fondo);
             color: var(--verde);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 5px; 
-            min-height: 100vh;
             display: flex;
             justify-content: center;
-            cursor: crosshair;
             overflow-x: hidden;
+        }
+
+        /* Clase activa cuando estás arrastrando */
+        body.grabbing {
+            cursor: grabbing; /* Mano cerrada */
         }
 
         /* --- FRAME CENTRAL --- */
@@ -69,6 +86,7 @@
         .ascii-wrapper {
             display: flex; justify-content: center; margin-bottom: 20px;
             width: 100%; overflow: hidden; opacity: 0.85;
+            pointer-events: none; /* Evita interferencia con el arrastre */
         }
         pre {
             font-family: 'Courier New', monospace; 
@@ -81,7 +99,6 @@
             margin: 0; 
             text-shadow: 0 0 2px var(--verde);
         }
-        /* Estilo para la estrella roja */
         .star-red {
             color: var(--rojo-estrella);
             text-shadow: 0 0 3px var(--rojo-estrella);
@@ -170,7 +187,7 @@
         /* Enlaces ACTIVOS */
         li a.active {
             color: var(--blanco);
-            cursor: crosshair;
+            cursor: pointer;
         }
         li a.active:hover {
             background: var(--verde); color: #000;
@@ -193,26 +210,10 @@
         .footer-section { margin-top: auto; padding-top: 50px; }
         .credits { text-align: center; font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px;}
 
-        .nav-pad {
-            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
-            display: flex; flex-direction: column; gap: 15px;
-        }
-        .nav-btn {
-            background: rgba(0,0,0,0.8); color: var(--verde); border: 2px solid var(--verde);
-            width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 10px var(--verde); opacity: 0.7;
-        }
-
         @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
     </style>
 </head>
 <body>
-
-<div class="nav-pad">
-    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
-    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
-</div>
 
 <div class="container">
 
@@ -222,58 +223,51 @@
 
     <div class="ascii-wrapper">
 <pre>
-                                                                                                       
                                                                                                     
                                                                                                     
                                                                                                     
                                                                                                     
-                                                                          =-=           ==          
-                                                                         -+#*           **#         
-                                                                          ++-#          ==          
-                                                                           =-=         +=+          
-                                                                           --=         =-#          
-                                                                           =-=        +-=           
-                                                                           +=-@      -+:*           
-                                                                           =+:*      =--%           
-                                                                           ----      +-+            
-                                                                           -=+:+    =+-%            
-                                                                            ==:-    +=-             
-                                                                            +==-=  -+=-             
-                                                                            +==::====--             
-                      *++=++++#*+*####%#++                                  ==+-=--***+++           
-                  +*+==++-+==*%##**==--:-+#++=*                            ++*++:--=-==++==:-=      
-               -+---::::-:----<span class="star-red">*</span>**+=+##*=-:.+####++*                       %+#*+---:-:=-----++==-::=  
-            +=---=+#%##%%%%#**<span class="star-red">##</span>*-=+*+**+=.:=#@%+-++                    #%%*+=-::=----:=-::+-=* *%  
-          ----*%%%+==*#%##*#@<span class="star-red">@@@%</span>=-:=#**##=:.-*@@%=-=+                 **%@%%#+-=-==-+++--:**-#     
-         -=-*#-..::::..:-#%@<span class="star-red">%%@@@</span>#-==:=%%%#*-.:*%%%+:-+               #+#%%@%#++#%*%-=*%#=+-:-#     
-       =-:+*::+==---=+*----#<span class="star-red">@@%@@@</span>%=+==+%%##=:.:*@%%%=-=+            %*+%%@#*##*==++****#*=-:-**    
-       +-=+:*--:::#=.-*#+.*<span class="star-red">##@@%@%</span>%#=*--=####-:.=*%#@+-=-+         +=%@%*#%%%*==-----====+#%%%%##   
-      +-+%+*+%+++++%*=+#%*<span class="star-red">*#*%%#@@%</span>%+=*=+%%%##+=++**%**+--=       %%##@%@%**#%+-++=+*#####%#%*#     
-     +-:#*+*<span class="star-red">*######@%#%%@#*##%%##@@%@*%#*#%@@%%+</span>:=**##==:..=     *+%@%*%%%%%*+*#=-+*+==*##%%@+#     
-    =+-=%+*+.:<span class="star-red">+##%@##%%%@#*##%%#%@%%@%####%%@#</span>*:.:=-+#=+-:-.-*  *#=###%++*#%%#+++**=-==-=*###*@     
-    ++:*%#=#+++*%<span class="star-red">##%%%%@@**##%%#%@%%@@####%</span>%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=**      
-    *=.*%*=.:..:-#%#<span class="star-red">%@%@#*#######%#%@%#%*</span>=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#      
-   ##-:+%#*+*#%##+-+%%<span class="star-red">@#**##%%##%%#%@@*</span>---+**%**###*%#*++#%@%%**+*==+#%#++#%==+*%@@@%%%###**#       
-   =#+::###*#+=-*#%%@<span class="star-red">%**####%##%@%#%@@#*</span>=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####        
-   =##:-:*%@@@%%#%@%<span class="star-red">+*###%%%##%@@##@@%#+</span>+++**=*%%%%*#%%%@%%#*+--===-:-:**%####*+%@#+=+#%%           
-    *%*--.:=+#%#*=:.<span class="star-red">=###%%##</span>#%%%#<span class="star-red">#@@%%%#-</span>-+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##           
-    *##*=---:....--<span class="star-red">-##%%%#</span>#%%##**%@<span class="star-red">@%*#@%</span>%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#            
-    *%#+++*+==+-+++<span class="star-red">%@%%</span>###****+-#@%%%@<span class="star-red">%###</span>#++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++             
-     +@@#:=:==*%=+<span class="star-red">:##</span>%#*#%%#*=+%%#+*%%%%<span class="star-red">@%%</span>@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###*             
-      +%@@#++-=---<span class="star-red">+</span>%####%*++=*#%%**%%**@@@<span class="star-red">%</span>%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #              
-       +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                   
-         =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-*                    
-           =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                     
-            ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                         
-       =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-*                          
-     .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-***                            
-    .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                               
-      :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                 
-              #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                   
-                         #***%      %#+==+*****++***+===+#                                          
+                                                                                                    
+                                                                      =-=            ==             
+                                                                      -+#* **#            
+                                                                       ++-#           ==            
+                                                                        =-=          +=+            
+                                                                        --=          =-#            
+                                                                        =-=         +-=             
+                                                                        +=-@       -+:* =+:* =--%             
+                                                                        ----       +-+              
+                                                                         -=+:+     =+-=             
+                                                                          ==:-     +=-              
+                                                                          +==-=   -+=-              
+                                                                          +==::====--               
+                       *++=++++#*+*####%#++                                   ==+-=--***+++             
+                   +*+==++-+==*%##**==--:-+#++=* ++*++:--=-==++==:-=      
+                -+---::::-:----<span class="star-red">*</span>**+=+##*=-:.+####++* %+#*+---:-:=-----++==-::=  
+             +=---=+#%##%%%%#**<span class="star-red">##</span>*-=+*+**+=.:=#@%+-++                       #%%*+=-::=----:=-::+-=* *%  
+           ----*%%%+==*#%##*#@<span class="star-red">@@@%</span>=-:=#**##=:.-*@@%=-=+                  **%@%%#+-=-==-+++--:**-#      
+          -=-*#-..::::..:-#%@<span class="star-red">%%@@@</span>#-==:=%%%#*-.:*%%%+:-+                #+#%%@%#++#%*%-=*%#=+-:-#      
+        =-:+*::+==---=+*----#<span class="star-red">@@%@@@</span>%=+==+%%##=:.:*@%%%=-=+             %*+%%@#*##*==++****#*=-:-** +-=+:*--:::#=.-*#+.*<span class="star-red">##@@%@%</span>%#=*--=####-:.=*%#@+-=-+          +=%@%*#%%%*==-----====+#%%%%##    
+       +-+%+*+%+++++%*=+#%*<span class="star-red">*#*%%#@@%</span>%+=*=+%%%##+=++**%**+--=        %%##@%@%**#%+-++=+*#####%#%*#      
+      +-:#*+*<span class="star-red">*######@%#%%@#*##%%##@@%@*%#*#%@@%%+</span>:=**##==:..=      *+%@%*%%%%%*+*#=-+*+==*##%%@+#      
+     =+-=%+*+.:<span class="star-red">+##%@##%%%@#*##%%#%@%%@%####%%@#</span>*:.:=-+#=+-:-.-* *#=###%++*#%%#+++**=-==-=*###*@      
+     ++:*%#=#+++*%<span class="star-red">##%%%%@@**##%%#%@%%@@####%</span>%##=-::-+*##%==:=:+**#%#**#+**#+**#%#+==-=------=** *=.*%*=.:..:-#%#<span class="star-red">%@%@#*#######%#%@%#%*</span>=*#-*-:=-+#@@*=%%-=%%*%***%@*+=*%#--#%%@###+=====+*+#       
+    ##-:+%#*+*#%##+-+%%<span class="star-red">@#**##%%##%%#%@@*</span>---+**%**###*%#*++#%@%%**+*==+#%#++#%==+*%@@@%%%###**#        
+    =#+::###*#+=-*#%%@<span class="star-red">%**####%##%@%#%@@#*</span>=-*##**#%@%%@%+*%@%%%#***==-:+**%***#+=##+%@@@@*####         
+    =##:-:*%@@@%%#%@%<span class="star-red">+*###%%%##%@@##@@%#+</span>+++**=*%%%%*#%%%@%%#*+--===-:-:**%####*+%@#+=+#%%            
+     *%*--.:=+#%#*=:.<span class="star-red">=###%%##</span>#%%%#<span class="star-red">#@@%%%#-</span>-+#%*--#@@@%@@%%##%+==-::=--=+++*%%%%%#++%@@@%##            
+     *##*=---:....--<span class="star-red">-##%%%#</span>#%%##**%@<span class="star-red">@%*#@%</span>%#%-==#@@#%%@@#%#=-:=-:-==:-+#+==.-:+#@%%+-+*+#             
+     *%#+++*+==+-+++<span class="star-red">%@%%</span>###****+-#@%%%@<span class="star-red">%###</span>#++#%@@%%%%###++====--=+-==+--+=-.-:-###%##++              
+      +@@#:=:==*%=+<span class="star-red">:##</span>%#*#%%#*=+%%#+*%%%%<span class="star-red">@%%</span>@%%%%%%#**#**+==**++-:++--::+-:::::*=:.=###* +%@@#++-=---<span class="star-red">+</span>%####%*++=*#%%**%%**@@@<span class="star-red">%</span>%%%%###****+++++++++-++-=.:-:-.::=*-::+%  #               
+        +*@@%%%#%#%#%%**+==+#%%%#*##%#%#%%%####**++**#*=+***-+-=*=--=+=-..--=+-:=#                    
+          =*@%*#=*+==---+#@@%%***%@@@#@%%##%##**##**++***+***+=:=:-==:::.-:**-.-* =*%%%%##%%%%@%#**##%@%%####***#####**+*++++=::-=-:---+=::-.-::*+--+%                      
+             ++-=%@@@@@%%%@@@@#+###%%#**+=#=:++#--++:+.=-..:*-:=:-=.-+..:#+#                          
+        =-:-----+*+++=+****+*#+*=-+==++==-*--::#-:::+-=-:=+==-:=::=-.::+=-* .....::--:-::==-======+--=-=:.:-.::-+=+***-=+*-:-+:.:-::.=:::-:-*** .:....::.::==:--:-++==+==-++---*=::.+::-:-::-:--:---.-:-:-:-:::+%                                
+       :::-....::::::-:::.-----:.-:-:::.-::-::-:-::=::-:-:::.::-::=#                                  
+               #+==--::-------=--===-=--==-==-=---==-::..:-==+***%                                    
+                          #***%       %#+==+*****++***+===+#                                          
                                                                                                     
                                                                                                     
-                                  
+                                 
                                                                                                       
             
 </pre>
@@ -302,12 +296,12 @@
             <div class="folder">
                 <div class="folder-title">/ALIMENTACIÓN</div>
                 <ul>
-                    <li><a href="banco-de-semillas.html" class="active" onmousedown="playClick()">Banco de Semillas</a></li>
+                    <li><a href="granada-arcilla.html" class="active" onmousedown="playClick()">Banco de Semillas</a></li>
                     <li><a href="#" class="inactive">Compostaje Rápido</a></li>
                     <li><a href="#" class="inactive">Cultivos Resistentes Sequía</a></li>
                     <li><a href="#" class="inactive">Fermentados</a></li>
                     <li><a href="#" class="inactive">Invernaderos DIY</a></li>
-                    <li><a href="#" class="inactive">Orina como Fertilizante</a></li>
+                    <li><a href="orina-fertilizante.html" class="active" onmousedown="playClick()">Orina como Fertilizante</a></li>
                 </ul>
             </div>
 
@@ -318,7 +312,7 @@
                     <li><a href="Arca-offline.html" class="active" onmousedown="playClick()">Arca Offline</a></li>
                     <li><a href="Jamming-contra-drones.html" class="active" onmousedown="playClick()">Jamming contra Drones</a></li>
                     <li><a href="#" class="inactive">Mesh Network</a></li>
-                    <li><a href="Protesis-para-epifitas.html" class="active" onmousedown="playClick()">Prótesis para Epífitas</a></li>
+                    <li><a href="#" class="inactive">Prótesis para Epífitas</a></li>
                     <li><a href="#" class="inactive">Sensores Ambientales DIY</a></li>
                 </ul>
             </div>
@@ -338,7 +332,7 @@
                 <div class="folder-title">/SALUD</div>
                 <ul>
                     <li><a href="#" class="inactive">Boticario</a></li>
-                    <li><a href="#" class="inactive">Control de Hemorragias</a></li>
+                    <li><a href="control-hemorragias.html" class="active" onmousedown="playClick()">Control de Hemorragias</a></li>
                     <li><a href="#" class="inactive">Esterilización Artesanal</a></li>
                     <li><a href="#" class="inactive">Fitoterapia</a></li>
                     <li><a href="Patologias-superenso.html" class="active" onmousedown="playClick()">Patologías Super-ENSO</a></li>
@@ -357,6 +351,38 @@
 </div>
 
 <script>
+    // --- SCRIPT DE ARRASTRE PARA SCROLL (MODO AGARRE) ---
+    const body = document.body;
+    let isDown = false;
+    let startY;
+    let scrollTop;
+
+    window.addEventListener('mousedown', (e) => {
+        isDown = true;
+        body.classList.add('grabbing');
+        startY = e.pageY - document.documentElement.scrollTop;
+        scrollTop = document.documentElement.scrollTop;
+    });
+
+    window.addEventListener('mouseleave', () => {
+        isDown = false;
+        body.classList.remove('grabbing');
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDown = false;
+        body.classList.remove('grabbing');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault(); // Evita selección de texto
+        const y = e.pageY - document.documentElement.scrollTop;
+        const walk = (y - startY) * 1.5; // Velocidad del scroll
+        window.scrollTo({ top: scrollTop - walk });
+    });
+
+    // --- SONIDO CLIC ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playClick() {
         if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -373,6 +399,7 @@
         osc.stop(audioCtx.currentTime + 0.1);
     }
 
+    // --- BARRA DE ESTADO ---
     function updateStatus() {
         const now = new Date();
         const futureYear = now.getFullYear() + 40; 
@@ -386,9 +413,6 @@
     }
     setInterval(updateStatus, 1000);
     updateStatus();
-
-    function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
-    function scrollUp() { window.scrollBy({ top: -350, behavior: 'smooth' }); }
 </script>
 
 </body>
