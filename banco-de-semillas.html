@@ -3,183 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MOLUSCOS // BANCO_SEMILLAS</title>
+    <title>MOLUSCOS // GRANADA_ARCILLA</title>
     <style>
-        /* --- TEMA VISUAL: VERDE LIMA (VIDA/CLOROFILA) --- */
+        /* --- TEMA VISUAL: AZUL COBALTO (TÉCNICO/PROFUNDO) --- */
         :root {
             --fondo: #000000;
-            --tema: #2FFF00; /* Verde más vibrante para semillas */
+            --tema: #0044FF; /* Azul Oscuro puro */
             --gris:  #333333;
+            --rojo-aviso: #FF4444;
+            --blanco: #ffffff;
         }
         * { box-sizing: border-box; }
         
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
+        html {
+            min-height: 100%;
             background-color: var(--fondo);
-            overflow-x: hidden;
         }
 
         body {
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 5px;
+            background-color: var(--fondo);
             color: var(--tema);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
-            padding: 5px;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 720px;
+            height: auto; 
             min-height: calc(100vh - 10px);
             border: 2px solid var(--tema);
             padding: 15px;
-            background: rgba(0, 20, 0, 0.7);
+            background: rgba(0, 5, 20, 0.85);
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 80px; 
-            box-shadow: inset 0 0 20px rgba(47, 255, 0, 0.1);
+            padding-bottom: 120px; 
+            box-shadow: inset 0 0 25px rgba(0, 68, 255, 0.15);
         }
 
-        .back-link {
+        /* BOTONES DE NAVEGACIÓN Y DESCARGA */
+        .back-link, .download-btn {
             display: inline-block;
             color: #000;
             background: var(--tema);
             padding: 5px 12px;
             text-decoration: none;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             font-size: 0.9rem;
             width: fit-content;
-            box-shadow: 2px 2px 0px var(--gris);
+            box-shadow: 3px 3px 0px var(--gris);
+            border: 1px solid var(--tema);
+            cursor: pointer;
         }
-        .back-link:active { transform: translate(1px, 1px); box-shadow: none; }
+        .back-link:active, .download-btn:active { transform: translate(2px, 2px); box-shadow: none; background: #fff; }
 
-        h1 { border-bottom: 2px solid var(--tema); padding-bottom: 10px; font-size: 1.3rem; text-transform: uppercase; margin-top: 0; text-shadow: 0 0 5px var(--tema); }
-        h2 { background: var(--tema); color: #000; display: inline-block; padding: 3px 8px; font-size: 0.9rem; margin-top: 30px; font-weight: bold; }
-        p { line-height: 1.5; color: #ddd; font-size: 0.95rem; text-align: justify; }
-
-        /* ESTRUCTURA TEXTO + IMAGEN */
-        .content-flex {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .download-btn {
             margin-top: 10px;
+            font-size: 0.8rem;
+            background: #fff;
+            color: var(--tema);
+        }
+
+        /* TIPOGRAFÍA */
+        h1 { 
+            border-bottom: 2px dashed var(--tema); 
+            padding-bottom: 15px; 
+            font-size: 1.4rem; 
+            text-transform: uppercase; 
+            margin-top: 10px; 
+            text-shadow: 0 0 8px var(--tema);
+            letter-spacing: 1px;
         }
         
-        .image-side {
-            border: 1px dashed var(--tema);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(47, 255, 0, 0.05);
-            padding: 20px;
-            text-align: center;
+        h2 { 
+            background: var(--tema); 
+            color: #000; 
+            display: block; 
+            padding: 5px 10px; 
+            font-size: 1rem; 
+            margin-top: 35px; 
+            margin-bottom: 15px;
+            font-weight: 900; 
+            text-transform: uppercase;
+            border-left: 5px solid #000;
         }
 
-        .ascii-art {
-            font-family: monospace;
-            white-space: pre;
+        h3 {
             color: var(--tema);
-            font-weight: bold;
-            font-size: 10px;
-            line-height: 10px;
+            border-bottom: 1px dotted var(--tema);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
+        
+        p, li { 
+            line-height: 1.6; 
+            color: #ddd; 
+            font-size: 0.95rem; 
+            text-align: justify; 
             margin-bottom: 15px;
         }
 
-        ol { color: #ddd; line-height: 1.6; padding-left: 20px; }
-        li { margin-bottom: 12px; }
-        strong { color: var(--tema); }
+        /* --- ESTILOS DE LA IMAGEN PEQUEÑA --- */
+        .technical-image-container {
+            margin: 25px 0;
+            border: 2px solid var(--tema);
+            padding: 5px;
+            background: rgba(0,0,0,0.5);
+            cursor: pointer; 
+            transition: transform 0.2s;
+        }
+        .technical-image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--tema);
+        }
+
+        .technical-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .img-caption {
+            font-size: 0.8rem;
+            color: var(--tema);
+            text-align: center;
+            padding: 5px;
+            border-top: 1px dotted var(--tema);
+            font-weight: bold;
+        }
+        .click-hint {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #fff;
+            background: var(--tema);
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* --- ESTILOS DEL VISUALIZADOR (MODAL) --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.95); 
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 95%;
+            max-width: 1200px;
+            border: 2px solid var(--tema);
+            box-shadow: 0 0 30px var(--tema);
+            animation-name: zoom;
+            animation-duration: 0.3s;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--tema);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close:hover { color: #fff; }
+
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        /* OTROS ESTILOS */
+        ul, ol { padding-left: 25px; }
+        li::marker { color: var(--tema); font-weight: bold; content: ">> "; }
+        strong.highlight { color: var(--tema); background: rgba(0, 68, 255, 0.2); padding: 0 3px;}
+
+        .warning-box {
+            border: 2px dashed var(--rojo-aviso);
+            background: rgba(50, 0, 0, 0.3);
+            padding: 15px;
+            margin: 20px 0;
+            color: var(--rojo-aviso);
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .warning-icon { font-size: 1.5rem; }
 
         .footer-section { margin-top: auto; padding-top: 40px; text-align: center; }
         .credits { font-size: 11px; color: #666; letter-spacing: 1px; padding-bottom: 10px; border-top: 1px solid var(--gris); padding-top: 15px; }
 
-        /* --- BOTONES DE NAVEGACIÓN (IDENTICOS AL INDEX) --- */
         .nav-pad {
             position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             display: flex; flex-direction: column; gap: 15px;
         }
         .nav-btn {
-            background: rgba(0,0,0,0.8); color: var(--tema); border: 2px solid var(--tema);
+            background: rgba(0,0,0,0.9); color: var(--tema); border: 2px solid var(--tema);
             width: 50px; height: 50px; font-size: 20px; cursor: crosshair;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 10px var(--tema); opacity: 0.7;
+            box-shadow: 0 0 15px var(--tema); opacity: 0.8;
+            transition: all 0.1s;
         }
-        .nav-btn:active { background: var(--tema); color: #000; }
+        .nav-btn:active { background: var(--tema); color: #000; transform: scale(0.95); box-shadow: 0 0 5px var(--tema); }
+
     </style>
 </head>
 <body>
 
 <div class="nav-pad">
-    <button class="nav-btn" onmousedown="playClick()" onclick="scrollUp()">▲</button>
-    <button class="nav-btn" onmousedown="playClick()" onclick="scrollDown()">▼</button>
+    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollUp()">▲</button>
+    <button class="nav-btn" onmousedown="playRadioClick()" onclick="scrollDown()">▼</button>
+</div>
+
+<div id="myModal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
 </div>
 
 <div class="container">
-    <a href="index.html" class="back-link" onmousedown="playClick()">< REGRESAR</a>
+    <a href="index.html" class="back-link" onmousedown="playRadioClick()">< REGRESAR</a>
     
-    <h1>PROYECTO: BANCO DE SEMILLAS</h1>
+    <h1>MANUAL: GRANADA DE ARCILLA (MK-2 BIO)</h1>
     
     <section>
-        <h2>00_RESUMEN</h2>
-        <p>Un banco de semillas es una cápsula de tiempo biológica. Su objetivo es preservar la biodiversidad local frente al colapso de las cadenas de suministro industriales y la homogeneización genética inducida por el Super-Niño.</p>
+        <h2>00_PRINCIPIO_DE_OPERACIÓN</h2>
+        <p>
+            La "Granada MK-2 BIO" es un dispositivo de <strong class="highlight">reforestación táctica</strong>. Imita la forma de un explosivo militar para utilizar su geometría fragmentaria en beneficio de la naturaleza: la carcasa dura de arcilla protege las semillas de aves, roedores y el sol directo hasta que las condiciones son propicias.
+        </p>
+        <p>
+            Al recibir suficiente lluvia (erosión hídrica), la arcilla se disuelve ("detona"), liberando las semillas junto con el abono interno, garantizando un alto porcentaje de germinación en terrenos hostiles.
+        </p>
     </section>
 
+    <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+        <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+        <img src="granada-esquema.jpg" alt="Esquema técnico de la granada" class="technical-image">
+        <div class="img-caption">FIG.1: ANATOMÍA DE LA GRANADA DE COMPOSTAJE</div>
+    </div>
+
     <section>
-        <h2>01_PASOS_CRITICOS</h2>
-        <div class="content-flex">
-            <div class="text-side">
-                <ol>
-                    <li><strong>Selección:</strong> Elegir variedades nativas o criollas. Evitar híbridos comerciales F1, ya que no son fértiles en segunda generación.</li>
-                    <li><strong>Secado:</strong> Reducir la humedad por debajo del 10%. Usar desecantes naturales (arroz tostado) en frascos herméticos.</li>
-                    <li><strong>Limpieza:</strong> Eliminar restos de pulpa o tierra para evitar la proliferación de hongos en el almacenamiento.</li>
-                    <li><strong>Etiquetado:</strong> Crucial marcar fecha, especie y ubicación de cosecha para mantener la trazabilidad genética.</li>
-                </ol>
-            </div>
-            
-            <div class="image-side">
-                <div class="ascii-art">
-     .  .
-      \ | /
-    '-.ooo.-'
-      --o--
-    .-'ooo'-.
-      / | \
-     '  '
-    [ SEED_ARK ]
-                </div>
-                <p style="font-size: 0.8rem; color: var(--tema);">[ DISEÑO DE ALMACENAMIENTO TÉRMICO ]</p>
-            </div>
+        <h2>01_MATRIZ 3D Y MOLDEO</h2>
+        <p>
+            El cuerpo de la granada se modela a mano, pero el mecanismo del gatillo (espoleta) requiere precisión para encajar. Utilizaremos impresión 3D para crear el "positivo" y luego haremos un molde.
+        </p>
+        <ul>
+            <li><strong>Descargar STL:</strong> Archivo "Trigger_MK2_Bio.stl".</li>
+            <li><strong>Impresión:</strong> Usar PLA o PETG con altura de capa 0.2mm.</li>
+            <li><strong>Molde:</strong> Sumergir la pieza impresa en una caja con Yeso de París para crear un molde negativo de dos partes.</li>
+        </ul>
+        
+        <a href="#" class="download-btn" onclick="alert('Iniciando descarga simulada del STL...')">[⬇ DESCARGAR ARCHIVO STL]</a>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase1.jpg" alt="Proceso de impresión y molde" class="technical-image">
+            <div class="img-caption">FIG.2: IMPRESIÓN 3D Y VACIADO EN YESO</div>
         </div>
     </section>
 
+    <section>
+        <h2>02_MODELADO DEL CUERPO (CARGA)</h2>
+        <p>
+            Esta es la fase crítica. Usaremos arcilla roja natural.
+        </p>
+        <ol>
+            <li><strong>Forma Base:</strong> Modela un óvalo hueco (tipo huevo) con paredes de 1cm de grosor. Rellénalo con la mezcla de <em>Compost + Tierra + Semillas pequeñas</em>.</li>
+            <li><strong>Blindaje (Sembrado):</strong> Inserta granos de maíz o frijol grandes en la superficie exterior. 
+            <br><strong class="highlight">IMPORTANTE:</strong> El "germen" (la punta blanca del grano) debe ir hacia ADENTRO, enterrado en la arcilla. Si queda expuesto, el sol lo matará.</li>
+        </ol>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase2.jpg" alt="Modelado del cuerpo" class="technical-image">
+            <div class="img-caption">FIG.3: INSERCIÓN GEOMÉTRICA DE SEMILLAS</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>03_FABRICACIÓN DEL SEGURO</h2>
+        <p>
+            El anillo y el pasador son puramente estéticos pero funcionales para el transporte (permiten colgar la granada).
+        </p>
+        <ul>
+            <li>Modela un "churro" o cilindro fino de arcilla.</li>
+            <li>Dale forma circular (3cm de diámetro) y deja secar al sol hasta que endurezca (estado de cuero).</li>
+        </ul>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase3.jpg" alt="Modelado del aro" class="technical-image">
+            <div class="img-caption">FIG.4: DETALLE DEL ANILLO DE ARCILLA</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>04_ENSAMBLAJE FINAL</h2>
+        <p>
+            Une todas las piezas antes de que la arcilla se seque por completo.
+        </p>
+        <ol>
+            <li>Prepara <strong>Barbotina</strong> (mezcla de arcilla y agua con consistencia de yogur) para usar como pegamento.</li>
+            <li>Aplica barbotina en la base del gatillo (que sacaste del molde de yeso de la Fase 1) y únelo al cuerpo de la granada.</li>
+            <li>Inserta el anillo en el orificio del gatillo.</li>
+            <li>Deja secar a la sombra durante 48 horas para evitar grietas.</li>
+        </ol>
+
+        <div class="technical-image-container" onclick="openModal(this); playRadioClick();">
+            <div class="click-hint">[ CLIC PARA AMPLIAR ]</div>
+            <img src="granada-fase4.jpg" alt="Ensamblaje con barbotina" class="technical-image">
+            <div class="img-caption">FIG.5: UNIÓN CON BARBOTINA</div>
+        </div>
+    </section>
+
+    <div class="warning-box">
+        <span class="warning-icon">[!]</span>
+        <span>ADVERTENCIA: DISPOSITIVO DE VIDA. No lanzar contra personas (peso aprox 300g). Diseñado para "detonación" lenta por erosión hídrica en zonas deforestadas.</span>
+    </div>
+
     <div class="footer-section">
         <div class="credits">
-            [MOLUSCOS] -- NODO ALIMENTACIÓN -- [GPLv3]
+            [MoluscOS] -- [GPLv3]
         </div>
     </div>
 </div>
 
 <script>
+    // --- LÓGICA DEL MODAL INTELIGENTE ---
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+
+    function openModal(element){
+        var img = element.querySelector('img'); 
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // --- SONIDO ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playClick() {
+    
+    function playRadioClick() {
         if (audioCtx.state === 'suspended') audioCtx.resume();
+        
         const osc = audioCtx.createOscillator();
+        const noise = audioCtx.createBufferSource();
         const gain = audioCtx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        const filter = audioCtx.createBiquadFilter();
+
+        const bufferSize = audioCtx.sampleRate * 0.1; 
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+        noise.buffer = buffer;
+
+        filter.type = 'bandpass';
+        filter.frequency.value = 1200;
+        filter.Q.value = 1.5;
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.1);
+        
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+        noise.connect(filter);
+        filter.connect(gain);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
+
         osc.start();
-        osc.stop(audioCtx.currentTime + 0.1);
+        noise.start();
+        osc.stop(audioCtx.currentTime + 0.15);
+        noise.stop(audioCtx.currentTime + 0.15);
     }
 
     function scrollDown() { window.scrollBy({ top: 350, behavior: 'smooth' }); }
